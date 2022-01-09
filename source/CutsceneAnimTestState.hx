@@ -15,7 +15,7 @@ class CutsceneAnimTestState extends MusicBeatState
         
             if (FlxG.keys.justPressed.ESCAPE && FlxG.keys.justPressed.BACKSPACE)
                 {
-                    FlxG.switchState(new PlayState());
+                    FlxG.switchState(new TitleState());
                 }
     }
 

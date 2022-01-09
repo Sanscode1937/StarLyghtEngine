@@ -16,6 +16,7 @@ class Character extends FlxSprite
 	public var curCharacter:String = 'bf';
 
 	public var holdTimer:Float = 0;
+	public var hasGun:Bool = false;
 	public var offsetNames:Array<String> = [];
 
 	public function new(x:Float, y:Float, ?character:String = "bf", ?isPlayer:Bool = false)
@@ -450,19 +451,20 @@ class Character extends FlxSprite
 				loadOffsetFile(curCharacter);
 				playAnim("firstDeath");
 				flipX = true;
-			case 'pico-speaker':
+			case 'picospeaker':
 				
-				frames = Paths.getSparrowAtlas('characters/picoSpeaker');
-					
-				animation.addByIndices('idle', 'Pico shoot 1', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "", 24, true);	
-				animation.addByIndices('shoot1', 'Pico shoot 1', [0, 1, 2, 3, 4, 5, 6, 7], "", 24, true);
-				animation.addByIndices('shoot2', 'Pico shoot 2', [0, 1, 2, 3, 4, 5, 6, 7], "", 24, false);
-				animation.addByIndices('shoot3', 'Pico shoot 3', [0, 1, 2, 3, 4, 5, 6, 7], "", 24, false);
-				animation.addByIndices('shoot4', 'Pico shoot 4', [0, 1, 2, 3, 4, 5, 6, 7], "", 24, false);
+				tex = Paths.getSparrowAtlas('characters/picoSpeaker', 'shared');
+				frames = tex;
+				animation.addByIndices('idle', 'Pico shoot 1', [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24], "", 24, true);
+				animation.addByPrefix('shoot1', 'Pico shoot 1', 24, false);
+				animation.addByPrefix('shoot2', 'Pico shoot 2', 24, false);
+				animation.addByPrefix('shoot3', 'Pico shoot 3', 24, false);
+				animation.addByPrefix('shoot4', 'Pico shoot 4', 24, false);
 
 				loadOffsetFile(curCharacter);
-	
+
 				playAnim('shoot1');
+				loadMappedAnims();
 		}
 
 		dance();
@@ -502,6 +504,11 @@ class Character extends FlxSprite
 
 			if (curCharacter == 'dad')
 				dadVar = 6.1;
+			
+			if (hasGun) {
+
+			}
+			
 			if (holdTimer >= Conductor.stepCrochet * dadVar * 0.001)
 			{
 				dance();
@@ -520,6 +527,40 @@ class Character extends FlxSprite
 			case 'bf-car':
 				if (animation.curAnim.name == 'idle' && animation.curAnim.finished)
 					playAnim('idle', false, false, 11);
+			case 'picospeaker':
+				if (animationNotes.length > 0 && Conductor.songPosition > animationNotes[0][0])
+				{
+					var shootAnim = 1;
+
+					if (animationNotes[0][1] >= 2)
+						shootAnim = 3;
+
+					shootAnim += FlxG.random.int(0, 1);
+					playAnim("shoot" + shootAnim, true);
+					animationNotes.shift();
+					
+				}				
+			// case 'picospeaker':
+			// 	if (animationNotes.length > 0 && Conductor.songPosition > animationNotes[0][0])
+			// 	{
+			// 		var shootAnim = 1;
+
+			// 		if (animationNotes[0][1] >= 2)
+			// 			shootAnim = 3;
+
+			// 		shootAnim += FlxG.random.int(0, 1);
+			// 		playAnim("shoot" + shootAnim, true);
+
+			// 		animationNotes.shift();
+
+			// 		if (animationNotes != null)
+			// 			trace('played shoot anim' + animationNotes[0][1]);
+			// 	}
+
+			// 	if (animation.curAnim != null && animation.curAnim.finished)
+			// 	{
+			// 		playAnim(animation.curAnim.name, false, false, animation.curAnim.frames.length - 3);
+			// 	}				
 		}
 
 		super.update(elapsed);
@@ -570,7 +611,7 @@ class Character extends FlxSprite
 						else
 							playAnim('danceLeft');
 					}
-				case 'pico-speaker':
+				case 'picospeaker':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;
@@ -627,8 +668,6 @@ class Character extends FlxSprite
 		}
 	}
 
-	public var animationNotes:Array<Dynamic> = [];
-
 	function quickAnimAdd(Name:String, Prefix:String)
 		{
 			animation.addByPrefix(Name, Prefix, 24, false);
@@ -639,6 +678,26 @@ class Character extends FlxSprite
 		return FlxSort.byValues(FlxSort.ASCENDING, val1[0], val2[0]);
 	}
 
+	public var animationNotes:Array<Dynamic> = [];
+
+	public function loadMappedAnims()
+		{
+			var pico = Song.loadFromJson("picospeaker", "stress");
+			var notes = pico.notes;
+	
+			for (section in notes)
+			{
+				for (note in section.sectionNotes)
+				{
+					animationNotes.push(note);
+				}
+			}
+	
+			TankmenBG.animationNotes = animationNotes;
+	
+			animationNotes.sort(sortAnims);
+		}
+	
 	public function addOffset(name:String, x:Float = 0, y:Float = 0)
 	{
 		offsetNames.push(name);

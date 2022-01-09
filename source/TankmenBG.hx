@@ -1,157 +1,88 @@
 package;
 
-import flixel.FlxSprite;
-import flixel.graphics.frames.FlxAtlasFrames;
-import Paths;
-import Song;
-import Conductor;
-import Math;
-import openfl.geom.Matrix;
-import openfl.display.BitmapData;
-import openfl.utils.AssetType;
-import lime.graphics.Image;
-import flixel.graphics.FlxGraphic;
-import openfl.utils.AssetManifest;
-import openfl.utils.AssetLibrary;
-import flixel.system.FlxAssets;
-import flixel.FlxBasic;
 import flixel.FlxG;
-import flixel.FlxGame;
-import flixel.FlxObject;
-import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
-import flixel.math.FlxRect;
-import lime.utils.Assets;
-import openfl.geom.Matrix;
-import openfl.display.BitmapData;
-import openfl.utils.AssetType;
-import lime.graphics.Image;
-import flixel.graphics.FlxGraphic;
-
-import openfl.utils.AssetManifest;
-import openfl.utils.AssetLibrary;
-
-#if cpp
-import Sys;
-import sys.FileSystem;
-#end
-
-
-using StringTools;
+import flixel.FlxSprite;
 
 class TankmenBG extends FlxSprite
 {
+	public static var animationNotes:Array<Dynamic> = [];
 
-	        
+	private var tankSpeed:Float;
+	private var endingOffset:Float;
+	private var goingRight:Bool;
 
-    public var tankSpeed:Float = 1.3 * 1000;
-    public var goingRight:Bool = false;
-    var runAnimPlayedTimes:Int = 0;
-    var runAnimPlayedTimesMax:Int = 1;
-  
+	public var strumTime:Float;
 
-    override public function new()
-    {
-        super();
-        frames = Paths.getSparrowAtlas("tankmanKilled1", "week7");
-        antialiasing = true;
-        animation.addByPrefix("run", "tankman running", 24, false);
-        animation.addByPrefix("shot", "John Shot " + FlxG.random.int(1,2), 24, false);
-        animation.play("run");
-        
-        updateHitbox();
-        setGraphicSize(Std.int(width * 0.8));
-        updateHitbox();
-    }
-    public function resetShit(xPos:Float, yPos:Float, right:Bool, ?stepsMax:Int, ?speedModifier:Float = 1)
-    {
-        x = xPos;
-        y = yPos;
-        goingRight = right;
-        if(stepsMax == null)
-        {
-            stepsMax = 1;
-        }
-        if(speedModifier == null)
-        {
-            speedModifier = 1;
-        }
-        runAnimPlayedTimesMax = stepsMax;
+	public function new(x:Float, y:Float, facingRight:Bool)
+	{
+		tankSpeed = 0.7;
+		goingRight = false;
+		strumTime = 0;
+		goingRight = facingRight;
 
-        var newSpeedModifier:Float = speedModifier * 2;
-        
-        tankSpeed = FlxG.random.float(0.6, 1) * 170;
-        if(goingRight)
-        {
-            velocity.x = tankSpeed * newSpeedModifier;
-            if(animation.curAnim.name == "shot")
-            {
-                offset.x = 300;
-                velocity.x = 0;
-            }
-        }
-        else
-        {
-            velocity.x = tankSpeed * (newSpeedModifier * -1);
-            if(animation.curAnim.name == "shot")
-            {
-                
-                velocity.x = 0;
-            }
-        }
-        
-        
-    }
-    override public function update(elapsed:Float)
-    {
+		super(x, y);
 
-        if(goingRight == true)
-        {
-            if(animation.curAnim.name == "shot")
-            {
-                offset.x = 400;
-                velocity.x = 10;
-            }
-            flipX = true;
+		frames = Paths.getSparrowAtlas('tankmanKilled1', 'week7');
+		animation.addByPrefix('run', 'tankman running', 24, true);
+		animation.addByPrefix('shot', 'John Shot ' + FlxG.random.int(1, 2), 24, false);
+		animation.play('run');
+		animation.curAnim.curFrame = FlxG.random.int(0, animation.curAnim.frames.length - 1);
+		antialiasing = true;
 
-        }else{
-            flipX = false;
-            if(animation.curAnim.name == "shot")
-            {
-                offset.x = 0;
-                velocity.x = 10;
-            }
-        }
-        super.update(elapsed);
-        
+		updateHitbox();
+		setGraphicSize(Std.int(0.8 * width));
+		updateHitbox();
+	}
 
-        if(animation.curAnim.name == "run" && animation.curAnim.finished == true && runAnimPlayedTimes < runAnimPlayedTimesMax)
-        {
-            
-            
-            animation.play("run", true);
+	public function resetShit(x:Float, y:Float, goingRight:Bool):Void
+	{
+		this.x = x;
+		this.y = y;
+		this.goingRight = goingRight;
 
-            runAnimPlayedTimes++;
+		endingOffset = FlxG.random.float(50, 200);
+		tankSpeed = FlxG.random.float(0.6, 1);
+		flipX = goingRight;
+	}
 
-            
-            
-        }
+	override function update(elapsed:Float)
+	{
+		super.update(elapsed);
 
-        if(animation.curAnim.name == "run" && animation.curAnim.finished == true && runAnimPlayedTimes >= runAnimPlayedTimesMax)
-        {
-            
-            
-            animation.play("shot", true);
+		if (this.x > -0.5 * FlxG.width && this.x < 1.2 * FlxG.width)
+		{
+			visible = true;
+		}
+		else
+		{
+			visible = false;
+		}
 
+		if (animation.curAnim.name == "run")
+		{
+			var speed:Float = (Conductor.songPosition - strumTime) * tankSpeed;
+			if (goingRight)
+			{
+				this.x = (0.02 * FlxG.width - endingOffset) + speed;
+			}
+			else
+			{
+				this.x = (0.74 * FlxG.width + endingOffset) - speed;
+			}
+		}
+		else if (animation.curAnim.name == 'shot' && animation.curAnim.curFrame >= animation.curAnim.frames.length - 1)
+		{
+			kill();
+		}
 
-            runAnimPlayedTimes = 0;
-            
-            
-        }
-        if(animation.curAnim.name == "shot" && animation.curAnim.curFrame >= animation.curAnim.frames.length - 1)
-        {
-            destroy();
-        }
-    }
-	
+		if (Conductor.songPosition > strumTime)
+		{
+			animation.play('shot');
+			if (goingRight)
+			{
+				offset.x = 300;
+				offset.y = 200;
+			}
+		}
+	}
 }
