@@ -183,11 +183,6 @@ class MainMenuState extends MusicBeatState
 			menuItems.enabled = false;
 		}
 
-		if (PlayerSettings.player1.controls.BACK && menuItems.enabled && !menuItems.busy)
-		{
-			FlxG.switchState(new TitleState());
-		}
-
 		super.update(elapsed);
 	}
 }

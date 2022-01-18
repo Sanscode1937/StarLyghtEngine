@@ -261,7 +261,7 @@ class PlayState extends MusicBeatState
 
 		switch (SONG.song.toLowerCase())
 		{
-                        case 'spookeez' | 'monster' | 'south': 
+                        case 'spookeez' | 'south' | 'monster': 
                         {
                                 curStage = 'spooky';
 	                          halloweenLevel = true;
@@ -278,7 +278,7 @@ class PlayState extends MusicBeatState
 
 		                  isHalloween = true;
 		          }
-		          case 'pico' | 'blammed' | 'philly': 
+		          case 'pico' | 'philly' | 'blammed': 
                         {
 		                  curStage = 'philly';
 
@@ -320,7 +320,7 @@ class PlayState extends MusicBeatState
 		                  var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
 	                          add(street);
 		          }
-		          case 'milf' | 'satin-panties' | 'high':
+		          case 'satin-panties' | 'high' | 'milf':
 		          {
 		                  curStage = 'limo';
 		                  defaultCamZoom = 0.90;
@@ -529,7 +529,7 @@ class PlayState extends MusicBeatState
 		                  add(bg);
 
 						}
-						case 'stress' | 'guns' | 'ugh':
+						case 'ugh' | 'guns' | 'stress':
 						{
 						  // this goes after tankSky and before tankMoutains in stage file
 						  // need to accommodate for the velocity thing!
