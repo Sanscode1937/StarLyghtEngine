@@ -1,5 +1,6 @@
 package;
 
+import ui.PreferencesMenu;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSubState;
@@ -14,22 +15,24 @@ class GameOverSubstate extends MusicBeatSubstate
 
 	var stageSuffix:String = "";
 
+	var randomGameover:Int = 1;
+	var playingDeathSound:Bool = false;
+
 	public function new(x:Float, y:Float)
 	{
 		var daStage = PlayState.curStage;
 		var daBf:String = '';
 		switch (daStage)
 		{
-			case 'school':
+			case 'school' | 'schoolEvil':
 				stageSuffix = '-pixel';
 				daBf = 'bf-pixel-dead';
-			case 'schoolEvil':
-				stageSuffix = '-pixel';
-				daBf = 'bf-pixel-dead';
-			case 'stress-tank':
-				daBf = 'bf-holding-gf-dead';		
 			default:
 				daBf = 'bf';
+		}
+		if (PlayState.SONG.song.toLowerCase() == 'stress')
+		{
+			daBf = 'bf-holding-gf-dead';
 		}
 
 		super();
@@ -51,6 +54,13 @@ class GameOverSubstate extends MusicBeatSubstate
 		FlxG.camera.target = null;
 
 		bf.playAnim('firstDeath');
+
+		var exclude = [];
+		if (PreferencesMenu.getPref('censor-naughty'))
+		{
+			exclude = [1, 3, 8, 13, 17, 21];
+		}
+		randomGameover = FlxG.random.int(1, 25, exclude);
 	}
 
 	override function update(elapsed:Float)
@@ -64,6 +74,9 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK)
 		{
+			PlayState.deathCounter = 0;
+			PlayState.seenCutscene = false;
+
 			FlxG.sound.music.stop();
 
 			if (PlayState.isStoryMode)
@@ -77,16 +90,38 @@ class GameOverSubstate extends MusicBeatSubstate
 			FlxG.camera.follow(camFollow, LOCKON, 0.01);
 		}
 
-		if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
+		if (PlayState.storyWeek == 7)
 		{
-			FlxG.sound.playMusic(Paths.music('gameOver'), 0.1);
-			FlxG.sound.play(Paths.sound('bennettgameover-' + FlxG.random.int(1, 9), 'shared'));
+			if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished && !playingDeathSound)
+			{
+				playingDeathSound = true;
+				bf.startedDeath = true;
+				coolStartDeath(0.2);
+				FlxG.sound.play(Paths.sound('jeffGameover/jeffGameover-' + randomGameover), 1, false, null, true, function()
+				{
+					if (!FlxG.sound.music.playing)
+						FlxG.sound.music.play();
+					if (FlxG.sound.music.fadeTween != null)
+						FlxG.sound.music.fadeTween.cancel();
+					FlxG.sound.music.fadeIn(4, 0.2, 1);
+				});
+			}
+		}
+		else if (bf.animation.curAnim.name == 'firstDeath' && bf.animation.curAnim.finished)
+		{
+			bf.startedDeath = true;
+			coolStartDeath();
 		}
 
 		if (FlxG.sound.music.playing)
 		{
 			Conductor.songPosition = FlxG.sound.music.time;
 		}
+	}
+
+	function coolStartDeath(startVol:Float = 1)
+	{
+		FlxG.sound.playMusic(Paths.music('gameOver' + stageSuffix), startVol);
 	}
 
 	override function beatHit()

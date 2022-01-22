@@ -57,6 +57,9 @@
 		<library name="week5"    preload="true" />
 		<library name="week6"    preload="true" />
 		<library name="week7"    preload="true" />
+		<!-- <library name="week8"    preload="true" />
+		<library name="week9"    preload="true" />
+		<library name="week10"    preload="true" /> -->
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
@@ -69,8 +72,13 @@
 		<library name="week5"    preload="false" />
 		<library name="week6"    preload="false" />
 		<library name="week7"    preload="false" />
+		<!-- <library name="week8"    preload="false" />
+		<library name="week9"    preload="false" />
+		<library name="week10"    preload="false" /> -->
 	</section>
 	
+		<assets path="plugins/"             rename='' />
+	<assets path="dlls/"                rename='' />
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
@@ -89,6 +97,12 @@
 	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
+	<!-- <assets path="assets/week8"    library="week8"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week8"    library="week8"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week9"    library="week9"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week9"    library="week9"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week10"    library="week10"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week10"    library="week10"    exclude="*.mp3" unless="web"/> -->
 	
 	<assets path='example_mods' rename='mods' embed='false'/>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />

@@ -2,7 +2,6 @@ package;
 
 import flixel.FlxG;
 import flixel.graphics.frames.FlxAtlasFrames;
-import flixel.graphics.FlxGraphic;
 import openfl.utils.AssetType;
 import openfl.utils.Assets as OpenFlAssets;
 
@@ -12,29 +11,10 @@ class Paths
 
 	static var currentLevel:String;
 
-	public static var imagesLoaded:Map<String, Bool> = new Map();
-
 	static public function setCurrentLevel(name:String)
 	{
 		currentLevel = name.toLowerCase();
 	}
-
-	public static function unloadAssets()
-		{
-			for (key in imagesLoaded.keys())
-			{
-				var graphic:FlxGraphic = FlxG.bitmap.get(key);
-	
-				if (graphic != null)
-				{
-					graphic.bitmap.dispose();
-					graphic.destroy();
-					FlxG.bitmap.removeByKey(key);
-				}
-			}
-	
-			imagesLoaded.clear();
-		}
 
 	static public function getPath(file:String, type:AssetType, library:Null<String>)
 	{
@@ -123,6 +103,11 @@ class Paths
 	inline static public function font(key:String)
 	{
 		return 'assets/fonts/$key';
+	}
+
+	inline static public function video(key:String, ?library:String)
+	{
+		return getPath('music/$key.mp4', TEXT, library);
 	}
 
 	inline static public function getSparrowAtlas(key:String, ?library:String)
