@@ -42,6 +42,9 @@
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
+
+	<!-- CUSTOM CONDITIONALS -->
+	<define name="!debug" if="debug" unless="web || desktop"/>	
 	
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
@@ -50,6 +53,7 @@
 	<section if="PRELOAD_ALL">
 		<library name="songs"    preload="true" />
 		<library name="shared"   preload="true" />
+		<library name="tutorial"    preload="true" />
 		<library name="week1"    preload="true" />
 		<library name="week2"    preload="true" />
 		<library name="week3"    preload="true" />
@@ -57,14 +61,12 @@
 		<library name="week5"    preload="true" />
 		<library name="week6"    preload="true" />
 		<library name="week7"    preload="true" />
-		<!-- <library name="week8"    preload="true" />
-		<library name="week9"    preload="true" />
-		<library name="week10"    preload="true" /> -->
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"    preload="false" />
 		<library name="shared"   preload="false" />
+		<library name="tutorial"    preload="false" />
 		<library name="week1"    preload="false" />
 		<library name="week2"    preload="false" />
 		<library name="week3"    preload="false" />
@@ -72,9 +74,7 @@
 		<library name="week5"    preload="false" />
 		<library name="week6"    preload="false" />
 		<library name="week7"    preload="false" />
-		<!-- <library name="week8"    preload="false" />
-		<library name="week9"    preload="false" />
-		<library name="week10"    preload="false" /> -->
+	
 	</section>
 	
 		<assets path="plugins/"             rename='' />
@@ -83,6 +83,8 @@
 	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
+	<assets path="assets/tutorial"    library="tutorial"    exclude="*.ogg" if="web"/>
+	<assets path="assets/tutorial"    library="tutorial"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
@@ -97,17 +99,12 @@
 	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
-	<!-- <assets path="assets/week8"    library="week8"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week8"    library="week8"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week9"    library="week9"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week9"    library="week9"    exclude="*.mp3" unless="web"/>
-	<assets path="assets/week10"    library="week10"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week10"    library="week10"    exclude="*.mp3" unless="web"/> -->
 	
-	<assets path='example_mods' rename='mods' embed='false'/>
+	<!-- <assets path='example_mods' rename='mods' embed='false'/> -->
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
-	<!-- <template path='mods' /> -->
-	
+	<assets path='Character.txt' rename='characterList.txt' />
+	<!-- For some test lmao -->
+	<!-- <template path='mods' /> -->	
 	<assets path="CHANGELOG.md" rename='changelog.txt'/>
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 
@@ -131,36 +128,6 @@
 	<haxelib name="polymod"/>
 	<haxelib name="flixel-studio" if="debug" />	
 	<haxelib name="discord_rpc" if="desktop"/>
-	<!-- <haxelib name="hxcpp-debug-server" if="desktop"/> -->
-
-	<!-- <haxelib name="markdown" /> -->
-	<!-- <haxelib name="HtmlParser" /> -->
-
-	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape-haxe4" />-->
-
-	<!-- ______________________________ Haxedefines _____________________________ -->
-
-	<!--Enable the Flixel core recording system-->
-	<!--<haxedef name="FLX_RECORD" />-->
-
-	<!--Disable the right and middle mouse buttons-->
-	<!-- <haxedef name="FLX_NO_MOUSE_ADVANCED" /> -->
-
-	<!--Disable the native cursor API on Flash-->
-	<!--<haxedef name="FLX_NO_NATIVE_CURSOR" />-->
-
-	<!--Optimise inputs, be careful you will get null errors if you don't use conditionals in your game-->
-	<!-- <haxedef name="FLX_NO_MOUSE" if="mobile" /> -->
-	<!-- <haxedef name="FLX_NO_KEYBOARD" if="mobile" /> -->
-	<!-- <haxedef name="FLX_NO_TOUCH" if="desktop" /> -->
-	<!--<haxedef name="FLX_NO_GAMEPAD" />-->
-
-	<!--Disable the Flixel core sound tray-->
-	<!--<haxedef name="FLX_NO_SOUND_TRAY" />-->
-
-	<!--Disable the Flixel sound management code-->
-	<!--<haxedef name="FLX_NO_SOUND_SYSTEM" />-->
 
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />

@@ -1,0 +1,56 @@
+[Adding Characters]
+1.Open source folder on fnf source code and go to Character.hx
+2.If you see text like 			case 'monster':
+				tex = Paths.getSparrowAtlas('characters/Monster_Assets');
+				frames = tex;
+				quickAnimAdd('idle', 'monster idle');
+				quickAnimAdd('singUP', 'monster up note');
+				quickAnimAdd('singDOWN', 'monster down');
+				quickAnimAdd('singLEFT', 'Monster left note');
+				quickAnimAdd('singRIGHT', 'Monster Right note');
+
+				loadOffsetFile(curCharacter);
+				playAnim('idle');
+It's character code
+3.To add new character click playAnim('idle'); on any charatcers
+4.Then add new line with press enter
+5.Then add new character I will show you some template			case 'Your Character Name Here':
+									tex = Paths.getSparrowAtlas('characters/Character_assets');
+									frames = tex;
+									quickAnimAdd('idle', 'Idle animation');
+									quickAnimAdd('singUP', 'Sing Up animation');
+									quickAnimAdd('singDOWN', 'Sing Down animation');
+									quickAnimAdd('singLEFT', 'Sing Left animation');
+									quickAnimAdd('singRIGHT', 'Sing Right animation');
+									quickAnimAdd('your extra animatiions here', 'Extra animation');
+
+									loadOffsetFile(curCharacter);
+
+									playAnim('idle');
+6.Add character to game go to assets/preload/data/ and open characterlist
+add your character
+7.Terminal, go to microsoft store then install Windows Terminal
+8.Debug build, go to main source code then right click and go to windows terminal
+if you're in Windows Terminal now please check location on your windows terminal If location in assets or source It will not work will works on main source code
+To compile game with debug mode is Type 'lime test windows -debug'
+then wait until game is open
+9.Character offsets If game is open and have debug menu popup, press ` or \ to make it gone then 
+Go to freeplay and choose some song or go to story mod and play some weeks
+If you're playing song on freeplay or story mode now Press 7 to open chart debug menu you will see Tools bar click Song, you will see bf charatcer and Dad charatcer dad is enemies of bf lol like tankman or pico or any click dad character and choose your character
+Then press enter
+And if your game crashes go to source code assets/shared/characters/ and add your character offsets txt file like YourCharsNameOffsets.txt
+then open and insert the source code Example : 		
+
+
+							idle 0 0
+							singUP 0 0
+							singRIGHT 0 0
+							singLEFT 0 0
+							singDOWN 0 0
+
+Then compile game as debug like I tell you, go play some songs press 7 choose your character and press enter.
+And if your game is not crash now Press 8 to open Charatcer debug menu
+Then set your character offsets with arrow keys press a or d to change your character animation
+If you finished to set your character offsets go to yourcharacterOffsets.txt file open it and change numbers to your offsets and yep Finished!
+
+			

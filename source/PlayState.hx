@@ -961,212 +961,252 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				// #if web
 				case 'ugh':
-					#if web
-					ughIntro();
-				#else
-
-					dad.alpha = 0;
-					healthBarBG.alpha = 0;
-					healthBar.alpha = 0;
-					iconP1.alpha = 0;
-					iconP2.alpha = 0;
-					scoreTxt.alpha = 0;
-
-					inCutscene = true;	
-					
-					FlxG.sound.playMusic(Paths.music('DISTORTO', 'week7'));
-					FlxG.sound.music.fadeIn(6.0);
-
-					var wellWell:FlxSprite;
-					wellWell = new FlxSprite(dad.x,dad.y);
-					wellWell.frames = Paths.getSparrowAtlas('cutsceneStuff/tankTalkSong1');
-					wellWell.animation.addByPrefix('wellWell',"TANK TALK 1 P2",30);
-					wellWell.animation.play('wellWell');
-					wellWell.antialiasing = true;
-					add(wellWell);					
-					var killYou:FlxSprite;
-					killYou = new FlxSprite(dad.x,dad.y);
-					killYou.frames = Paths.getSparrowAtlas('cutsceneStuff/tankTalkSong1');
-					killYou.animation.addByPrefix("killYou","TANK TALK 1 P1",30);
-					killYou.animation.play('killYou');
-					killYou.antialiasing = true;
-					add(foregroundSprites);
-				
-					wellWell.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
+					// #if web
+					if (PreferencesMenu.getPref('no-cutscene'))
 						{
-							if (frameNumber == 137)
-								{
-									boyfriend.playAnim('singUP');
-									var sound:FlxSound;	
-									sound = new FlxSound().loadEmbedded(Paths.sound('bfBeep', 'week7'));
-									sound.play();
-									FlxG.sound.list.add(sound);
-								}
-							if (frameNumber == 155)
-								{
-									boyfriend.playAnim('idle');
-								}	
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+							startCountdown();
+							cameraMovement();
+						FlxG.camera.zoom = defaultCamZoom * 1.2;
+						camFollow.x += 100;
+						camFollow.y += 100;							
+							startCountdown();
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');	
+						}
+					if (!PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');
+							ughIntro();
+						}
+					
+					// #end
+				// 	#if desktop
+				// 	dad.alpha = 0;
+				// 	healthBarBG.alpha = 0;
+				// 	healthBar.alpha = 0;
+				// 	iconP1.alpha = 0;
+				// 	iconP2.alpha = 0;
+				// 	scoreTxt.alpha = 0;
+
+				// 	inCutscene = true;	
+					
+				// 	FlxG.sound.playMusic(Paths.music('DISTORTO', 'week7'));
+				// 	FlxG.sound.music.fadeIn(6.0);
+
+				// 	add(foregroundSprites);
+
+				// 	var wellWell:FlxSprite;
+				// 	wellWell = new FlxSprite(dad.x,dad.y);
+				// 	wellWell.frames = Paths.getSparrowAtlas('cutsceneStuff/tankTalkSong1');
+				// 	wellWell.animation.addByPrefix('wellWell',"TANK TALK 1 P2",30);
+				// 	wellWell.animation.play('wellWell');
+				// 	wellWell.antialiasing = true;
+				// 	add(wellWell);					
+				// 	var killYou:FlxSprite;
+				// 	killYou = new FlxSprite(dad.x,dad.y);
+				// 	killYou.frames = Paths.getSparrowAtlas('cutsceneStuff/tankTalkSong1');
+				// 	killYou.animation.addByPrefix("killYou","TANK TALK 1 P1",30);
+				// 	killYou.animation.play('killYou');
+				// 	killYou.antialiasing = true;
+					
+				
+				// 	wellWell.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
+				// 		{
+				// 			if (frameNumber == 137)
+				// 				{
+				// 					boyfriend.playAnim('singUP');
+				// 					var sound:FlxSound;	
+				// 					sound = new FlxSound().loadEmbedded(Paths.sound('bfBeep', 'week7'));
+				// 					sound.play();
+				// 					FlxG.sound.list.add(sound);
+				// 				}
+				// 			if (frameNumber == 155)
+				// 				{
+				// 					boyfriend.playAnim('idle');
+				// 				}	
 
 					
-							if (frameNumber == 72)
-								{
-									camFollow.x += 480;
-								}
+				// 			if (frameNumber == 72)
+				// 				{
+				// 					camFollow.x += 546;
+				// 				}
 
-							if (frameNumber == 1)
-								{
-									FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});							
-									camFollow.x = 290;
-									camFollow.y = 481;
-									var sound:FlxSound;	
-									sound = new FlxSound().loadEmbedded(Paths.sound('wellWellWell', 'week7'));
-									sound.play();
-									FlxG.sound.list.add(sound);
-								}														
+				// 			if (frameNumber == 1)
+				// 				{
+				// 					FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});							
+				// 					camFollow.x = 290;
+				// 					camFollow.y = 481;
+				// 					var sound:FlxSound;	
+				// 					sound = new FlxSound().loadEmbedded(Paths.sound('wellWellWell', 'week7'));
+				// 					sound.play();
+				// 					FlxG.sound.list.add(sound);
+				// 				}														
 							
-							if (frameNumber == 182)
-								{
-									add(killYou);
-									remove(wellWell);
-								}								
-						}				
+				// 			if (frameNumber == 182)
+				// 				{
+				// 					add(killYou);
+				// 					remove(wellWell);
+				// 				}								
+				// 		}				
 
-						wellWell.animation.finishCallback = function(idle)			
-							{
-								remove(wellWell);								
-							}			
+				// 		wellWell.animation.finishCallback = function(idle)			
+				// 			{
+				// 				remove(wellWell);								
+				// 			}			
 
-				killYou.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)	
-					{
-						if (frameNumber == 1)
-							{	
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});							
-								var sound:FlxSound;	
-								sound = new FlxSound().loadEmbedded(Paths.sound('killYou', 'week7'));
-								sound.play();
-								FlxG.sound.list.add(sound);
-								camFollow.x = 290;
-								camFollow.y = 481;
-							}
+				// killYou.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)	
+				// 	{
+				// 		if (frameNumber == 1)
+				// 			{	
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});							
+				// 				var sound:FlxSound;	
+				// 				sound = new FlxSound().loadEmbedded(Paths.sound('killYou', 'week7'));
+				// 				sound.play();
+				// 				FlxG.sound.list.add(sound);
+				// 				camFollow.x = 290;
+				// 				camFollow.y = 481;
+				// 			}
 							
-						if (frameNumber == 230)
-							{
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-							}							
+				// 		if (frameNumber == 230)
+				// 			{
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 			}							
 
-						if (frameNumber == 240)
-							{
-								dad.alpha = 0;
-								healthBarBG.alpha = 1;
-								healthBar.alpha = 1;
-								iconP1.alpha = 1;
-								iconP2.alpha = 1;
-								scoreTxt.alpha = 1;	
-								camFollow.x += 390;
-								camFollow.y = 481;
-							}
-						if (frameNumber == 300)
-							{
-								remove(killYou);
-								dad.alpha = 1;
-								startCountdown();
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-							}								
-					}					
+				// 		if (frameNumber == 240)
+				// 			{
+				// 				dad.alpha = 0;
+				// 				healthBarBG.alpha = 1;
+				// 				healthBar.alpha = 1;
+				// 				iconP1.alpha = 1;
+				// 				iconP2.alpha = 1;
+				// 				scoreTxt.alpha = 1;	
+				// 				camFollow.x += 390;
+				// 				camFollow.y = 481;
+				// 			}
+				// 		if (frameNumber == 300)
+				// 			{
+				// 				remove(killYou);
+				// 				dad.alpha = 1;
+				// 				startCountdown();
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 			}								
+				// 	}					
 				
-				killYou.animation.finishCallback = function(idle)		
-					{
-						remove(killYou);
-							dad.alpha = 1;
-							startCountdown();							
-									FlxTween.tween(scoreTxt, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-									FlxTween.tween(iconP1, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-									FlxTween.tween(iconP2, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-									FlxTween.tween(healthBar, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-									FlxTween.tween(healthBarBG, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});														
-					}		
+				// killYou.animation.finishCallback = function(idle)		
+				// 	{
+				// 		remove(killYou);
+				// 			dad.alpha = 1;
+				// 			startCountdown();							
+				// 					FlxTween.tween(scoreTxt, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 					FlxTween.tween(iconP1, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 					FlxTween.tween(iconP2, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 					FlxTween.tween(healthBar, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 					FlxTween.tween(healthBarBG, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});														
+				// 	}		
 							
-					// if (wellWell.animation.curAnim.finished)
-					// 	{
-					// 		remove(wellWell);
-					// 		add(killYou);
-					// 	}	
-					#end
+				// 	// if (wellWell.animation.curAnim.finished)
+				// 	// 	{
+				// 	// 		remove(wellWell);
+				// 	// 		add(killYou);
+				// 	// 	}	
+				// 	#end
 				case 'guns':
-					#if web
-					gunsIntro();
-				#else
+					if (PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');
+							startCountdown();
+						}
+					if (!PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');
+							gunsIntro();
+						}
+					
+
 				
-					dad.alpha = 0;
-					healthBarBG.alpha = 0;
-					healthBar.alpha = 0;
-					iconP1.alpha = 0;
-					iconP2.alpha = 0;
-					scoreTxt.alpha = 0;
+				// 	dad.alpha = 0;
+				// 	healthBarBG.alpha = 0;
+				// 	healthBar.alpha = 0;
+				// 	iconP1.alpha = 0;
+				// 	iconP2.alpha = 0;
+				// 	scoreTxt.alpha = 0;
 
-					inCutscene = true;	
+				// 	inCutscene = true;	
 					
-					FlxG.sound.playMusic(Paths.music('DISTORTO', 'week7'));
-					FlxG.sound.music.fadeIn(6.0);	
+				// 	FlxG.sound.playMusic(Paths.music('DISTORTO', 'week7'));
+				// 	FlxG.sound.music.fadeIn(6.0);	
 					
-				var tightBars:FlxSprite;
-				tightBars = new FlxSprite(dad.x,dad.y);
-				tightBars.frames = AtlasFrameMaker.construct('assets/images/cutsceneStuff/tightBars');
-				tightBars.animation.add("tightBars", numArr(1,320), 30, false);
-				tightBars.animation.play('tightBars');
-				tightBars.antialiasing = true;
-				add(tightBars);
+				// 	add(foregroundSprites);
 
-				tightBars.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
-					{
+				// var tightBars:FlxSprite;
+				// tightBars = new FlxSprite(dad.x,dad.y);
+				// tightBars.frames = AtlasFrameMaker.construct('assets/images/cutsceneStuff/tightBars');
+				// tightBars.animation.add("tightBars", numArr(1,320), 30, false);
+				// tightBars.animation.play('tightBars');
+				// tightBars.antialiasing = true;
+				// add(tightBars);
 
-						if (frameNumber == 1)
-							{
-								camFollow.x = 340;
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.3}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-								var sound:FlxSound;	
-								sound = new FlxSound().loadEmbedded(Paths.sound('tankSong2', 'week7'));
-								sound.play();
-								FlxG.sound.list.add(sound);
+				// tightBars.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
+				// 	{
 
-							}						
+				// 		if (frameNumber == 1)
+				// 			{
+				// 				camFollow.x = 340;
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.3}, 2, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 				var sound:FlxSound;	
+				// 				sound = new FlxSound().loadEmbedded(Paths.sound('tankSong2', 'week7'));
+				// 				sound.play();
+				// 				FlxG.sound.list.add(sound);
+
+				// 			}						
 							
-						if (frameNumber == 114)
-							{
-								gf.playAnim('sad');
-								camFollow.x = 370;
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-							}	
+				// 		if (frameNumber == 114)
+				// 			{
+				// 				gf.playAnim('sad');
+				// 				camFollow.x = 370;
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.5}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 			}	
 							
-						if (frameNumber == 141)
-							{
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.2}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-							}								
+				// 		if (frameNumber == 141)
+				// 			{
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 1.2}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 			}								
 						
-						if (frameNumber == 233)
-							{
-								camFollow.x = 540;
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
-							}	
+				// 		if (frameNumber == 233)
+				// 			{
+				// 				camFollow.x = 540;
+				// 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+				// 			}	
 							
-					}									
+				// 	}									
 
-					tightBars.animation.finishCallback = function(idle)
-					{
-						remove(tightBars);
-						dad.alpha = 1;
-						startCountdown();
+				// 	tightBars.animation.finishCallback = function(idle)
+				// 	{
+				// 		remove(tightBars);
+				// 		dad.alpha = 1;
+				// 		startCountdown();
 
-								FlxTween.tween(scoreTxt, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-								FlxTween.tween(iconP1, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-								FlxTween.tween(iconP2, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-								FlxTween.tween(healthBar, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
-								FlxTween.tween(healthBarBG, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});	
-					}						
-					#end				
+				// 				FlxTween.tween(scoreTxt, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 				FlxTween.tween(iconP1, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 				FlxTween.tween(iconP2, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 				FlxTween.tween(healthBar, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});
+				// 				FlxTween.tween(healthBarBG, {alpha: 1}, (Conductor.stepCrochet * 16 / 1000), {ease: FlxEase.quadInOut});	
+				// 	}						
+				// 	#end				
 
 				case 'stress':
-					stressIntro();				
+					if (PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');
+							startCountdown();
+						}
+					if (!PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.save.data.cutscene = PreferencesMenu.getPref('no-cutscene');
+							stressIntro();		
+						}
+					
+					
 								
 				default:
 					startCountdown();
@@ -1276,7 +1316,7 @@ class PlayState extends MusicBeatState
 					endSong();
 					if (SONG.song.toLowerCase() == 'ugh')
 						{
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 							startCountdown();
 							cameraMovement();
 						FlxG.camera.zoom = defaultCamZoom * 1.2;
@@ -1288,7 +1328,7 @@ class PlayState extends MusicBeatState
 					startCountdown();
 					if (SONG.song.toLowerCase() == 'ugh')
 						{
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 							startCountdown();
 							cameraMovement();
 						FlxG.camera.zoom = defaultCamZoom * 1.2;
@@ -1304,7 +1344,7 @@ class PlayState extends MusicBeatState
 		                endSong();
 						if (SONG.song.toLowerCase() == 'ugh')
 							{
-								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+								FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 								startCountdown();
 								cameraMovement();
 							FlxG.camera.zoom = defaultCamZoom * 1.2;
@@ -1315,7 +1355,7 @@ class PlayState extends MusicBeatState
 					startCountdown();
 					if (SONG.song.toLowerCase() == 'ugh')
 						{
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 1, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
 							startCountdown();
 							cameraMovement();
 						FlxG.camera.zoom = defaultCamZoom * 1.2;
@@ -1363,37 +1403,37 @@ class PlayState extends MusicBeatState
 			(new FlxVideo(fileName)).finishCallback = function() {
 				remove(bg);
 				if(endingSong) {
-					endSong();
-					TitleState.initialized = false;
-					FlxG.switchState(new TitleState());
+					TitleStateAlt.initialized = false;
+					FlxG.switchState(new TitleStateAlt());
 				} else {
-					startCountdown();
-					TitleState.initialized = false;
-					FlxG.switchState(new TitleState());
+					TitleStateAlt.initialized = false;
+					FlxG.switchState(new TitleStateAlt());
 				}
 			}
 			return;
 		} else {
 			FlxG.log.warn('Look like its blank you forgot to insert it?: ' + fileName);
                         if(endingSong) {
-		                endSong();
-						TitleState.initialized = false;
-						FlxG.switchState(new TitleState());
+							TitleStateAlt.initialized = false;
+							FlxG.switchState(new TitleStateAlt());
 		        } else {
-					startCountdown();
-					TitleState.initialized = false;
-					FlxG.switchState(new TitleState());
+					TitleStateAlt.initialized = false;
+					FlxG.switchState(new TitleStateAlt());
 			}
 		}
 
+		if (controls.ACCEPT)
+		{
+			TitleStateAlt.initialized = false;
+			FlxG.switchState(new TitleStateAlt());
+		}
+
 		if(endingSong) {
-			endSong();
-			TitleState.initialized = false;
-			FlxG.switchState(new TitleState());
+			TitleStateAlt.initialized = false;
+			FlxG.switchState(new TitleStateAlt());
 		} else {
-			startCountdown();
-			TitleState.initialized = false;
-			FlxG.switchState(new TitleState());
+			TitleStateAlt.initialized = false;
+			FlxG.switchState(new TitleStateAlt());
 		}
 	}
 
@@ -1961,7 +2001,7 @@ class PlayState extends MusicBeatState
 	{
 		FlxG.camera.followLerp = CoolUtil.camLerpShit(0.04);
 
-		#if !debug
+		#if debug
 		perfectMode = false;
 		#end
 
@@ -2090,6 +2130,10 @@ class PlayState extends MusicBeatState
 
 		#if debug
 		if (FlxG.keys.justPressed.EIGHT)
+			FlxG.switchState(new AnimationDebug(SONG.player2));
+		#end
+		#if debug
+		if (FlxG.keys.justPressed.FOUR)
 			FlxG.switchState(new AnimationDebug(SONG.player2));
 		#end
 
@@ -2351,9 +2395,15 @@ class PlayState extends MusicBeatState
 			{
 				
 				if (storyWeek == 7)
-				FlxG.sound.playMusic(Paths.music(''));
-				else
-					FlxG.sound.playMusic(Paths.music('freakyMenu'));
+					if (!PreferencesMenu.getPref('no-cutscene'))
+						{
+							FlxG.sound.playMusic(Paths.music(''));
+						}	
+						else if (PreferencesMenu.getPref('no-cutscene'))
+							{
+								FlxG.sound.playMusic(Paths.music('freakyMenu'));
+							}
+					
 
 
 				transIn = FlxTransitionableState.defaultTransIn;
@@ -2361,10 +2411,17 @@ class PlayState extends MusicBeatState
 
 				
 				if (storyWeek == 7)
-					introKickstarter('kickstarterTrailer');
-				else
-					FlxG.switchState(new StoryMenuState());
-					
+					if (!PreferencesMenu.getPref('no-cutscene'))
+						{
+							#if desktop
+							DiscordClient.changePresence("On KickStarterCutscene", null);
+							#end
+							introKickstarter('kickstarterTrailer');
+						}
+						else if (PreferencesMenu.getPref('no-cutscene'))
+							{
+								FlxG.switchState(new StoryMenuState());
+							}														
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 
@@ -3019,6 +3076,13 @@ class PlayState extends MusicBeatState
 				FlxG.camera.zoom += 0.015;
 				camHUD.zoom += 0.03;
 			}
+
+			// CAM ZOOM FOR STRESS HARD BEAT!1!1!1
+			if (curSong.toLowerCase() == 'stress' && curBeat >= 896 && curBeat < 1023 && curBeat >= 1280 && curBeat < 1407 && camZooming && FlxG.camera.zoom < 1.35)
+				{
+					FlxG.camera.zoom += 0.015;
+					camHUD.zoom += 0.03;
+				}
 	
 			if (camZooming && FlxG.camera.zoom < 1.35 && curBeat % 4 == 0)
 			{

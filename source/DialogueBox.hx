@@ -105,6 +105,22 @@ class DialogueBox extends FlxSpriteGroup
 				var face:FlxSprite = new FlxSprite(320, 170).loadGraphic(Paths.image('weeb/spiritFaceForward'));
 				face.setGraphicSize(Std.int(face.width * 6));
 				add(face);
+
+				// case 'ugh':
+				// 	hasDialog = true;
+				// 	box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
+				// 	box.animation.addByPrefix('normalOpen', 'Spirit Textbox spawn', 24, false);
+				// 	box.animation.addByIndices('normal', 'Spirit Textbox spawn', [11], "", 24);
+				// 	case 'guns':
+				// 		hasDialog = true;
+				// 		box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
+				// 		box.animation.addByPrefix('normalOpen', 'Spirit Textbox spawn', 24, false);
+				// 		box.animation.addByIndices('normal', 'Spirit Textbox spawn', [11], "", 24);
+				// 		case 'stress':
+				// 			hasDialog = true;
+				// 			box.frames = Paths.getSparrowAtlas('weeb/pixelUI/dialogueBox-evil');
+				// 			box.animation.addByPrefix('normalOpen', 'Spirit Textbox spawn', 24, false);
+				// 			box.animation.addByIndices('normal', 'Spirit Textbox spawn', [11], "", 24);				
 		}
 
 		this.dialogueList = dialogueList;

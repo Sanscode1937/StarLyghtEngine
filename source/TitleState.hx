@@ -267,7 +267,7 @@ class TitleState extends MusicBeatState
 		{
 			FlxG.sound.music.onComplete = function()
 			{
-				FlxG.switchState(new VideoState());
+				FlxG.switchState(new TitleStateAlt());
 			}
 		}
 	}

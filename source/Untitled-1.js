@@ -1,4 +1,4 @@
-/*
+
  howler.js v2.1.1 | (c) 2013-2018, James Simpson of GoldFire Studios | MIT License | howlerjs.com  Spatial Plugin  @source http://purl.eligrey.com/github/FileSaver.js/blob/master/FileSaver.js */
 var $jscomp=$jscomp||{};$jscomp.scope={};$jscomp.checkStringArgs=function(Q,t,A){if(null==Q)throw new TypeError("The 'this' value for String.prototype."+A+" must not be null or undefined");if(t instanceof RegExp)throw new TypeError("First argument to String.prototype."+A+" must not be a regular expression");return Q+""};$jscomp.ASSUME_ES5=!1;$jscomp.ASSUME_NO_NATIVE_MAP=!1;$jscomp.ASSUME_NO_NATIVE_SET=!1;$jscomp.SIMPLE_FROUND_POLYFILL=!1;
 $jscomp.defineProperty=$jscomp.ASSUME_ES5||"function"==typeof Object.defineProperties?Object.defineProperty:function(Q,t,A){Q!=Array.prototype&&Q!=Object.prototype&&(Q[t]=A.value)};$jscomp.getGlobal=function(Q){Q=["object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global,Q];for(var t=0;t<Q.length;++t){var A=Q[t];if(A&&A.Math==Math)return A}throw Error("Cannot find global object");};$jscomp.global=$jscomp.getGlobal(this);

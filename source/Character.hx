@@ -16,6 +16,7 @@ class Character extends FlxSprite
 	public var curCharacter:String = 'bf';
 
 	public var holdTimer:Float = 0;
+	public var animName:String = "";
 	
 	public var animationNotes:Array<Dynamic> = [];
 
@@ -161,7 +162,6 @@ class Character extends FlxSprite
 				// ANIMATION IS CALLED MOM LEFT POSE BUT ITS FOR THE RIGHT
 				// CUZ DAVE IS DUMB!
 				quickAnimAdd('singRIGHT', 'Mom Pose Left');
-				animation.addByIndices('idleHair', 'Mom Idle', [10, 11, 12, 13], '', 24, true);
 
 				loadOffsetFile(curCharacter);
 
@@ -295,6 +295,7 @@ class Character extends FlxSprite
 				animation.addByIndices('idleHair', 'BF idle dance', [10, 11, 12, 13], '', 24, true);
 				
 				loadOffsetFile(curCharacter);
+				addOffset('idleHair', -5);
 				
 				playAnim('idle');
 
