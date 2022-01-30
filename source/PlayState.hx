@@ -2411,17 +2411,9 @@ class PlayState extends MusicBeatState
 
 				
 				if (storyWeek == 7)
-					if (!PreferencesMenu.getPref('no-cutscene'))
-						{
-							#if desktop
-							DiscordClient.changePresence("On KickStarterCutscene", null);
-							#end
 							introKickstarter('kickstarterTrailer');
-						}
-						else if (PreferencesMenu.getPref('no-cutscene'))
-							{
-								FlxG.switchState(new StoryMenuState());
-							}														
+							else
+								FlxG.switchState(new StoryMenuState());														
 				// if ()
 				StoryMenuState.weekUnlocked[Std.int(Math.min(storyWeek + 1, StoryMenuState.weekUnlocked.length - 1))] = true;
 

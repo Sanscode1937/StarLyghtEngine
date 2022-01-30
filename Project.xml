@@ -40,11 +40,10 @@
 
 	<classpath name="source" />
 
+	<assets path='assets/preload/music' include="*mp4" embed='false' />
+
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
-
-	<!-- CUSTOM CONDITIONALS -->
-	<define name="!debug" if="debug" unless="web || desktop"/>	
 	
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
@@ -100,11 +99,11 @@
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
 	
-	<!-- <assets path='example_mods' rename='mods' embed='false'/> -->
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
 	<assets path='Character.txt' rename='characterList.txt' />
 	<!-- For some test lmao -->
 	<!-- <template path='mods' /> -->	
+	<template path="example_mods" rename="mods" />
 	<assets path="CHANGELOG.md" rename='changelog.txt'/>
 
 	<!-- NOTE FOR FUTURE SELF SINCE FONTS ARE ALWAYS FUCKY 

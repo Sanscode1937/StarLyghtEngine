@@ -8,7 +8,7 @@ import flixel.util.FlxColor;
 
 class OptionsSubState extends MusicBeatSubstate
 {
-	var textMenuItems:Array<String> = ['Master Volume', 'Sound Volume', 'Controls'];
+	var textMenuItems:Array<String> = ['Master Volume', 'Sound Volume', 'Controls', 'Mods'];
 
 	var selector:FlxSprite;
 	var curSelected:Int = 0;
@@ -18,6 +18,10 @@ class OptionsSubState extends MusicBeatSubstate
 	public function new()
 	{
 		super();
+
+		#if desktop
+		textMemuItems.push('Mods');
+		#end
 
 		grpOptionsTexts = new FlxTypedGroup<FlxText>();
 		add(grpOptionsTexts);
@@ -64,6 +68,9 @@ class OptionsSubState extends MusicBeatSubstate
 				case "Controls":
 					FlxG.state.closeSubState();
 					FlxG.state.openSubState(new ControlsSubState());
+				case "Mods":
+					FlxG.state.closeSubState();
+					FlxG.state.openSubState(new ModdingSubState());					
 			}
 		}
 	}
