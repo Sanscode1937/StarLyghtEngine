@@ -16,6 +16,18 @@ class Paths
 		currentLevel = name.toLowerCase();
 	}
 
+	static public function numArr(min,max):Array<Int> {
+		var a = [];
+		var l = max - min;
+		var p = min;
+		for (i in 0...l){
+			a.push(p);
+			p++;
+		}
+		trace(a);
+		return a;
+	}
+	
 	static public function getPath(file:String, type:AssetType, library:Null<String>)
 	{
 		if (library != null)

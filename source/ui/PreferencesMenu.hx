@@ -28,13 +28,12 @@ class PreferencesMenu extends Page
 		items = new TextMenuList();
 		add(items);
 		createPrefItem('naughtyness', 'censor-naughty', true);
-		createPrefItem('Skip Cutscene', 'no-cutscene', false);
 		createPrefItem('downscroll', 'downscroll', false);
 		createPrefItem('flashing menu', 'flashing-menu', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
-		createPrefItem('BOT PLAY', 'bot-play', false);
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Auto Pause', 'auto-pause', false);
+		createPrefItem('DISABLE CUTSCENES', 'no-cutscene', false);
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
 		{
@@ -127,13 +126,12 @@ class PreferencesMenu extends Page
 	public static function initPrefs()
 	{
 		preferenceCheck('censor-naughty', true);
-		preferenceCheck('no-cutscene', false);
 		preferenceCheck('downscroll', false);
 		preferenceCheck('flashing-menu', true);
 		preferenceCheck('camera-zoom', true);
-		preferenceCheck('bot-play', false);
 		preferenceCheck('fps-counter', true);
 		preferenceCheck('auto-pause', false);
+		preferenceCheck('no-cutscene', false);
 		preferenceCheck('master-volume', 1);
 		if (!getPref('fps-counter'))
 		{
@@ -141,14 +139,6 @@ class PreferencesMenu extends Page
 		}
 		FlxG.autoPause = getPref('auto-pause');
 	}
-
-	// function f(x) { //From Animate lmfao
-	// 	if (condition) {
-	// 		var myArray: Array = [
-	// 			[12, 6]
-	// 		];
-	// 	} else {}
-	// }
 
 	public static function preferenceCheck(identifier:String, value:Dynamic)
 	{

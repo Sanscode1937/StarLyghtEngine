@@ -29,7 +29,7 @@ class StoryMenuState extends MusicBeatState
 
 	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"]];
 
-	var weekNames:Array<String> = ";Daddy Dearest;Spooky Month;PICO;MOMMY MUST MURDER;RED SNOW;hating simulator ft. moawling;TANKMAN".split(";");
+	var weekNames:Array<String> = "/Daddy Dearest/Spooky Month/PICO/MOMMY MUST MURDER/RED SNOW/hating simulator ft. moawling/TANKMAN".split("/");
 
 	var txtWeekTitle:FlxText;
 
