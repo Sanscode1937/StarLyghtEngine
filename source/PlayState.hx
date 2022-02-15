@@ -16,6 +16,7 @@ import flixel.FlxGame;
 import flixel.animation.FlxAnimationController;
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flash.filters.BlurFilter;
 import flixel.FlxState;
 import flixel.FlxSubState;
 import flixel.addons.display.FlxGridOverlay;
@@ -636,14 +637,14 @@ class PlayState extends MusicBeatState
 						add(ground);
 						moveTank();
 
-						var tankdude0:BGSprite = new BGSprite('tank0', -500, 650, 1.7, 1.5, ['fg']);
-						foregroundSprites.add(tankdude0);
+						var tank0:BGSprite = new BGSprite('tank0', -500, 650, 1.7, 1.5, ['fg']);
+						foregroundSprites.add(tank0);
 						
-						var tankdude1:BGSprite = new BGSprite('tank1', -300, 750, 2, 0.2, ['fg']);
-						foregroundSprites.add(tankdude1);
+						var tank1:BGSprite = new BGSprite('tank1', -300, 750, 2, 0.2, ['fg']);
+						foregroundSprites.add(tank1);
 						
-						var tankdude2:BGSprite = new BGSprite('tank2', 450, 940, 1.5, 1.5, ['foreground']);
-						foregroundSprites.add(tankdude2);
+						var tank2:BGSprite = new BGSprite('tank2', 450, 940, 1.5, 1.5, ['foreground']);
+						foregroundSprites.add(tank2);
 						
 						// var tankdude4:BGSprite = new BGSprite('tank4', 1300, 900, 1.5, 1.5, ['fg']);
 						// foregroundSprites.add(tankdude4);
@@ -968,13 +969,9 @@ class PlayState extends MusicBeatState
 					// #if web
 					if (PreferencesMenu.getPref('no-cutscene'))
 						{
-							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom = 0.9}, 3, { type: FlxTween.ONESHOT, ease: FlxEase.quadInOut});
+							FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.crochet / 1000) * 5, {ease: FlxEase.quadInOut});
 							startCountdown();
 							cameraMovement();
-						FlxG.camera.zoom = defaultCamZoom * 1.2;
-						camFollow.x += 100;
-						camFollow.y += 100;							
-							startCountdown();	
 						}
 					if (!PreferencesMenu.getPref('no-cutscene'))
 						{
@@ -987,9 +984,9 @@ class PlayState extends MusicBeatState
 
 		
 							var wellWell:FlxSprite;
-							wellWell = new FlxSprite(dad.x,dad.y);
+							wellWell = new FlxSprite(40,300);
 							wellWell.frames = AtlasFrameMakerGPU.construct('assets/images/cutsceneStuff/WellWellWell');
-							wellWell.animation.add("wellWell", numArr(1,359), 30, false);
+							wellWell.animation.add("wellWell", numArr(1,324), 24, false);
 							wellWell.animation.play('wellWell');
 							wellWell.antialiasing = true;
 							gfCutsceneLayer.add(wellWell);			
@@ -997,7 +994,7 @@ class PlayState extends MusicBeatState
 						
 							wellWell.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
 								{
-									if (frameNumber == 133)
+									if (frameNumber == 107)
 										{
 											boyfriend.playAnim('singUP');
 											var sound:FlxSound;	
@@ -1005,13 +1002,13 @@ class PlayState extends MusicBeatState
 											sound.play();
 											FlxG.sound.list.add(sound);
 										}
-									if (frameNumber == 149)
+									if (frameNumber == 119)
 										{
 											boyfriend.playAnim('idle');
 										}	
 		
 							
-									if (frameNumber == 88)
+									if (frameNumber == 70)
 										{
 											camFollow.x += 800;
 											camFollow.y += 100;
@@ -1022,17 +1019,17 @@ class PlayState extends MusicBeatState
 										{
 											FlxG.sound.playMusic(Paths.music('DISTORTO'), 0);
 											FlxG.sound.music.fadeIn(5, 0, 0.5);
-											camFollow.y += 180;
+											camFollow.y += 100;
 											var sound:FlxSound;	
 											sound = new FlxSound().loadEmbedded(Paths.sound('wellWellWell', 'week7'));
 											sound.play();
 											FlxG.sound.list.add(sound);
 										}														
 									
-									if (frameNumber == 178)
+									if (frameNumber == 142)
 										{
 											camFollow.x -= 800;
-											camFollow.y -= 180;
+											camFollow.y -= 100;
 											FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 0.5, {ease: FlxEase.quadInOut});
 											// tankCutscene.animation.play('killYou');
 											FlxG.sound.play(Paths.sound('killYou', 'week7'));			
@@ -1080,8 +1077,8 @@ class PlayState extends MusicBeatState
 		
 		
 						var tightBars:FlxSprite;
-						tightBars = new FlxSprite(dad.x,dad.y);
-						tightBars.frames = AtlasFrameMakerGPU.construct('assets/images/cutsceneStuff/tightBars');//Use Texture Atlas instead of sprite sheet to make some optimizations!
+						tightBars = new FlxSprite(40,300);
+						tightBars.frames = AtlasFrameMakerGPU.construct('assets/images/tightBars');//Use Texture Atlas instead of sprite sheet to make some optimizations!
 						tightBars.animation.add("tightBars", numArr(1,324), 30, false);
 						tightBars.animation.play('tightBars');
 						tightBars.antialiasing = true;
@@ -1164,7 +1161,7 @@ class PlayState extends MusicBeatState
 									if (frameNumber == 1)
 										{
 											// gf.dance();
-											camFollow.y += 180;
+											camFollow.x -= 200;
 											var sound:FlxSound;	
 											sound = new FlxSound().loadEmbedded(Paths.sound('stressCutscene', 'week7'));
 											sound.play();
@@ -1452,6 +1449,11 @@ class PlayState extends MusicBeatState
 			FlxG.switchState(new TitleStateAlt());
 		}
 	}
+
+	function bulrEffectTestShit():Void
+	{
+		var blurShit = new BlurFilter(4,4,1);
+	}	
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void
 	{

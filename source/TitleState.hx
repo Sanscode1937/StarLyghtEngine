@@ -55,6 +55,8 @@ class TitleState extends MusicBeatState
 	var swagShader:ColorSwap;
 	var alphaShader:BuildingShaders;
 
+	var music:FlxSound;
+
 	#if web
 	var video:Video;
 	var netStream:NetStream;
@@ -63,10 +65,10 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod'], framework: OPENFL});
-		trace('reinitialized');
-		#end
+		// #if polymod
+		// polymod.Polymod.init({modRoot: "mods", dirs: ['introMod'], framework: OPENFL});
+		// trace('reinitialized');
+		// #end
 
 		FlxG.game.focusLostFramerate = 60;
 
@@ -179,11 +181,20 @@ class TitleState extends MusicBeatState
 			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
-			// var music:FlxSound = new FlxSound();
-			// music.loadStream(Paths.music('freakyMenu'));
-			// FlxG.sound.list.add(music);
-			// music.play();
-			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			music = new FlxSound();
+			music.loadStream(Paths.music('freakyMenu'));
+			FlxG.sound.list.add(music);
+			music.play();
+			if (controls.UI_LEFT)
+				{
+					music.pitch = 1;
+				}
+				if (controls.UI_RIGHT)
+				{
+					music.pitch = -1;
+				}
+			
+			// FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}

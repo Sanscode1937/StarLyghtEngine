@@ -8,6 +8,8 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.text.FlxText;
+import animateAtlasPlayer.core.Animation;
+import animateAtlasPlayer.assets.AssetManager;
 import flixel.animation.FlxAnimationController;
 import Song.SwagSong;
 import flixel.FlxSprite;
@@ -44,18 +46,54 @@ class CutsceneAnimTestState extends FlxState
 		var basedX:Int = 100;
 		var basedY:Int = 134;
 		#if desktop
-		DiscordClient.changePresence("On Tankman cutscene animation test", null);
-		#end
-		var tightBars:FlxSprite;
-		tightBars = new FlxSprite(100,134);
-		tightBars.frames = AtlasFrameMakerGPU.construct('assets/images/cutsceneStuff/tightBars');
-		tightBars.animation.addByPrefix('idle', "tightBars", 30);	
-		tightBars.animation.play('idle');	
-		tightBars.antialiasing = true;
-		add(tightBars);																					
+		DiscordClient.changePresence("EasterEgg", null);
+		#end		
+		// var assets:AssetManager = new AssetManager();
+		// // target the folder that contains the Animation.json, spritemap.json and spritemap.png
+		// assets.enqueue("assets/images/tightBars"); 
+		// assets.loadQueue(start);
+		
+
+		
+            var prototypeTest:FlxSprite;
+            prototypeTest = new FlxSprite(100,134);
+            prototypeTest.frames = AtlasFrameMakerGPU.construct('assets/images/cutsceneStuff/tightBars');
+            prototypeTest.animation.add("tightBars", numArr(1,324), 30, false);
+            prototypeTest.antialiasing = true;
+			add(prototypeTest);
+			prototypeTest.animation.play('tightBars');
+			
+			prototypeTest.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
+				{
+					if (FlxG.keys.justPressed.LEFT)
+						{
+							frameNumber = -1;
+						}        
+					if (FlxG.keys.justPressed.RIGHT)
+						{
+							frameNumber = 1;
+						}    
+				}  
+				
+				if (FlxG.mouse.justPressed)
+					{
+						FlxG.switchState(new MainMenuState());
+					}
+					if (FlxG.mouse.wheel != 0)
+						{
+							// Mouse wheel logic goes here, for example zooming in / out: so >:))))))))))))))))
+							FlxG.camera.zoom += (FlxG.mouse.wheel / 10);
+						}	
+
 	}
 
-	private function numArr(min,max):Array<Int>
+	// private function start(assetsMgr:AssetManager):Void {
+	
+	// 	var tankTest:Animation = assetsMgr.createAnimation("TANK TALK 2");
+	// 	add(tankTest);
+	// }
+
+	public function numArr(min,max):Array<Int>
 	{	
 		var a = [];
 		var l = max - min;

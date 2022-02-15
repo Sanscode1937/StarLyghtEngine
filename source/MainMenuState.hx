@@ -28,6 +28,7 @@ using StringTools;
 class MainMenuState extends MusicBeatState
 {
 	var menuItems:MainMenuList;
+	// var patch:Int = 02062022156;
 
 	#if !switch
 	var optionShit:Array<String> = ['story mode', 'freeplay', 'kickstarter', 'options'];
@@ -124,11 +125,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		#if web
-		versionShit.text += "(HTML5 BUILD PREVIEW)";
-		#else
-		versionShit.text += "(Newgrounds exclusive preview)";
-		#end
+		versionShit.text += "patch 02062022156";
 
 		#if debug
 		versionShit.text += " -DEBUG";
