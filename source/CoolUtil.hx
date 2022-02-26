@@ -36,6 +36,20 @@ class CoolUtil
 		return dumbArray;
 	}
 
+	inline public static function boundTo(value:Float, min:Float, max:Float):Float {
+		return Math.max(min, Math.min(max, value));
+	}
+	// public static function precacheSound(sound:String, ?library:String = null):Void {
+	// 	precacheSoundFile(Paths.sound(sound, library));
+	// }
+
+	// public static function precacheMusic(sound:String, ?library:String = null):Void {
+	// 	precacheSoundFile(Paths.music(sound, library));
+	// }
+
+	// private static function precacheSoundFile(file:Dynamic):Void {
+	// 	if (Assets.exists(file, SOUND) || Assets.exists(file, MUSIC))
+	// 		Assets.getSound(file, true);
 	public static function camLerpShit(ratio:Float)
 	{
 		return FlxG.elapsed/0.016666666666666666*ratio;

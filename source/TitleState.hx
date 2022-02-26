@@ -118,11 +118,8 @@ class TitleState extends MusicBeatState
 		#end
 
 		#if desktop
+		// Updating Discord Rich Presence
 		DiscordClient.initialize();
-		
-		Application.current.onExit.add (function (exitCode) {
-			DiscordClient.shutdown();
-		 });
 		#end
 	}
 
@@ -181,20 +178,20 @@ class TitleState extends MusicBeatState
 			// IF THIS PR IS HERE IF ITS ACCEPTED UR GOOD TO GO
 			// https://github.com/HaxeFlixel/flixel-addons/pull/348
 
-			music = new FlxSound();
-			music.loadStream(Paths.music('freakyMenu'));
-			FlxG.sound.list.add(music);
-			music.play();
-			if (controls.UI_LEFT)
-				{
-					music.pitch = 1;
-				}
-				if (controls.UI_RIGHT)
-				{
-					music.pitch = -1;
-				}
+			// music = new FlxSound();
+			// music.loadStream(Paths.music('freakyMenu'));
+			// FlxG.sound.list.add(music);
+			// music.play();
+			// if (controls.UI_LEFT)
+			// 	{
+			// 		music.pitch = 1;
+			// 	}
+			// 	if (controls.UI_RIGHT)
+			// 	{
+			// 		music.pitch = -1;
+			// 	}
 			
-			// FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
+			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 
 			FlxG.sound.music.fadeIn(4, 0, 0.7);
 		}

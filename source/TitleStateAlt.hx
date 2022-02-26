@@ -112,11 +112,8 @@ class TitleStateAlt extends MusicBeatState
 		#end
 
 		#if desktop
-		DiscordClient.initialize();
-		
-		Application.current.onExit.add (function (exitCode) {
-			DiscordClient.shutdown();
-		 });
+		// Updating Discord Rich Presence
+		DiscordClient.changePresence("Title ScreenKS", null);
 		#end
 	}
 

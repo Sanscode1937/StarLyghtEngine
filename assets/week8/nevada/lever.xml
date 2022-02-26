@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<TextureAtlas imagePath="lever.png">
+<SubTexture name="lever0000" x="0" y="0" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0001" x="457" y="0" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0002" x="914" y="0" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0003" x="1371" y="0" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0004" x="0" y="287" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0005" x="457" y="287" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+<SubTexture name="lever0006" x="914" y="287" width="457" height="287" frameX="0" frameY="0" frameWidth="457" frameHeight="287" />
+</TextureAtlas>

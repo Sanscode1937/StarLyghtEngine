@@ -11,7 +11,7 @@ class DiscordClient
 	{
 		trace("Discord Client starting...");
 		DiscordRpc.start({
-			clientID: "814588678700924999",
+			clientID: "946450168776110120",
 			onReady: onReady,
 			onError: onError,
 			onDisconnected: onDisconnected
@@ -25,12 +25,6 @@ class DiscordClient
 			//trace("Discord Client Update");
 		}
 
-		DiscordRpc.shutdown();
-	}
-
-	public static function shutdown()
-	{
-		DiscordRpc.shutdown();
 	}
 	
 	static function onReady()

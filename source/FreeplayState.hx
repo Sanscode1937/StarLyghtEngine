@@ -86,7 +86,7 @@ class FreeplayState extends MusicBeatState
 			addWeek(['Ugh', 'Guns', 'Stress'], 7, ['tankman']);
 
 		if (StoryMenuState.weekUnlocked[8])
-			addWeek(['Imagine', 'Toasted', 'Bpm-Engaged'], 8, ['face']);
+			addWeek([''], 8, ['face']);
 
 		// LOAD MUSIC
 
@@ -197,7 +197,6 @@ class FreeplayState extends MusicBeatState
 
 		lerpScore = CoolUtil.coolLerp(lerpScore, intendedScore, 0.4);
 		
-		// Sorry about this, but I'm basically copying and pasting the compiled code here. If someone could simplify this but keep the exact same function, please do.
 		var b = Std.parseInt(bg.color.toHexString()),
 			c = coolColors[songs[curSelected].week % coolColors.length],
 			d = CoolUtil.camLerpShit(0.045);

@@ -14,7 +14,6 @@ class Character extends FlxSprite
 
 	public var isPlayer:Bool = false;
 	public var curCharacter:String = 'bf';
-
 	public var holdTimer:Float = 0;
 	public var animName:String = "";
 	
@@ -467,6 +466,121 @@ class Character extends FlxSprite
 				playAnim('idle');
 
 				flipX = true;
+
+				case 'hank':
+					tex = Paths.getSparrowAtlas('characters/hank_assets', 'shared');	
+					frames = tex;
+					animation.addByPrefix('idle', 'Hank Idle', 24, false);
+					animation.addByPrefix('singUP', 'Hank Up note', 24, false);
+					animation.addByPrefix('singRIGHT', 'Hank right note', 24, false);
+					animation.addByPrefix('singDOWN', 'Hank Down Note', 24, false);
+					animation.addByPrefix('singLEFT', 'Hank Left Note', 24, false);
+	
+					animation.addByPrefix('knifeSpin', 'HankGetReady', 24, false);
+					animation.addByPrefix('coolGuy', 'hanktaunt', 24, false);
+					animation.addByPrefix('idle-alt', 'HankScaredIdle', 24, false);
+					animation.addByPrefix('singLEFT-alt', 'Hank screamright', 24, false);
+					animation.addByPrefix('singRIGHT-alt', 'Hank screamright', 24, false);
+	
+					animation.addByPrefix('singUP-shoot', 'Hank Up shoot', 24, false);
+					animation.addByPrefix('singDOWN-shoot', 'Hank Down Shoot', 24, false);
+					animation.addByPrefix('singLEFT-shoot', 'Hank Left Shoot', 24, false);
+					animation.addByPrefix('singRIGHT-shoot', 'Hank right shoot', 24, false);
+	
+					animation.addByPrefix('tikyShoot', 'HankScaredShootsTiky', 24, false);
+		
+					addOffset('idle');
+					addOffset("singUP", 4, 4);
+					addOffset("singRIGHT", 110, 14);
+					addOffset("singLEFT", 330, 20);
+					addOffset("singDOWN", 70, 20);
+	
+					addOffset("idle-alt", 20, 0);
+					addOffset("singLEFT-alt", 90, 9);
+					addOffset("singRIGHT-alt", 90, 9);
+					addOffset("knifeSpin", 14, -84);
+					addOffset("coolGuy", 170, -30);
+	
+					addOffset("singUP-shoot", 20, 0);
+					addOffset("singDOWN-shoot", 52, 10);
+					addOffset("singLEFT-shoot", 50, 15);
+					addOffset("singRIGHT-shoot", 10, 14);
+	
+					addOffset("tikyShoot", 117, 321);
+	
+					playAnim('idle');
+
+			case 'tricky':
+				// tricky code
+				tex = Paths.getSparrowAtlas('characters/tiky_assets', 'shared');
+				frames = tex;
+				animation.addByPrefix('idle', 'tiky idle', 24, false);
+				animation.addByPrefix('singUP', 'tiky up', 24, false);
+				animation.addByPrefix('singRIGHT', 'tiky right', 24, false);
+				animation.addByPrefix('singDOWN', 'tiky down', 24, false);
+				animation.addByPrefix('singLEFT', 'tiky left', 24, false);
+
+				animation.addByPrefix('scream', 'tiky scream', 24, false);
+				animation.addByPrefix('fall', 'tiky fall', 24, false);
+				animation.addByPrefix('headTurn', 'tiky headturn', 24, false);
+	
+				addOffset('idle');
+				addOffset("singUP", -6, 50);
+				addOffset("singRIGHT", 101, -25);
+				addOffset("singLEFT", 70, 30);
+				addOffset("singDOWN", 40, 10);
+
+				addOffset("scream", 202, 428);
+				addOffset("fall", 21, 250);
+				addOffset("headTurn", 0, 40);
+	
+				playAnim('idle');
+
+			case 'boombox':
+				// speakers only code
+				tex = Paths.getSparrowAtlas('characters/boombox_assets');
+				frames = tex;
+				animation.addByPrefix('cheer', 'GF Cheer', 24, false);
+				animation.addByPrefix('singLEFT', 'GF left note', 24, false);
+				animation.addByPrefix('singRIGHT', 'GF Right Note', 24, false);
+				animation.addByPrefix('singUP', 'GF Up Note', 24, false);
+				animation.addByPrefix('singDOWN', 'GF Down Note', 24, false);
+				animation.addByIndices('sad', 'gf sad', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "", 24, false);
+				animation.addByIndices('danceLeft', 'GF Dancing Beat', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+				animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+				animation.addByIndices('hairBlow', "GF Dancing Beat Hair blowing", [0, 1, 2, 3], "", 24);
+				animation.addByIndices('hairFall', "GF Dancing Beat Hair Landing", [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "", 24, false);
+				animation.addByPrefix('scared', 'GF FEAR', 24);
+
+				addOffset('cheer');
+				addOffset('sad', 0, -19);
+				addOffset('danceLeft', 0, -9);
+				addOffset('danceRight', 0, -9);
+
+				addOffset("singUP", 0, 4);
+				addOffset("singRIGHT", 0, -20);
+				addOffset("singLEFT", 0, -19);
+				addOffset("singDOWN", 0, -20);
+				addOffset('hairBlow', 45, -8);
+				addOffset('hairFall', 0, -9);
+
+				addOffset('scared', -2, -17);
+
+				playAnim('danceRight');
+
+			case 'gf-hands-up':
+				// gf with hands up
+				tex = Paths.getSparrowAtlas('characters/gf-hands-up');
+				frames = tex;
+				animation.addByPrefix('danceLeft', 'gf-hands idle left', 24, false);
+				animation.addByPrefix('danceRight', 'gf-hands idle right', 24, false);
+				addOffset('danceLeft', 10, -30);
+				addOffset('danceRight', 10, -30);
+				scale.set(1.4, 1.4);
+				updateHitbox();
+	
+				playAnim('danceRight');					
+
 		}
 
 		dance();
@@ -604,6 +718,25 @@ class Character extends FlxSprite
 						else
 							playAnim('danceLeft');
 					}
+				case 'boombox':
+					if (!animation.curAnim.name.startsWith('hair'))
+						{
+							danced = !danced;
+	
+							if (danced)
+								playAnim('danceRight');
+							else
+								playAnim('danceLeft');
+						}
+				case 'gf-hands-up':
+					{
+						danced = !danced;
+
+						if (danced)
+							playAnim('danceRight');
+						else
+							playAnim('danceLeft');
+					}					
 				case 'pico-speaker':
 					// do nothing LOL
 				case 'spooky':

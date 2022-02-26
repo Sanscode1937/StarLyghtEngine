@@ -72,9 +72,11 @@ class Paths
 		return getPath('data/$key.txt', TEXT, library);
 	}
 
-	inline static public function dialogueCutsceneStuff(key:String, ?library:String)
+	inline static public function Getcutscene(key:String, ?library:String)
 		{
-			return getPath('images/cutsceneStuff/$key.txt', TEXT, library);
+			return getPath('images/cutsceneStuff/$key/spritemap.json', TEXT, library);
+			return getPath('images/cutsceneStuff/$key/spritemap.png', TEXT, library);
+			return getPath('images/cutsceneStuff/$key/Animation.json', TEXT, library);
 		}
 
 	inline static public function xml(key:String, ?library:String)

@@ -22,14 +22,14 @@ class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
 
-	var weekData:Array<Dynamic> = [["Tutorial"], ["Bopeebo", "Fresh", "Dadbattle"], ["Spookeez", "South", "Monster"], ["Pico", "Philly", "Blammed"], ["Satin-Panties", "High", "Milf"], ["Cocoa", "Eggnog", "Winter-Horrorland"], ["Senpai", "Roses", "Thorns"], ["Ugh", "Guns", "Stress"], ["Imagine", "Toasted", "Bpm-Engaged"]];
+	var weekData:Array<Dynamic> = [["Tutorial"], ["Bopeebo", "Fresh", "Dadbattle"], ["Spookeez", "South", "Monster"], ["Pico", "Philly", "Blammed"], ["Satin-Panties", "High", "Milf"], ["Cocoa", "Eggnog", "Winter-Horrorland"], ["Senpai", "Roses", "Thorns"], ["Ugh", "Guns", "Stress"]];
 	var curDifficulty:Int = 1;
 
 	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true, true, true];
 
-	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"], ["CassetteG", "bf", "gf"]];
+	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"]];
 
-	var weekNames:Array<String> = "/Daddy Dearest/Spooky Month/PICO/MOMMY MUST MURDER/RED SNOW/hating simulator ft. moawling/RESTRICTED MILITARY ZONE/CassetteG ft. SoftDon".split("/");
+	var weekNames:Array<String> = "/Daddy Dearest/Spooky Month/PICO/MOMMY MUST MURDER/RED SNOW/hating simulator ft. moawling/TANKMAN".split("/");
 
 	var txtWeekTitle:FlxText;
 
@@ -74,7 +74,7 @@ class StoryMenuState extends MusicBeatState
 		rankText.screenCenter(X);
 
 		var ui_tex = Paths.getSparrowAtlas('campaign_menu_UI_assets');
-		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFF9271FD);
+		var yellowBG:FlxSprite = new FlxSprite(0, 56).makeGraphic(FlxG.width, 400, 0xFFF9CF51);
 
 		grpWeekText = new FlxTypedGroup<MenuItem>();
 		add(grpWeekText);
@@ -91,7 +91,7 @@ class StoryMenuState extends MusicBeatState
 		
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);// dicsourcd
+		DiscordClient.changePresence("In the Menus", null);
 		#end
 
 		for (i in 0...weekData.length)
@@ -181,7 +181,7 @@ class StoryMenuState extends MusicBeatState
 		add(yellowBG);
 		add(grpWeekCharacters);
 
-		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height + 100, 0, "Songs list", 32);
+		txtTracklist = new FlxText(FlxG.width * 0.05, yellowBG.x + yellowBG.height + 100, 0, "Tracks", 32);
 		txtTracklist.alignment = CENTER;
 		txtTracklist.font = rankText.font;
 		txtTracklist.color = 0xFFe55777;
@@ -275,6 +275,7 @@ class StoryMenuState extends MusicBeatState
 				FlxG.sound.play(Paths.sound('confirmMenu'));
 
 				grpWeekText.members[curWeek].startFlashing();
+				grpWeekCharacters.members[1].animation.play('bfConfirm');
 				stopspamming = true;
 			}
 
@@ -391,11 +392,11 @@ class StoryMenuState extends MusicBeatState
 				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 0.99));
 
 			case 'senpai':
-				grpWeekCharacters.members[0].offset.set(120, 200);
-				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1.9));
+				grpWeekCharacters.members[0].offset.set(130, 0);
+				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1.4));
 
 			case 'tankman':
-				grpWeekCharacters.members[0].offset.set(140, 149);
+				grpWeekCharacters.members[0].offset.set(60, -20);
 				grpWeekCharacters.members[0].setGraphicSize(Std.int(grpWeekCharacters.members[0].width * 1));
 
 			default:

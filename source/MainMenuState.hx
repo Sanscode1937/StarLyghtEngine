@@ -100,14 +100,9 @@ class MainMenuState extends MusicBeatState
 		{
 			startExitState(new FreeplayState());
 		});
-		if (VideoState.seenVideo)
-		{
-			menuItems.createItem(null, null, "kickstarter", selectDonate, true);
-		}
-		else
-		{
-			menuItems.createItem(null, null, "donate", selectDonate, true);
-		}
+
+		menuItems.createItem(null, null, "kickstarter", selectKickstarter, true);
+
 		menuItems.createItem(0, 0, "options", function()
 		{
 			startExitState(new OptionsState());
@@ -125,11 +120,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		versionShit.text += "patch 02062022156";
-
-		#if debug
-		versionShit.text += " -DEBUG";
-		#end
+		versionShit.text += "(Newgrounds exclusive preview)";
 
 
 		super.create();
@@ -146,7 +137,7 @@ class MainMenuState extends MusicBeatState
 		camFollow.setPosition(item.getGraphicMidpoint().x, item.getGraphicMidpoint().y);
 	}
 	
-	function selectDonate()
+	function selectKickstarter()
 	{
 		#if linux
 		Sys.command('/usr/bin/xdg-open', ["https://www.kickstarter.com/projects/funkin/friday-night-funkin-the-full-ass-game/", "&"]);
