@@ -163,6 +163,8 @@ class PlayState extends MusicBeatState
 
 	var talking:Bool = true;
 	var songScore:Int = 0;
+	var scoreCountShit:Int = 0;
+	var missCount:Int = 0;
 	var scoreTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
@@ -1314,13 +1316,13 @@ class PlayState extends MusicBeatState
 
 	public function prototypeShit():Void {
 
-		var prototype:FlxSprite;
-		prototype = new FlxSprite(dad.x,dad.y);
-		prototype.frames = AtlasFrameMaker.construct('assets/images/cutsceneStuff/tightBars');
-		prototype.animation.add("tightBars", numArr(1,320), 30, false);
-		prototype.animation.play('tightBars');
-		prototype.antialiasing = true;
-		add(prototype);
+		// var prototype:FlxSprite;
+		// prototype = new FlxSprite(dad.x,dad.y);
+		// prototype.frames = AtlasFrameMaker.construct('assets/images/cutsceneStuff/tightBars');
+		// prototype.animation.add("tightBars", numArr(1,320), 30, false);
+		// prototype.animation.play('tightBars');
+		// prototype.antialiasing = true;
+		// add(prototype);
 	}
 
 	public function daIntro(name:String):Void {
@@ -2114,7 +2116,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score:" + songScore;
+		scoreTxt.text = "Miss:" + missCount + " | " + "Score:" + scoreCountShit + " | " + "Combo:" + songScore;
 
 		if (controls.PAUSE && startedCountdown && canPause)
 		{
@@ -2435,13 +2437,13 @@ class PlayState extends MusicBeatState
 		if (SONG.validScore)
 		{
 			#if !switch
-			Highscore.saveScore(SONG.song, songScore, storyDifficulty);
+			Highscore.saveScore(SONG.song, scoreCountShit, storyDifficulty);
 			#end
 		}
 
 		if (isStoryMode)
 		{
-			campaignScore += songScore;
+			campaignScore += scoreCountShit;
 
 			storyPlaylist.remove(storyPlaylist[0]);
 
@@ -2553,18 +2555,21 @@ class PlayState extends MusicBeatState
 		if (noteDiff > Conductor.safeZoneOffset * 0.9)
 		{
 			daRating = 'shit';
+			combo -= 1;
 			score = 50;
 			doSplash = false;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
+			combo = 1;
 			score = 100;
 			doSplash = false;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
 		{
 			daRating = 'good';
+			combo = 1;
 			score = 200;
 			doSplash = false;
 		}
@@ -2583,7 +2588,8 @@ class PlayState extends MusicBeatState
 		}
 
 		if (!practiceMode)
-			songScore += score;
+			songScore += combo;
+			scoreCountShit += score;
 
 			//  if (combo == curBeat)
 			// 	daRating = 'combo';
@@ -2886,9 +2892,9 @@ class PlayState extends MusicBeatState
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
-
 			if (!practiceMode)
-				songScore -= 10;
+				songScore = 0;
+				scoreCountShit -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
@@ -2924,6 +2930,8 @@ class PlayState extends MusicBeatState
 		var rightP = controls.NOTE_RIGHT_P;
 		var downP = controls.NOTE_DOWN_P;
 		var leftP = controls.NOTE_LEFT_P;
+
+		missCount += 1;
 
 		if (leftP)
 			noteMiss(0);
@@ -3367,7 +3375,7 @@ class PlayState extends MusicBeatState
 				});
 				if (FlxG.random.bool(10) && fastCarCanDrive)
 					fastCarDrive();
-				if(henchDies && FlxG.random.bool(1))
+				if(henchDies && FlxG.random.bool(4))
 					killHenchmen();	
 			case "philly":
 				if (!trainMoving)

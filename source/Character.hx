@@ -437,35 +437,78 @@ class Character extends FlxSprite
 
 				playAnim('idle');
 
-			case 'tankman':
-				frames = Paths.getSparrowAtlas('characters/tankmanCaptain');
-				quickAnimAdd('idle', 'Tankman Idle Dance');
-				if (isPlayer)
-				{
-					quickAnimAdd('singLEFT', 'Tankman Note Left ');
-					quickAnimAdd('singRIGHT', 'Tankman Right Note ');
-					quickAnimAdd('singLEFTmiss', 'Tankman Note Left MISS');
-					quickAnimAdd('singRIGHTmiss', 'Tankman Right Note MISS');
-				}
-				else
-				{
-					quickAnimAdd('singLEFT', 'Tankman Right Note ');
-					quickAnimAdd('singRIGHT', 'Tankman Note Left ');
-					quickAnimAdd('singLEFTmiss', 'Tankman Right Note MISS');
-					quickAnimAdd('singRIGHTmiss', 'Tankman Note Left MISS');
-				}
-				quickAnimAdd('singUP', 'Tankman UP note ');
-				quickAnimAdd('singDOWN', 'Tankman DOWN note ');
-				quickAnimAdd('singUPmiss', 'Tankman UP note MISS');
-				quickAnimAdd('singDOWNmiss', 'Tankman DOWN note MISS');
-				quickAnimAdd('singDOWN-alt', 'PRETTY GOOD');
-				quickAnimAdd('singUP-alt', 'TANKMAN UGH');
+				case 'tankman':
+					frames = Paths.getSparrowAtlas('characters/tankmanCaptain');
+					quickAnimAdd('idle', 'Tankman Idle Dance');
+					if (isPlayer)
+					{
+						quickAnimAdd('singLEFT', 'Tankman Note Left ');
+						quickAnimAdd('singRIGHT', 'Tankman Right Note ');
+						quickAnimAdd('singLEFTmiss', 'Tankman Note Left MISS');
+						quickAnimAdd('singRIGHTmiss', 'Tankman Right Note MISS');
+					}
+					else
+					{
+						quickAnimAdd('singLEFT', 'Tankman Right Note ');
+						quickAnimAdd('singRIGHT', 'Tankman Note Left ');
+						quickAnimAdd('singLEFTmiss', 'Tankman Right Note MISS');
+						quickAnimAdd('singRIGHTmiss', 'Tankman Note Left MISS');
+					}
+					quickAnimAdd('singUP', 'Tankman UP note ');
+					quickAnimAdd('singDOWN', 'Tankman DOWN note ');
+					quickAnimAdd('singUPmiss', 'Tankman UP note MISS');
+					quickAnimAdd('singDOWNmiss', 'Tankman DOWN note MISS');
+					quickAnimAdd('singDOWN-alt', 'PRETTY GOOD');
+					quickAnimAdd('singUP-alt', 'TANKMAN UGH');
+	
+					loadOffsetFile(curCharacter);
+	
+					playAnim('idle');
+	
+					flipX = true;
 
-				loadOffsetFile(curCharacter);
+			// case 'tankman':
+			// 	frames = FlxTextureAtlas.create('assets/images/chatactersTextureAtlas/tankman');
+			// 	animation.add("idle", [0,1,2,3,4,5,6,7,8,9,10,11,12,13], 24, false);
+			// 	if (isPlayer)
+			// 	{
+			// 		animation.add("singLEFT", [14,15], 24, false);
+			// 		animation.add("singRIGHT", [25,26], 24, false);
+			// 		// quickAnimAdd('singLEFTmiss', 'Tankman Note Left MISS');
+			// 		// quickAnimAdd('singRIGHTmiss', 'Tankman Right Note MISS');
+			// 	}
+			// 	else
+			// 	{
+			// 		animation.add("singLEFT", [25,26], 24, false);
+			// 		animation.add("singRIGHT", [14,15], 24, false);
+			// 		// quickAnimAdd('singLEFTmiss', 'Tankman Right Note MISS');
+			// 		// quickAnimAdd('singRIGHTmiss', 'Tankman Note Left MISS');
+			// 	}
+			// 	animation.add("singUP", [36,37], 24, false);
+			// 	animation.add("UPAnim2", [38], 24, false);
+			// 	animation.add("DOWNAnim2", [49], 24, false);
+			// 	if (isPlayer)
+			// 	{
+			// 	animation.add("LEFTAnim2", [16], 24, false);
+			// 	animation.add("RIGHTAnim2", [27], 24, false);
+			// 	}
+			// 	else
+			// 		{
+			// 			animation.add("LEFTAnim2", [27], 24, false);
+			// 			animation.add("RIGHTAnim2", [16], 24, false);
+			// 		}
 
-				playAnim('idle');
+			// 	animation.add("singDOWN", [47,48], 24, false);
+			// 	// quickAnimAdd('singUPmiss', 'Tankman UP note MISS');
+			// 	// quickAnimAdd('singDOWNmiss', 'Tankman DOWN note MISS');
+			// 	animation.add("singDOWN-alt", [122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170,171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191], 24, false);
+			// 	animation.add("singUP-alt", [106,107,108,109,120,121], 24, false);
 
-				flipX = true;
+			// 	loadOffsetFile(curCharacter);
+
+			// 	playAnim('idle');
+
+			// 	flipX = true;
 
 				case 'hank':
 					tex = Paths.getSparrowAtlas('characters/hank_assets', 'shared');	
@@ -624,6 +667,18 @@ class Character extends FlxSprite
 		animationNotes.sort(sortAnims);
 	}
 
+	function numArr(min,max):Array<Int>{
+		var a = [];
+		var l = max - min;
+		var p = min;
+		for (i in 0...l){
+			a.push(p);
+			p++;
+		}
+		trace(a);
+		return a;
+	}	
+
 	function sortAnims(x, y)
 	{
 		return x[0] < y[0] ? -1 : x[0] > y[0] ? 1 : 0;
@@ -669,6 +724,23 @@ class Character extends FlxSprite
 			playAnim('idleHair');
 		}
 
+		if (animation.curAnim.name.startsWith('singUP') && animation.curAnim.finished)
+			{
+				playAnim('UPAnim2');
+			}
+		
+		if (animation.curAnim.name.startsWith('singDOWN') && animation.curAnim.finished)
+			{
+				playAnim('DOWNAnim2');
+			}
+		if (animation.curAnim.name.startsWith('singLEFT') && animation.curAnim.finished)
+			{
+				playAnim('LEFTAnim2');
+			}
+		if (animation.curAnim.name.startsWith('singRIGHT') && animation.curAnim.finished)
+			{
+				playAnim('RIGHTAnim2');
+			}			
 		switch (curCharacter)
 		{
 			case 'gf':
