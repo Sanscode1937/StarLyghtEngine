@@ -15,6 +15,7 @@ class PreferencesMenu extends Page
 
 	var checkboxes = [];
 	var menuCamera:FlxCamera;
+	var paytoState:PlayState;
 	var items:TextMenuList;
 	var camFollow:FlxObject;
 
@@ -32,8 +33,16 @@ class PreferencesMenu extends Page
 		createPrefItem('flashing menu', 'flashing-menu', true);
 		createPrefItem('Camera Zooming on Beat', 'camera-zoom', true);
 		createPrefItem('FPS Counter', 'fps-counter', true);
-		createPrefItem('Auto Pause', 'auto-pause', false);
+		createPrefItem('Auto Pause', 'auto-pause', true);
+		createPrefItem('Note Hit Sound', 'hitsound',false);
+		#if debug
+		createPrefItem('GOD MODE', 'god-mode',true);
+		createPrefItem('GHOST TAPPING', 'ghost-tap',true);
+		createPrefItem('PLAY GUNS CUTSCENE', 'play-guns',false);
+		#end
+		// sys.exit(0);
 		createPrefItem('DISABLE CUTSCENES', 'no-cutscene', false);
+		// createPrefItem('Becoming Gay Man', 'gay-man', false);	:troll:	
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
 		{
@@ -130,8 +139,12 @@ class PreferencesMenu extends Page
 		preferenceCheck('flashing-menu', true);
 		preferenceCheck('camera-zoom', true);
 		preferenceCheck('fps-counter', true);
-		preferenceCheck('auto-pause', false);
+		preferenceCheck('auto-pause', true);
 		preferenceCheck('no-cutscene', false);
+		preferenceCheck('hitsound', false);
+		preferenceCheck('god-mode', true);
+		preferenceCheck('ghost-tap', true);
+		preferenceCheck('play-guns', false);			
 		preferenceCheck('master-volume', 1);
 		if (!getPref('fps-counter'))
 		{

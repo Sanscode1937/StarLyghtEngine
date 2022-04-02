@@ -2,11 +2,11 @@ package;
 
 import flixel.FlxGame;
 import flixel.FlxState;
-import openfl.Assets;
 import openfl.Lib;
-import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
+import lime.utils.DisplayLog;
+import MemoryCounter.MemorySystem64;
 
 class Main extends Sprite
 {
@@ -18,7 +18,8 @@ class Main extends Sprite
 	var skipSplash:Bool = true; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 
-	public static var fpsCounter:FPS;
+	public static var fpsCounter:MemorySystem64;
+	// public static var memoryshit:MemoryCounter;
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -43,6 +44,7 @@ class Main extends Sprite
 
 	private function init(?E:Event):Void
 	{
+		lime.utils.DisplayLog.throwErrors = false;
 		if (hasEventListener(Event.ADDED_TO_STAGE))
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -72,7 +74,7 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
-		fpsCounter = new FPS(10, 3, 0xFFFFFF);
+		fpsCounter = new MemorySystem64(10, 3, 0xFFFFFF);		
 		addChild(fpsCounter);
 		#end
 	}

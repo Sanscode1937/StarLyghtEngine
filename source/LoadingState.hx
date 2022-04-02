@@ -61,14 +61,14 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				checkLoadSong(getSongPath());
-				if (PlayState.SONG.needsVoices)
-					checkLoadSong(getVocalPath());
-				checkLibrary("shared");
-				if (PlayState.storyWeek > 0)
-					checkLibrary("week" + PlayState.storyWeek);
-				else
-					checkLibrary("tutorial");
+				// checkLoadSong(getSongPath());
+				// if (PlayState.SONG.needsVoices)
+				// 	checkLoadSong(getVocalPath());
+				// checkLibrary("shared");
+				// if (PlayState.storyWeek > 0)
+				// 	checkLibrary("week" + PlayState.storyWeek);
+				// else
+				// 	checkLibrary("tutorial");
 				
 				FlxG.camera.fade(FlxG.camera.bgColor, 0.5, true);
 				new FlxTimer().start(1.5, function(_) introComplete());
@@ -118,6 +118,33 @@ class LoadingState extends MusicBeatState
 		var wacky = FlxG.width * 0.88;
 		funkay.setGraphicSize(Std.int(wacky + 0.9 * (funkay.width - wacky)));
 		funkay.updateHitbox();
+		// if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+		// 	{	
+		// 		FlxG.sound.music.pitch -= 0.01;		
+
+		// 		// ps.dadVocals.pitch -= 0.01;
+		// 		// ps.bfVocals.pitch -= 0.01;
+		// 	}
+		// 	if (FlxG.keys.pressed.THREE)
+		// 	{
+
+		// 		FlxG.sound.music.pitch += 0.01;
+			
+		// 		// ps.dadVocals.pitch += 0.01;
+		// 		// ps.bfVocals.pitch += 0.01;
+		// 	}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+					#if PLAYSTATE
+					FlxG.sound.music.pitch = 1;
+					#end
+					FlxG.sound.music.pitch = 1;
+
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}	
 		if (controls.ACCEPT)
 		{
 			funkay.setGraphicSize(Std.int(funkay.width + 60));
@@ -139,6 +166,7 @@ class LoadingState extends MusicBeatState
 			FlxG.sound.music.stop();
 		
 		FlxG.switchState(target);
+		FlxG.sound.music.pitch = 1;
 	}
 	
 	static function getSongPath()
@@ -149,10 +177,16 @@ class LoadingState extends MusicBeatState
 	static function getVocalPath()
 	{
 		return Paths.voices(PlayState.SONG.song);
+		return Paths.bfVoices(PlayState.SONG.song);
+		return Paths.dadVoices(PlayState.SONG.song);
 	}
 	
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
+		if(PlayState.storyWeek == 6)
+			{
+		FlxG.sound.music.pitch = 1;				
+			}
 		FlxG.switchState(getNextState(target, stopMusic));
 	}
 	

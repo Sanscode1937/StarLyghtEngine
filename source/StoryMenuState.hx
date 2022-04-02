@@ -1,11 +1,17 @@
 package;
-
+#if !hl
 #if desktop
 import Discord.DiscordClient;
+#end
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileCircle;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileSquare;
+import flixel.addons.transition.TransitionData;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
@@ -22,14 +28,14 @@ class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
 
-	var weekData:Array<Dynamic> = [["Tutorial"], ["Bopeebo", "Fresh", "Dadbattle"], ["Spookeez", "South", "Monster"], ["Pico", "Philly", "Blammed"], ["Satin-Panties", "High", "Milf"], ["Cocoa", "Eggnog", "Winter-Horrorland"], ["Senpai", "Roses", "Thorns"], ["Ugh", "Guns", "Stress"]];
-	var curDifficulty:Int = 1;
+	var weekData:Array<Dynamic> = [["Tutorial"], ["Bopeebo", "Fresh", "Dadbattle"], ["Spookeez", "South", "Monster"], ["Pico", "Philly", "Blammed"], ["Satin-Panties", "High", "Milf"], ["Cocoa", "Eggnog", "Winter-Horrorland"], ["Senpai", "Roses", "Thorns"], ["Ugh", "Guns", "Stress"], ["Accelerant"]];
+	var curDifficulty:Int = 0;
 
 	public static var weekUnlocked:Array<Bool> = [true, true, true, true, true, true, true, true, true];
 
-	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"]];
+	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"], ["bf", "bf", "gf"]];
 
-	var weekNames:Array<String> = "/Daddy Dearest/Spooky Month/PICO/MOMMY MUST MURDER/RED SNOW/hating simulator ft. moawling/TANKMAN".split("/");
+	var weekNames:Array<String> = "---Daddy Dearest---Spooky Month---PICO---MOMMY MUST MURDER---RED SNOW---hating simulator ft. moawling---TANKMAN---HANK FT. MADNESS COMBAT".split("---");
 
 	var txtWeekTitle:FlxText;
 
@@ -46,11 +52,14 @@ class StoryMenuState extends MusicBeatState
 	var sprDifficulty:FlxSprite;
 	var leftArrow:FlxSprite;
 	var rightArrow:FlxSprite;
-
+	var ps:PlayState;
+	var cs:ChartingState;
 	override function create()
 	{
-		transIn = FlxTransitionableState.defaultTransIn;
-		transOut = FlxTransitionableState.defaultTransOut;
+		if(PlayState.storyWeek == 6)
+			{
+		FlxG.sound.music.pitch = 1;				
+			}
 
 		if (FlxG.sound.music != null)
 		{
@@ -88,10 +97,11 @@ class StoryMenuState extends MusicBeatState
 		add(grpLocks);
 
 		trace("Line 70");
-		
+		#if !hl
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
+		#end
 		#end
 
 		for (i in 0...weekData.length)
@@ -211,6 +221,32 @@ class StoryMenuState extends MusicBeatState
 
 		difficultySelectors.visible = weekUnlocked[curWeek];
 
+		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+				// ps.dadVocals.pitch -= 0.01;
+				// ps.bfVocals.pitch -= 0.01;
+				// cs.dadVocals.pitch -= 0.01;
+				// cs.bfVocals.pitch -= 0.01;
+			}
+			if (FlxG.keys.pressed.THREE)
+			{
+
+				FlxG.sound.music.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+				// cs.dadVocals.pitch += 0.01;
+				// cs.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
 			lock.y = grpWeekText.members[lock.ID].y;
@@ -248,6 +284,7 @@ class StoryMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				FlxG.sound.music.pitch = 1;
 				selectWeek();
 			}
 		}

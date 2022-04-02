@@ -6,9 +6,11 @@ import openfl.media.Video;
 import ui.PreferencesMenu;
 import shaderslmfao.BuildingShaders;
 import shaderslmfao.ColorSwap;
+#if !hl
 #if desktop
 import Discord.DiscordClient;
 import sys.thread.Thread;
+#end
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -110,10 +112,11 @@ class TitleStateAlt extends MusicBeatState
 			startIntro();
 		});
 		#end
-
+		#if !hl
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("Title ScreenKS", null);
+		#end
 		#end
 	}
 
@@ -359,6 +362,15 @@ class TitleStateAlt extends MusicBeatState
 		{
 			swagShader.update(0.1 * elapsed);
 		}
+
+		if (controls.UI_LEFT)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+			}
+			if (controls.UI_RIGHT)
+			{
+				FlxG.sound.music.pitch += 0.01;
+			}
 
 		super.update(elapsed);
 	}

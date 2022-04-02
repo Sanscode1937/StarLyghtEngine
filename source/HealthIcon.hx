@@ -7,7 +7,7 @@ using StringTools;
 class HealthIcon extends FlxSprite
 {
 	/**
-	 * Used for FreeplayState! If you use it elsewhere, prob gonna annoying
+	 * Used on class charting state
 	 */
 	public var sprTracker:FlxSprite;
 

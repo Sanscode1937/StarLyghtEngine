@@ -1,5 +1,6 @@
 package;
 
+import MainMenuState.MainMenuItem;
 import Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -17,8 +18,8 @@ class PauseSubState extends MusicBeatSubstate
 {
 	var grpMenuShit:FlxTypedGroup<Alphabet>;
 
-	var pauseOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Toggle Practice Mode', 'Exit to menu'];
-	var difficultyChoices:Array<String> = ['EASY', 'NORMAL', 'HARD', 'BACK'];
+	var pauseOG:Array<String> = ['Resume', 'Restart Song', 'Change Difficulty', 'Toggle Practice Mode', 'Exit to menu', 'Back to main menu'];
+	var difficultyChoices:Array<String> = ['EASY', 'NORMAL', 'HARD', 'ERECT', 'BACK'];
 
 	var menuItems:Array<String> = [];
 	var curSelected:Int = 0;
@@ -148,13 +149,20 @@ class PauseSubState extends MusicBeatSubstate
 				case "Toggle Practice Mode":
 					PlayState.practiceMode = !PlayState.practiceMode;
 					practiceText.visible = PlayState.practiceMode;
-				case "Exit to menu":
+				case "Back":
 					PlayState.seenCutscene = false;
 					PlayState.deathCounter = 0;
 					if (PlayState.isStoryMode)
 						FlxG.switchState(new StoryMenuState());
 					else
 						FlxG.switchState(new FreeplayState());
+				case "Back to main menu":
+					PlayState.seenCutscene = false;
+					PlayState.deathCounter = 0;
+					if (PlayState.isStoryMode)
+						FlxG.switchState(new MainMenuState());
+					else	
+						FlxG.switchState(new MainMenuState());				
 				
 				case "EASY" | "NORMAL" | "HARD":
 					PlayState.SONG = Song.loadFromJson(Highscore.formatSong(PlayState.SONG.song.toLowerCase(), curSelected), PlayState.SONG.song.toLowerCase());

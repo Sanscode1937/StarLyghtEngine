@@ -8,7 +8,11 @@ import flixel.addons.display.FlxGridOverlay;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import openfl.net.FileReference;
+import openfl.events.Event;
+import openfl.events.IOErrorEvent;
 
+using StringTools;
 /**
 	*DEBUG MODE
  */
@@ -37,6 +41,7 @@ class AnimationDebug extends FlxState
 
 		var gridBG:FlxSprite = FlxGridOverlay.create(10, 10);
 		gridBG.scrollFactor.set(0.5, 0.5);
+		gridBG.color = FlxColor.PURPLE;
 		add(gridBG);
 
 		if (daAnim == 'bf')
@@ -72,7 +77,7 @@ class AnimationDebug extends FlxState
 		add(textAnim);
 
 		genBoyOffsets();
-
+		// addOffsetUI();
 		camFollow = new FlxObject(0, 0, 2, 2);
 		camFollow.screenCenter();
 		add(camFollow);
@@ -167,7 +172,7 @@ class AnimationDebug extends FlxState
 		var rightP = FlxG.keys.anyJustPressed([RIGHT]);
 		var downP = FlxG.keys.anyJustPressed([DOWN]);
 		var leftP = FlxG.keys.anyJustPressed([LEFT]);
-
+		var esc = FlxG.keys.justPressed.ESCAPE;
 		var holdShift = FlxG.keys.pressed.SHIFT;
 		var multiplier = 1;
 		if (holdShift)
@@ -189,7 +194,72 @@ class AnimationDebug extends FlxState
 			genBoyOffsets(false);
 			char.playAnim(animList[curAnim]);
 		}
+		if(esc)
+		{
+			saveOffsets();
+		}	
+
+		if (FlxG.keys.justPressed.ENTER)
+			{
+				FlxG.switchState(new TitleState());//the normal way to leave this stage is close the game right, but now you can press enter to leave this stage but go into titlestate lol	
+			}
 
 		super.update(elapsed);
 	}
+
+	var _file:FileReference;
+
+	function saveOffsets():Void
+		{
+			var result = "";
+	
+			for (anim => offsets in char.animOffsets)
+			{
+				var text = anim + " " + offsets.join(" ");
+				result += text + "\n";
+			}
+	
+			if ((result != null) && (result.length > 0))
+			{
+				_file = new FileReference();
+				_file.addEventListener(Event.COMPLETE, onSaveComplete);
+				_file.addEventListener(Event.CANCEL, onSaveCancel);
+				_file.addEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+				_file.save(result.trim(), daAnim + "Offsets.txt");
+			}
+		}
+	
+		/**
+		 * Called when the save file dialog is completed.
+		 */
+		function onSaveComplete(_):Void
+		{
+			_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+			_file.removeEventListener(Event.CANCEL, onSaveCancel);
+			_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+			_file = null;
+			FlxG.log.notice("Successfully saved OFFSET DATA.");
+		}
+	
+		/**
+		 * Called when the save file dialog is cancelled.
+		 */
+		function onSaveCancel(_):Void
+		{
+			_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+			_file.removeEventListener(Event.CANCEL, onSaveCancel);
+			_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+			_file = null;
+		}	
+
+		function onSaveError(_):Void
+			{
+				_file.removeEventListener(Event.COMPLETE, onSaveComplete);
+				_file.removeEventListener(Event.CANCEL, onSaveCancel);
+				_file.removeEventListener(IOErrorEvent.IO_ERROR, onSaveError);
+				_file = null;
+				FlxG.log.error("Problem saving Offset data");
+			}
+		
+
 }

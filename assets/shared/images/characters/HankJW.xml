@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TextureAtlas imagePath="HankJW.png">
+	<!-- Created with Adobe Animate version 21.0.2.37893 -->
+	<!-- http://www.adobe.com/products/animate.html -->
+	<SubTexture name="Hank Down Note instance 10000" x="1217" y="1824" width="530" height="656" frameX="-12" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10001" x="1217" y="1824" width="530" height="656" frameX="-12" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10002" x="3356" y="1222" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10003" x="3356" y="1222" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10004" x="0" y="1826" width="530" height="656" frameX="-15" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10005" x="0" y="1826" width="530" height="656" frameX="-15" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10006" x="1860" y="1222" width="545" height="656"/>
+	<SubTexture name="Hank Down Note instance 10007" x="1860" y="1222" width="545" height="656"/>
+	<SubTexture name="Hank Down Note instance 10008" x="2405" y="1819" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10009" x="2405" y="1819" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10010" x="3356" y="1222" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10011" x="3356" y="1222" width="542" height="656" frameX="-3" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10012" x="0" y="1826" width="530" height="656" frameX="-15" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Down Note instance 10013" x="0" y="1826" width="530" height="656" frameX="-15" frameY="0" frameWidth="545" frameHeight="656"/>
+	<SubTexture name="Hank Idle instance 10000" x="530" y="1826" width="426" height="594" frameX="0" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10001" x="530" y="1826" width="426" height="594" frameX="0" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10002" x="3588" y="0" width="426" height="595" frameX="-1" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10003" x="3588" y="0" width="426" height="595" frameX="-1" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10004" x="1747" y="1878" width="420" height="596" frameX="-4" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10005" x="1747" y="1878" width="420" height="596" frameX="-4" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10006" x="943" y="2480" width="410" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10007" x="943" y="2480" width="410" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10008" x="3361" y="1878" width="417" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10009" x="3361" y="1878" width="417" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10010" x="2157" y="2475" width="412" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10011" x="2157" y="2475" width="412" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10012" x="2569" y="2480" width="409" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Idle instance 10013" x="2569" y="2480" width="409" height="596" frameX="-6" frameY="0" frameWidth="427" frameHeight="596"/>
+	<SubTexture name="Hank Left Note instance 10000" x="1486" y="610" width="634" height="610" frameX="-93" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10001" x="1486" y="0" width="717" height="610" frameX="-10" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10002" x="745" y="0" width="741" height="611" frameX="0" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10003" x="2120" y="611" width="620" height="611" frameX="-121" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10004" x="3364" y="611" width="611" height="611" frameX="-119" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10005" x="2901" y="0" width="687" height="611" frameX="-43" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10006" x="0" y="0" width="745" height="611"/>
+	<SubTexture name="Hank Left Note instance 10007" x="0" y="611" width="624" height="611" frameX="-121" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10008" x="624" y="611" width="622" height="611" frameX="-119" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10009" x="2203" y="0" width="698" height="611" frameX="-43" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10010" x="745" y="0" width="741" height="611" frameX="0" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10011" x="2120" y="611" width="620" height="611" frameX="-121" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10012" x="3364" y="611" width="611" height="611" frameX="-119" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Left Note instance 10013" x="2901" y="0" width="687" height="611" frameX="-43" frameY="0" frameWidth="745" frameHeight="611"/>
+	<SubTexture name="Hank Up note instance 10000" x="2947" y="1878" width="414" height="602" frameX="0" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10001" x="2947" y="1878" width="414" height="602" frameX="0" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10002" x="1747" y="2474" width="410" height="601" frameX="-8" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10003" x="1747" y="2474" width="410" height="601" frameX="-8" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10004" x="0" y="2482" width="405" height="601" frameX="-13" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10005" x="0" y="2482" width="405" height="601" frameX="-13" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10006" x="530" y="2420" width="413" height="601" frameX="-5" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10007" x="530" y="2420" width="413" height="601" frameX="-5" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10008" x="3361" y="2474" width="409" height="601" frameX="-9" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10009" x="3361" y="2474" width="409" height="601" frameX="-9" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10010" x="1747" y="2474" width="410" height="601" frameX="-8" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10011" x="1747" y="2474" width="410" height="601" frameX="-8" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10012" x="0" y="2482" width="405" height="601" frameX="-13" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank Up note instance 10013" x="0" y="2482" width="405" height="601" frameX="-13" frameY="0" frameWidth="418" frameHeight="602"/>
+	<SubTexture name="Hank right note instance 10000" x="610" y="1222" width="607" height="604" frameX="-25" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10001" x="610" y="1222" width="607" height="604" frameX="-25" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10002" x="2740" y="1215" width="616" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10003" x="2740" y="1215" width="616" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10004" x="0" y="1222" width="610" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10005" x="0" y="1222" width="610" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10006" x="1246" y="1220" width="614" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10007" x="1246" y="1220" width="614" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+	<SubTexture name="Hank right note instance 10008" x="2740" y="611" width="624" height="604" frameX="0" frameY="0" frameWidth="632" frameHeight="604"/>
+</TextureAtlas>

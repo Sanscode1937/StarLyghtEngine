@@ -1,109 +1,59 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-#end
-import animate.FlxAnimate;
+import flxanimate.FlxAnimate;
 import flixel.FlxState;
-import flixel.FlxG;
 import flixel.addons.display.FlxGridOverlay;
-import flixel.text.FlxText;
-import animateAtlasPlayer.core.Animation;
-import animateAtlasPlayer.assets.AssetManager;
-import flixel.animation.FlxAnimationController;
-import Song.SwagSong;
-import flixel.FlxSprite;
-import flixel.FlxObject;
-import shaderslmfao.BuildingShaders;
-import shaderslmfao.ColorSwap;
-import openfl.display.BlendMode;
-
-using StringTools;
+import flixel.FlxG;
 
 class CutsceneAnimTestState extends FlxState
 {
-	var controls:Controls;
-	var curSelected:Int = 0;
-	var debugTxt:FlxText;
-	var swagShader:ColorSwap;
-	var alphaShader:BuildingShaders;
-	var paused:Bool = false;
-	private var opponent:Character;
-	public static var SONG:SwagSong;
+	var fromAnimate:FlxAnimate;
 
 	override public function create()
 	{
+		FlxG.sound.music.stop();
 
-		swagShader = new ColorSwap();
-		alphaShader = new BuildingShaders();
+		var bg = FlxGridOverlay.create(10, 10, FlxG.width * 4, FlxG.height * 4);
+		bg.scrollFactor.set(0.5, 0.5);
+		bg.screenCenter();
+		add(bg);
 
-		var a = FlxGridOverlay.create(10, 10);
-		a.scrollFactor.set(.5, .5);
-		add(a);
-		debugTxt = new FlxText(900, 20, 0, "", 20);
-		debugTxt.color = 0xFF0000FF;
-		add(debugTxt);
-		var basedX:Int = 100;
-		var basedY:Int = 134;
-		#if desktop
-		DiscordClient.changePresence("EasterEgg", null);
-		#end		
-		// var assets:AssetManager = new AssetManager();
-		// // target the folder that contains the Animation.json, spritemap.json and spritemap.png
-		// assets.enqueue("assets/images/tightBars"); 
-		// assets.loadQueue(start);
-		
+		fromAnimate = new FlxAnimate(0, 0, 'assets/images/gfDemon');
+		fromAnimate.antialiasing = true;
+		// fromAnimate.playAnim('');
+		add(fromAnimate);
+		fromAnimate.anim.draw();
 
-		
-            var prototypeTest:FlxSprite;
-            prototypeTest = new FlxSprite(100,134);
-            prototypeTest.frames = AtlasFrameMakerGPU.construct('assets/images/cutsceneStuff/tightBars');
-            prototypeTest.animation.add("tightBars", numArr(1,324), 30, false);
-            prototypeTest.antialiasing = true;
-			add(prototypeTest);
-			prototypeTest.animation.play('tightBars');
-			
-			prototypeTest.animation.callback = function(idle, frameNumber:Int, frameIndex:Int)
-				{
-					if (FlxG.keys.justPressed.LEFT)
-						{
-							frameNumber = -1;
-						}        
-					if (FlxG.keys.justPressed.RIGHT)
-						{
-							frameNumber = 1;
-						}    
-				}  
-				
-				if (FlxG.mouse.justPressed)
-					{
-						FlxG.switchState(new MainMenuState());
-					}
-					if (FlxG.mouse.wheel != 0)
-						{
-							// Mouse wheel logic goes here, for example zooming in / out: so >:))))))))))))))))
-							FlxG.camera.zoom += (FlxG.mouse.wheel / 10);
-						}	
-
+		super.create();
 	}
 
-	// private function start(assetsMgr:AssetManager):Void {
-	
-	// 	var tankTest:Animation = assetsMgr.createAnimation("TANK TALK 2");
-	// 	add(tankTest);
-	// }
+	override public function update(elapsed:Float)
+	{
+		// if(FlxG.keys.pressed.LEFT)
+		// {
+		// 	char.framerate -= 1;
+		// }
+		// if(FlxG.keys.pressed.RIGHT)
+		// {
+		// 	char.framerate += 1;
+		// }				
 
-	public function numArr(min,max):Array<Int>
-	{	
-		var a = [];
-		var l = max - min;
-		var p = min;
-		for (i in 0...l){
-			a.push(p);
-			p++;
+		if (FlxG.keys.justPressed.SPACE)
+		{
+			if (!fromAnimate.isPlaying)
+				fromAnimate.playAnim();
+			else
+				fromAnimate.pauseAnim();
 		}
-		trace(a);
-		return a;
+
+		fromAnimate.x = 540;
+		fromAnimate.y = 440;
+
+		if (FlxG.keys.justPressed.E)
+			FlxG.camera.zoom += 0.25;
+		if (FlxG.keys.justPressed.Q)
+			FlxG.camera.zoom -= 0.25;
+
+		super.update(elapsed);
 	}
-	
 }

@@ -22,6 +22,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		var daStage = PlayState.curStage;
 		var daBf:String = '';
+		var daSong = PlayState.SONG.song.toLowerCase;
 		switch (daStage)
 		{
 			case 'school' | 'schoolEvil':
@@ -34,6 +35,10 @@ class GameOverSubstate extends MusicBeatSubstate
 		{
 			daBf = 'bf-holding-gf-dead';
 		}
+		if (PlayState.SONG.song.toLowerCase() == 'dadbattle-erect')
+		{
+			daBf = 'bf-erect';
+		}		
 
 		super();
 
@@ -66,7 +71,32 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+				// ps.dadVocals.pitch -= 0.01;
+				// ps.bfVocals.pitch -= 0.01;
+				// cs.dadVocals.pitch -= 0.01;
+				// cs.bfVocals.pitch -= 0.01;
+			}
+			if (FlxG.keys.pressed.THREE)
+			{
 
+				FlxG.sound.music.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+				// cs.dadVocals.pitch += 0.01;
+				// cs.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
 		if (controls.ACCEPT)
 		{
 			endBullshit();

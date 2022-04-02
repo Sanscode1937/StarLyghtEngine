@@ -8,7 +8,7 @@ import flixel.text.FlxText;
 import polymod.Polymod;
 import sys.FileSystem;
 
-class ModdingSubState extends  MusicBeatSubstate
+class ModdingSubState extends MusicBeatSubstate
 {   
    var grpMods:FlxTypedGroup<ModMenuItem>;
    var enabledMods:Array<String> = [];
@@ -20,7 +20,7 @@ class ModdingSubState extends  MusicBeatSubstate
     {
             super();
             
-            grpMods = new FlxGroupTypedGroup<ModMenuItem>();
+            grpMods = new FlxTypedGroup<ModMenuItem>();
             add(grpMods);
 
             refreshModList();
@@ -76,7 +76,7 @@ class ModdingSubState extends  MusicBeatSubstate
 
         for (file in  FileSystem.readDirectory('./mods'))
         {
-            if(Filesystem.isDirectory('./mods' + file))
+            if(FileSystem.isDirectory('./mods' + file))
                 modFolders.push(file);
         }
 
@@ -108,13 +108,13 @@ class ModMenuItem extends TextField
         super(x, y, w, str, size);
     }   
 
-    override function update(elapsed:Float) {
+    override function __update(elapsed:Float) {
         if(modEnabled)
             alpha = 1;
         else
             alpha = 0.5;
 
-        super.update(elapsed);
+        super.__update(elapsed);
     }
     
 }

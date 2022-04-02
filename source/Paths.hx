@@ -109,6 +109,16 @@ class Paths
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
 
+	inline static public function bfVoices(song:String)
+		{
+			return 'songs:assets/songs/${song.toLowerCase()}/BfVoices.$SOUND_EXT';
+		}
+
+	inline static public function dadVoices(song:String)
+		{
+			return 'songs:assets/songs/${song.toLowerCase()}/DadVoices.$SOUND_EXT';
+		}
+
 	inline static public function inst(song:String)
 	{
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
@@ -118,6 +128,11 @@ class Paths
 	{
 		return getPath('images/$key.png', IMAGE, library);
 	}
+
+	inline static public function getSwf(key:String, ?library:String)
+		{
+			return getPath('images/$key.swf', TEXT, library);
+		}
 
 	inline static public function font(key:String)
 	{

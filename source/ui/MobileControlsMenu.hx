@@ -1,11 +1,10 @@
 package ui;
 
-class MobileControlsMenu extends ui.OptionsState.Page
+class MobileControlsMenu extends Page
 {
     public function new()
     {
         super();
-
-        
+        //NOOO MORE SHIT!!!!!
     }
 }

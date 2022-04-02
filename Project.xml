@@ -41,7 +41,7 @@
 	<classpath name="source" />
 
 	<assets path="assets/preload" rename="assets" exclude="*.ogg" if="web"/>
-	<assets path="assets/preload" rename="assets" exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	
 	<!-- <define name="PRELOAD_ALL" /> -->
 	<define name="PRELOAD_ALL" unless="web" />
@@ -57,6 +57,7 @@
 		<library name="week5"    preload="true" />
 		<library name="week6"    preload="true" />
 		<library name="week7"    preload="true" />
+		<library name="week8"    preload="true" />		
 	</section>
 	
 	<section if="NO_PRELOAD_ALL">
@@ -69,33 +70,36 @@
 		<library name="week5"    preload="false" />
 		<library name="week6"    preload="false" />
 		<library name="week7"    preload="false" />
+		<library name="week8"    preload="false" />
 	</section>
 	
-	<assets path="plugins/"             rename=''               if="windows" />
 	<assets path="dlls/"                rename=''               if="windows" />
-	<assets path="plugins/"             rename=''               if="web" />
 	<assets path="dlls/"                rename=''               if="web" />	
+	<assets path="plugins/"              if="windows" />
+	<assets path="plugins/"              if="web" />		
 
 	<assets path="assets/songs"    library="songs"    exclude="*.ogg" if="web"/>
-	<assets path="assets/songs"    library="songs"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/songs"    library="songs"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/shared"   library="shared"   exclude="*.ogg" if="web"/>
-	<assets path="assets/shared"   library="shared"   exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/shared"   library="shared"   exclude="*.mp3" unless="web"/>
 	<assets path="assets/tutorial"    library="tutorial"    exclude="*.ogg" if="web"/>
-	<assets path="assets/tutorial"    library="tutorial"    exclude="*.mp3|*.mp4" unless="web"/>	
+	<assets path="assets/tutorial"    library="tutorial"    exclude="*.mp3" unless="web"/>	
 	<assets path="assets/week1"    library="week1"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week1"    library="week1"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week1"    library="week1"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week2"    library="week2"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week2"    library="week2"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week2"    library="week2"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week3"    library="week3"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week3"    library="week3"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week3"    library="week3"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week4"    library="week4"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week4"    library="week4"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week4"    library="week4"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week5"    library="week5"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week5"    library="week5"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week5"    library="week5"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week6"    library="week6"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week6"    library="week6"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week6"    library="week6"    exclude="*.mp3" unless="web"/>
 	<assets path="assets/week7"    library="week7"    exclude="*.ogg" if="web"/>
-	<assets path="assets/week7"    library="week7"    exclude="*.mp3|*.mp4" unless="web"/>
+	<assets path="assets/week7"    library="week7"    exclude="*.mp3" unless="web"/>
+	<assets path="assets/week8"    library="week8"    exclude="*.ogg" if="web"/>
+	<assets path="assets/week8"    library="week8"    exclude="*.mp3" unless="web"/>	
 	
 	<assets path='example_mods' rename='mods' embed='false'/>
 	<assets path='art/readme.txt' rename='do NOT readme.txt' />
@@ -118,14 +122,17 @@
 	<haxelib name="flixel-addons" />
 	<haxelib name="hscript" />
 
-	<haxelib name="animate-cc-openfl" />
+	<!-- swf shit -->
+	<haxelib name="swf" />
+	<!-- TextureAtlas -->
+	<haxelib name="flxanimate" />	
 
 	<!--In case you want to use the ui package-->
 	<haxelib name="flixel-ui" />
+	<haxelib name="newgrounds"/>
 	<haxelib name="faxe" if='switch'/>
 	<haxelib name="polymod"/>
-	<haxelib name="discord_rpc" if="desktop"/>
-	<haxelib name="roxlib" unless="desktop"/>
+	<haxelib name="discord_rpc" if="desktop" unless="hl"/>
 
 	<!--Disable the Flixel core focus lost screen-->
 	<haxedef name="FLX_NO_FOCUS_LOST_SCREEN" />

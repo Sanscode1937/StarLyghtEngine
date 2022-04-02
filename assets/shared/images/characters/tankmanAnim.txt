@@ -1,0 +1,5 @@
+idle Tankman Idle Dance
+singRIGHT Tankman Note Left 
+singLEFT Tankman Right Note 
+singDOWN Tankman DOWN note 
+singUP Tankman UP note 

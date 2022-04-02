@@ -1,38 +1,27 @@
 package;
 
-import openfl.display.Sprite;
-import openfl.net.NetStream;
-import openfl.media.Video;
 import ui.PreferencesMenu;
 import shaderslmfao.BuildingShaders;
 import shaderslmfao.ColorSwap;
 #if desktop
 import Discord.DiscordClient;
-import sys.thread.Thread;
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
-import flixel.FlxState;
-import flixel.addons.display.FlxGridOverlay;
-import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.FlxTransitionableState;
+import flixel.addons.transition.FlxTransitionSprite.GraphicTransTileDiamond;
 import flixel.addons.transition.TransitionData;
 import flixel.graphics.FlxGraphic;
-import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.group.FlxGroup;
 import flixel.input.gamepad.FlxGamepad;
 import flixel.math.FlxPoint;
 import flixel.math.FlxRect;
 import flixel.system.FlxSound;
-import flixel.system.ui.FlxSoundTray;
-import flixel.text.FlxText;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
-import lime.app.Application;
 import openfl.Assets;
-import openfl.Lib;
 
 using StringTools;
 
@@ -54,21 +43,22 @@ class TitleState extends MusicBeatState
 
 	var swagShader:ColorSwap;
 	var alphaShader:BuildingShaders;
-
+	var lightFadeShader:BuildingShaders;
 	var music:FlxSound;
-
-	#if web
-	var video:Video;
-	var netStream:NetStream;
-	var overlay:Sprite;
-	#end
+	var ps:PlayState;
+	var cs:ChartingState;
+	// #if web
+	// var video:Video;
+	// var netStream:NetStream;
+	// var overlay:Sprite;
+	// #end
 
 	override public function create():Void
 	{
-		// #if polymod
-		// polymod.Polymod.init({modRoot: "mods", dirs: ['introMod'], framework: OPENFL});
-		// trace('reinitialized');
-		// #end
+		#if polymod
+		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod'], frameworkParams:{}});
+		trace('reinitialized');
+		#end
 
 		FlxG.game.focusLostFramerate = 60;
 
@@ -101,10 +91,10 @@ class TitleState extends MusicBeatState
 				StoryMenuState.weekUnlocked[0] = true;
 		}
 
-		if (FlxG.save.data.seenVideo != null)
-		{
-			VideoState.seenVideo = FlxG.save.data.seenVideo;
-		}
+		// if (FlxG.save.data.seenVideo != null)
+		// {
+		// 	VideoState.seenVideo = FlxG.save.data.seenVideo;
+		// }
 
 		#if FREEPLAY
 		FlxG.switchState(new FreeplayState());
@@ -116,42 +106,43 @@ class TitleState extends MusicBeatState
 			startIntro();
 		});
 		#end
-
+		#if !hl
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.initialize();
 		#end
+		#end
 	}
 
-	#if web
-	function client_onMetaData(a)
-	{
-		video.attachNetStream(netStream);
-		video.width = video.videoWidth;
-		video.height = video.videoHeight;
-	}
+	// #if web
+	// function client_onMetaData(a)
+	// {
+	// 	video.attachNetStream(netStream);
+	// 	video.width = video.videoWidth;
+	// 	video.height = video.videoHeight;
+	// }
 
-	function netStream_onAsyncError(a)
-	{
-		trace("Error loading video");
-	}
+	// function netStream_onAsyncError(a)
+	// {
+	// 	trace("Error loading video");
+	// }
 
-	function netConnection_onNetStatus(a)
-	{
-		if (a.info.code == 'NetStream.Play.Complete')
-		{
-			startIntro();
-		}
-		trace(a.toString());
-	}
+	// function netConnection_onNetStatus(a)
+	// {
+	// 	if (a.info.code == 'NetStream.Play.Complete')
+	// 	{
+	// 		startIntro();
+	// 	}
+	// 	trace(a.toString());
+	// }
 
-	function overlay_onMouseDown(a)
-	{
-		netStream.soundTransform.volume = 0.2;
-		netStream.soundTransform.pan = -1;
-		Lib.current.stage.removeChild(overlay);
-	}
-	#end
+	// function overlay_onMouseDown(a)
+	// {
+	// 	netStream.soundTransform.volume = 0.2;
+	// 	netStream.soundTransform.pan = -1;
+	// 	Lib.current.stage.removeChild(overlay);
+	// }
+	// #end
 
 	var logoBl:FlxSprite;
 	var gfDance:FlxSprite;
@@ -182,13 +173,14 @@ class TitleState extends MusicBeatState
 			// music.loadStream(Paths.music('freakyMenu'));
 			// FlxG.sound.list.add(music);
 			// music.play();
-			// if (controls.UI_LEFT)
-			// 	{
-			// 		music.pitch = 1;
+			// if (controls.UI_LEFT)//suck my dick you stupid hard code fuck
+			// 	{		
+			// 		FlxG.sound.music.pitch -= 0.1;
+			// 		// FlxG.music.pitch -= 0.1;
 			// 	}
 			// 	if (controls.UI_RIGHT)
 			// 	{
-			// 		music.pitch = -1;
+			// 		FlxG.sound.music.pitch += 0.1;
 			// 	}
 			
 			FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
@@ -202,13 +194,22 @@ class TitleState extends MusicBeatState
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		// bg.antialiasing = true;
 		// bg.setGraphicSize(Std.int(bg.width * 0.6));
-		// bg.updateHitbox();
+		// bg.shader = swagShader.shader;
+		bg.shader = swagShader.shader;
 		add(bg);
+		lightFadeShader = new BuildingShaders();
+		for (i in 0...5)
+			{
+					var light:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
+					light.shader = lightFadeShader.shader;
+					add(light);
+			}
 
 		logoBl = new FlxSprite(-150, -100);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = true;
-		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
+		logoBl.animation.addByIndices('danceLeft', 'logo bumpin', [13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
+		logoBl.animation.addByIndices('danceRight', 'logo bumpin', [13, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13], "", 24, false);
 		logoBl.animation.play('bump');
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
@@ -279,7 +280,7 @@ class TitleState extends MusicBeatState
 		{
 			FlxG.sound.music.onComplete = function()
 			{
-				FlxG.switchState(new TitleStateAlt());
+
 			}
 		}
 	}
@@ -333,10 +334,10 @@ class TitleState extends MusicBeatState
 
 		var pressedEnter:Bool = FlxG.keys.justPressed.ENTER;
 
-		if (FlxG.keys.justPressed.FIVE)
-		{
-			FlxG.switchState(new CutsceneAnimTestState());
-		}
+		// if (FlxG.keys.justPressed.FIVE)
+		// {
+		// 	FlxG.switchState(new CutsceneAnimTestState());
+		// }
 
 		#if mobile
 		for (touch in FlxG.touches.list)
@@ -399,15 +400,43 @@ class TitleState extends MusicBeatState
 			skipIntro();
 		}
 
-		if (controls.UI_LEFT)
+		if (controls.UI_LEFT)//suck my dick you stupid hard code fuck
 		{
-			swagShader.update(0.1 * -elapsed);
+			swagShader.update(0.1 * -elapsed);	
+			// FlxG.sound.music.pitch -= 0.1;		
 		}
 		if (controls.UI_RIGHT)
 		{
+			// FlxG.sound.music.pitch += 0.1;
 			swagShader.update(0.1 * elapsed);
 		}
 
+		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+			}
+			if (FlxG.keys.pressed.THREE)
+			{
+
+				FlxG.sound.music.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+				// cs.dadVocals.pitch += 0.01;
+				// cs.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
+				// if (FlxG.keys.justPressed.SIX)
+				// 	{
+				// 		swagShader.update(1);
+				// 	}
 		super.update(elapsed);
 	}
 
@@ -449,9 +478,18 @@ class TitleState extends MusicBeatState
 		danceLeft = !danceLeft;
 
 		if (danceLeft)
+			{
 			gfDance.animation.play('danceRight');
+			logoBl.animation.play('danceRight');	
+			lightFadeShader.update(1.5 * (Conductor.crochet / 1000) * FlxG.elapsed);			
+			}
 		else
+			{
 			gfDance.animation.play('danceLeft');
+			logoBl.animation.play('danceLeft');				
+			lightFadeShader.update(1.5 * (Conductor.crochet / 1000) * FlxG.elapsed);
+			}
+
 
 		FlxG.log.add(curBeat);
 

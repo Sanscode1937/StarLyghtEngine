@@ -1,7 +1,10 @@
 package;
 
+import flixel.util.FlxTimer;
+#if !hl
 #if desktop
 import Discord.DiscordClient;
+#end
 #end
 import flash.text.TextField;
 import flixel.FlxG;
@@ -21,13 +24,16 @@ class FreeplayState extends MusicBeatState
 
 	var selector:FlxText;
 	var curSelected:Int = 0;
-	var curDifficulty:Int = 1;
+	var curDifficulty:Int = 0;
 
 	var bg:FlxSprite;
 	var scoreBG:FlxSprite;
 	var scoreText:FlxText;
 	var diffText:FlxText;
+	var diffic:String = "";
 	var lerpScore:Float = 0;
+	var ps:PlayState;
+	var cs:ChartingState;
 	var intendedScore:Int = 0;
 
 	private var grpSongs:FlxTypedGroup<Alphabet>;
@@ -39,6 +45,12 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
+
+		if(PlayState.storyWeek == 6)
+			{
+		FlxG.sound.music.pitch = 1;				
+			}
+
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -53,10 +65,11 @@ class FreeplayState extends MusicBeatState
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 			}
 		 */
-
+		 #if !hl
 		#if desktop
 		// Updating Discord Rich Presence
-		DiscordClient.changePresence("In the Menus", null);
+		DiscordClient.changePresence("In the Freeplay", null);
+		#end
 		#end
 
 		if (!FlxG.sound.music.playing)
@@ -86,7 +99,10 @@ class FreeplayState extends MusicBeatState
 			addWeek(['Ugh', 'Guns', 'Stress'], 7, ['tankman']);
 
 		if (StoryMenuState.weekUnlocked[8])
-			addWeek([''], 8, ['face']);
+			addWeek(['Accelerant'], 8, ['hank']);	
+
+		if (StoryMenuState.weekUnlocked[9])
+			addWeek(['South-Erect', 'Dadbattle-Erect'], 9, ['dad', 'spooky']);		
 
 		// LOAD MUSIC
 
@@ -174,7 +190,7 @@ class FreeplayState extends MusicBeatState
 	public function addWeek(songs:Array<String>, weekNum:Int, ?songCharacters:Array<String>)
 	{
 		if (songCharacters == null)
-			songCharacters = ['bf'];
+			songCharacters = ['bf-pixel'];
 
 		var num:Int = 0;
 		for (song in songs)
@@ -217,8 +233,36 @@ class FreeplayState extends MusicBeatState
 
 		var upP = controls.UI_UP_P;
 		var downP = controls.UI_DOWN_P;
+		var leftP = controls.UI_LEFT_P;
+		var rightP = controls.UI_RIGHT_P;
 		var accepted = controls.ACCEPT;
 
+		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+				// ps.dadVocals.pitch -= 0.01;
+				// ps.bfVocals.pitch -= 0.01;
+				// cs.dadVocals.pitch -= 0.01;
+				// cs.bfVocals.pitch -= 0.01;
+			}
+			if (FlxG.keys.pressed.THREE)
+			{
+
+				FlxG.sound.music.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+				// cs.dadVocals.pitch += 0.01;
+				// cs.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
 		if (upP)
 		{
 			changeSelection(-1);
@@ -248,10 +292,10 @@ class FreeplayState extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
-
+			FlxG.sound.music.pitch = 1;
 			PlayState.storyWeek = songs[curSelected].week;
-			trace('CUR WEEK' + PlayState.storyWeek);
-			LoadingState.loadAndSwitchState(new PlayState());
+			trace('ON WEEK: ' + PlayState.storyWeek);
+			LoadingState.loadAndSwitchState(new PlayState(), true);
 		}
 	}
 
@@ -270,6 +314,29 @@ class FreeplayState extends MusicBeatState
 
 		PlayState.storyDifficulty = curDifficulty;
 		diffText.text = '< ' + CoolUtil.difficultyString() + ' >';
+
+
+		switch (curDifficulty)
+		{
+			case 0:
+				diffic = '-easy';
+			case 2:
+				diffic = '-hard';
+			case 3:
+				diffic = '-erect';					
+		}
+		
+		// switch (curDifficulty)
+		// {
+		// 	case 0:
+		// 		diffText.text = "< EASY >";
+		// 	case 1:
+		// 		diffText.text = "< NORMAL >";
+		// 	case 2:
+		// 		diffText.text = "< HARD >";
+		// 	case 3:
+		// 		diffText.text = "< ERECT >";
+		// }
 		positionHighscore();
 	}
 

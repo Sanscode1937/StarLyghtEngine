@@ -93,11 +93,33 @@ class WiggleShader extends FlxShader
 		{
 			float x = 0.0;
 			float y = 0.0;
-			
+
+            if (effectType == EFFECT_TYPE_DREAMY) 
 			if (effectType == EFFECT_TYPE_DREAMY) 
+            if (effectType == EFFECT_TYPE_DREAMY) 
+			if (effectType == EFFECT_TYPE_DREAMY) 
+            if (effectType == EFFECT_TYPE_DREAMY) 
+			if (effectType == EFFECT_TYPE_DREAMY) 
+            if (effectType == EFFECT_TYPE_DREAMY) 
+			if (effectType == EFFECT_TYPE_DREAMY) 
+            if (effectType == EFFECT_TYPE_DREAMY) 
+			if (effectType == EFFECT_TYPE_DREAMY) 
+            if (effectType == EFFECT_TYPE_DREAMY) 
 			{
-				float offsetX = sin(pt.y * uFrequency + uTime * uSpeed) * uWaveAmplitude;
-                pt.x += offsetX; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
+				float w = 1.0 / openfl_TextureSize.y;
+				float h = 1.0 / openfl_TextureSize.x;
+
+				// look mom, I know how to write shaders now
+
+				pt.x = floor(pt.x / h) * h;
+
+				float offsetX = sin(pt.x * uFrequency + uTime * uSpeed) * uWaveAmplitude;
+				pt.y += floor(offsetX / w) * w; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
+
+				pt.y = floor(pt.y / w) * w;
+
+				float offsetY = sin(pt.y * (uFrequency / 2.0) + uTime * (uSpeed / 2.0)) * (uWaveAmplitude / 2.0);
+				pt.x += floor(offsetY / h) * h; // * (pt.y - 1.0); // <- Uncomment to stop bottom part of the screen from moving
 			}
 			else if (effectType == EFFECT_TYPE_WAVY) 
 			{
@@ -117,7 +139,7 @@ class WiggleShader extends FlxShader
 				y = sin(pt.y * uFrequency + 10.0 * pt.x + uTime * uSpeed) * uWaveAmplitude;
 				x = sin(pt.x * uFrequency + 5.0 * pt.y + uTime * uSpeed) * uWaveAmplitude;
 			}
-			
+
 			return vec2(pt.x + x, pt.y + y);
 		}
 

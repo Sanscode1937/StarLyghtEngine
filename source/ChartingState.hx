@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxObject;
 import Conductor.BPMChangeEvent;
 import Section.SwagSection;
 import Song.SwagSong;
@@ -7,30 +8,22 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
 import flixel.addons.ui.FlxInputText;
-import flixel.addons.ui.FlxUI9SliceSprite;
 import flixel.addons.ui.FlxUI;
 import flixel.addons.ui.FlxUICheckBox;
 import flixel.addons.ui.FlxUIDropDownMenu;
 import flixel.addons.ui.FlxUIInputText;
 import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUITabMenu;
-import flixel.addons.ui.FlxUITooltip.FlxUITooltipStyle;
-import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.group.FlxGroup;
 import flixel.math.FlxMath;
-import flixel.math.FlxPoint;
 import flixel.system.FlxSound;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
-import flixel.ui.FlxSpriteButton;
 import flixel.util.FlxColor;
 import haxe.Json;
-import lime.utils.Assets;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
-import openfl.media.Sound;
 import openfl.net.FileReference;
-import openfl.utils.ByteArray;
 
 using StringTools;
 
@@ -45,12 +38,13 @@ class ChartingState extends MusicBeatState
 	 * Usually rounded up??
 	 */
 	var curSection:Int = 0;
-
+	var camFollow:FlxObject;
 	public static var lastSection:Int = 0;
 
 	var bpmTxt:FlxText;
 
 	var strumLine:FlxSprite;
+	var fakestrumLine:FlxSprite;
 	var curSong:String = 'Dadbattle';
 	var amountSteps:Int = 0;
 	var bullshitUI:FlxGroup;
@@ -63,6 +57,7 @@ class ChartingState extends MusicBeatState
 
 	var curRenderedNotes:FlxTypedGroup<Note>;
 	var curRenderedSustains:FlxTypedGroup<FlxSprite>;
+	var ps:PlayState;
 
 	var gridBG:FlxSprite;
 
@@ -76,15 +71,28 @@ class ChartingState extends MusicBeatState
 
 	var tempBpm:Int = 0;
 
-	var vocals:FlxSound;
+	var flexSound:FlxSound;
+
+	public var vocals:FlxSound;
+	public var bfVocals:FlxSound;
+	public var dadVocals:FlxSound;
 
 	var leftIcon:HealthIcon;
 	var rightIcon:HealthIcon;
 
 	override function create()
 	{
-		curSection = lastSection;
+		// FlxG.camera.zoom = 0.9;
+		// FlxG.camera.y -= 50;
 
+		camFollow = new FlxObject(0, 0, 2, 2);
+		camFollow.screenCenter();
+		add(camFollow);
+
+		FlxG.camera.follow(camFollow);
+
+		curSection = lastSection;
+		FlxG.sound.music.pitch = 1;
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
 		add(gridBG);
 
@@ -145,8 +153,10 @@ class ChartingState extends MusicBeatState
 
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(FlxG.width / 2), 4);
 		add(strumLine);
+		
 
-		dummyArrow = new FlxSprite().makeGraphic(GRID_SIZE, GRID_SIZE);
+		dummyArrow = new FlxSprite().makeGraphic(GRID_SIZE, GRID_SIZE,FlxColor.RED);
+		dummyArrow.alpha = 0.3;
 		add(dummyArrow);
 
 		var tabs = [
@@ -187,6 +197,8 @@ class ChartingState extends MusicBeatState
 			trace('CHECKED!');
 		};
 
+		// var change_diff = new FlxUIDropDownMenu
+
 		var check_mute_inst = new FlxUICheckBox(10, 200, null, null, "Mute Instrumental (in editor)", 100);
 		check_mute_inst.checked = false;
 		check_mute_inst.callback = function()
@@ -198,6 +210,44 @@ class ChartingState extends MusicBeatState
 
 			FlxG.sound.music.volume = vol;
 		};
+
+		var check_muteBfVoices = new FlxUICheckBox(120, 400, null, null, "Mute BF (in editor)", 100);
+		check_mute_inst.checked = false;
+		check_muteBfVoices.callback = function()
+			{
+				if (check_muteBfVoices.checked)
+				{
+					var vol:Float = 0;
+					vol = 0;
+					bfVocals.volume = vol;
+				}	
+				if (!check_muteBfVoices.checked)
+				{
+					var vol:Float = 1;
+					vol = 1;
+					bfVocals.volume = vol;
+				}				
+
+			};
+
+		var check_muteDadVoices = new FlxUICheckBox(260, 400, null, null, "Mute dad (in editor)", 100);
+		check_mute_inst.checked = false;
+		check_muteDadVoices.callback = function()
+			{
+	
+				if (check_muteDadVoices.checked)
+					{
+						var vol:Float = 0;
+						vol = 0;
+						dadVocals.volume = vol;
+					}
+				if (!check_muteDadVoices.checked)
+					{
+						var vol:Float = 1;
+						vol = 1;
+						dadVocals.volume = vol;
+					}					
+			};
 
 		var saveButton:FlxButton = new FlxButton(110, 8, "Save", function()
 		{
@@ -247,6 +297,8 @@ class ChartingState extends MusicBeatState
 
 		tab_group_song.add(check_voices);
 		tab_group_song.add(check_mute_inst);
+		tab_group_song.add(check_muteDadVoices);
+		tab_group_song.add(check_muteBfVoices);
 		tab_group_song.add(saveButton);
 		tab_group_song.add(reloadSong);
 		tab_group_song.add(reloadSongJson);
@@ -259,7 +311,7 @@ class ChartingState extends MusicBeatState
 		UI_box.addGroup(tab_group_song);
 		UI_box.scrollFactor.set();
 
-		FlxG.camera.follow(strumLine);
+		// FlxG.camera.follow(strumLine);
 	}
 
 	var stepperLength:FlxUINumericStepper;
@@ -317,6 +369,8 @@ class ChartingState extends MusicBeatState
 		tab_group_section.add(stepperCopy);
 		tab_group_section.add(check_mustHitSection);
 		tab_group_section.add(check_altAnim);
+		// tab_group_section.add(check_muteBfVoices);
+		// tab_group_section.add(check_muteDadVoices);
 		tab_group_section.add(check_changeBPM);
 		tab_group_section.add(copyButton);
 		tab_group_section.add(clearSectionButton);
@@ -357,14 +411,24 @@ class ChartingState extends MusicBeatState
 		// WONT WORK FOR TUTORIAL OR TEST SONG!!! REDO LATER
 		vocals = new FlxSound().loadEmbedded(Paths.voices(daSong));
 		FlxG.sound.list.add(vocals);
+		bfVocals = new FlxSound().loadEmbedded(Paths.bfVoices(daSong));
+		FlxG.sound.list.add(bfVocals);
+		dadVocals = new FlxSound().loadEmbedded(Paths.dadVoices(daSong));
+		FlxG.sound.list.add(dadVocals);
 
 		FlxG.sound.music.pause();
 		vocals.pause();
+		bfVocals.pause();
+		dadVocals.pause();
 
 		FlxG.sound.music.onComplete = function()
 		{
 			vocals.pause();
 			vocals.time = 0;
+			bfVocals.pause();
+			bfVocals.time = 0;
+			dadVocals.pause();
+			dadVocals.time = 0;
 			FlxG.sound.music.pause();
 			FlxG.sound.music.time = 0;
 			changeSection();
@@ -407,7 +471,7 @@ class ChartingState extends MusicBeatState
 					_song.notes[curSection].changeBPM = check.checked;
 					FlxG.log.add('changed bpm shit');
 				case "Alt Animation":
-					_song.notes[curSection].altAnim = check.checked;
+					_song.notes[curSection].altAnim = check.checked;				
 			}
 		}
 		else if (id == FlxUINumericStepper.CHANGE_EVENT && (sender is FlxUINumericStepper))
@@ -474,6 +538,57 @@ class ChartingState extends MusicBeatState
 	{
 		curStep = recalculateSteps();
 
+		camFollow.y = 295;
+		camFollow.x = 356;
+		// trace(camFollow.x);
+		// trace(camFollow.y);
+
+		// if (FlxG.keys.pressed.I || FlxG.keys.pressed.J || FlxG.keys.pressed.K || FlxG.keys.pressed.L)
+		// 	{
+		// 		if (FlxG.keys.justPressed.I)
+		// 			camFollow.y -= 1;
+		// 		else if (FlxG.keys.justPressed.K)
+		// 			camFollow.y += 1;
+
+		// 		if (FlxG.keys.justPressed.J)
+		// 			camFollow.x -= 1;
+		// 		else if (FlxG.keys.justPressed.L)
+		// 			camFollow.x += 1;
+		// 	}
+
+		if (FlxG.keys.pressed.J)
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+				dadVocals.pitch -= 0.01;
+				bfVocals.pitch -= 0.01;
+				vocals.pitch -= 0.01;
+				// ps.dadVocals.pitch -= 0.01;
+				// ps.bfVocals.pitch -= 0.01;
+			}
+			if (FlxG.keys.pressed.K)
+			{
+
+				FlxG.sound.music.pitch += 0.01;
+				dadVocals.pitch += 0.01;
+				bfVocals.pitch += 0.01;
+				vocals.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.L)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					dadVocals.pitch = 1;
+					bfVocals.pitch = 1;
+					vocals.pitch = 1;
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
+
+
 		Conductor.songPosition = FlxG.sound.music.time;
 		_song.song = typingShit.text;
 
@@ -513,6 +628,7 @@ class ChartingState extends MusicBeatState
 						else
 						{
 							trace('tryin to delete note...');
+							FlxG.sound.play(Paths.sound('noteRemoved'));
 							deleteNote(note);
 						}
 					}
@@ -526,6 +642,7 @@ class ChartingState extends MusicBeatState
 					&& FlxG.mouse.y < gridBG.y + (GRID_SIZE * _song.notes[curSection].lengthInSteps))
 				{
 					FlxG.log.add('added note');
+					FlxG.sound.play(Paths.sound('noteAdd'));
 					addNote();
 				}
 			}
@@ -549,8 +666,12 @@ class ChartingState extends MusicBeatState
 
 			PlayState.SONG = _song;
 			FlxG.sound.music.stop();
+			FlxG.sound.music.pitch = 1;
 			vocals.stop();
+			dadVocals.stop();
+			bfVocals.stop();
 			FlxG.switchState(new PlayState());
+			FlxG.mouse.visible = false;
 		}
 
 		if (FlxG.keys.justPressed.E)
@@ -586,10 +707,14 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
+					bfVocals.pause();
+					dadVocals.pause();					
 				}
 				else
 				{
 					vocals.play();
+					bfVocals.play();
+					dadVocals.play();
 					FlxG.sound.music.play();
 				}
 			}
@@ -606,9 +731,13 @@ class ChartingState extends MusicBeatState
 			{
 				FlxG.sound.music.pause();
 				vocals.pause();
+				bfVocals.pause();
+				dadVocals.pause();
 
 				FlxG.sound.music.time -= (FlxG.mouse.wheel * Conductor.stepCrochet * 0.4);
 				vocals.time = FlxG.sound.music.time;
+				bfVocals.time = FlxG.sound.music.time;
+				dadVocals.time = FlxG.sound.music.time;
 			}
 
 			if (!FlxG.keys.pressed.SHIFT)
@@ -617,6 +746,8 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
+					bfVocals.pause();
+					dadVocals.pause();
 
 					var daTime:Float = 700 * FlxG.elapsed;
 
@@ -625,9 +756,14 @@ class ChartingState extends MusicBeatState
 						FlxG.sound.music.time -= daTime;
 					}
 					else
-						FlxG.sound.music.time += daTime;
+						{
+						FlxG.sound.music.time += daTime;						
+						}
+
 
 					vocals.time = FlxG.sound.music.time;
+					bfVocals.time = FlxG.sound.music.time;
+					dadVocals.time = FlxG.sound.music.time;
 				}
 			}
 			else
@@ -636,6 +772,8 @@ class ChartingState extends MusicBeatState
 				{
 					FlxG.sound.music.pause();
 					vocals.pause();
+					bfVocals.pause();
+					dadVocals.pause();
 
 					var daTime:Float = Conductor.stepCrochet * 2;
 
@@ -647,8 +785,11 @@ class ChartingState extends MusicBeatState
 						FlxG.sound.music.time += daTime;
 
 					vocals.time = FlxG.sound.music.time;
+					bfVocals.time = FlxG.sound.music.time;
+					dadVocals.time = FlxG.sound.music.time;
 				}
 			}
+				
 		}
 
 		_song.bpm = tempBpm;
@@ -731,6 +872,8 @@ class ChartingState extends MusicBeatState
 
 		FlxG.sound.music.pause();
 		vocals.pause();
+		bfVocals.pause();
+		dadVocals.pause();
 
 		// Basically old shit from changeSection???
 		FlxG.sound.music.time = sectionStartTime();
@@ -742,6 +885,8 @@ class ChartingState extends MusicBeatState
 		}
 
 		vocals.time = FlxG.sound.music.time;
+		bfVocals.time = FlxG.sound.music.time;
+		dadVocals.time = FlxG.sound.music.time;
 		updateCurStep();
 
 		updateGrid();
@@ -762,6 +907,8 @@ class ChartingState extends MusicBeatState
 			{
 				FlxG.sound.music.pause();
 				vocals.pause();
+				bfVocals.pause();
+				dadVocals.pause();
 
 				/*var daNum:Int = 0;
 					var daLength:Float = 0;
@@ -773,6 +920,8 @@ class ChartingState extends MusicBeatState
 
 				FlxG.sound.music.time = sectionStartTime();
 				vocals.time = FlxG.sound.music.time;
+				bfVocals.time = FlxG.sound.music.time;
+				dadVocals.time = FlxG.sound.music.time;
 				updateCurStep();
 			}
 
@@ -905,7 +1054,7 @@ class ChartingState extends MusicBeatState
 			mustHitSection: true,
 			sectionNotes: [],
 			typeOfSection: 0,
-			altAnim: false
+			altAnim: false,
 		};
 
 		_song.notes.push(sec);
@@ -1062,7 +1211,7 @@ class ChartingState extends MusicBeatState
 			"song": _song
 		};
 
-		var data:String = Json.stringify(json);
+		var data:String = Json.stringify(json, "\t");
 
 		if ((data != null) && (data.length > 0))
 		{

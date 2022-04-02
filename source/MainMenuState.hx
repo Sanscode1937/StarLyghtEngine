@@ -7,8 +7,10 @@ import ui.MenuTypedList;
 import ui.AtlasMenuItem;
 import ui.OptionsState;
 import ui.PreferencesMenu;
+#if !hl
 #if desktop
 import Discord.DiscordClient;
+#end
 #end
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -35,15 +37,18 @@ class MainMenuState extends MusicBeatState
 	#else
 	var optionShit:Array<String> = ['story mode', 'freeplay'];
 	#end
-
+	var ps:PlayState;
+	var cs:ChartingState;
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
 
 	override function create()
 	{
+		#if !hl
 		#if desktop
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
+		#end
 		#end
 
 		transIn = FlxTransitionableState.defaultTransIn;
@@ -179,6 +184,44 @@ class MainMenuState extends MusicBeatState
 		{
 			menuItems.enabled = false;
 		}
+
+		if(FlxG.keys.justPressed.SEVEN)
+			{
+				PlayState.SONG = Song.loadFromJson('Test', 'test');
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = 1;				
+				LoadingState.loadAndSwitchState(new PlayState());				
+			}
+
+		
+
+
+		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
+			{	
+				FlxG.sound.music.pitch -= 0.01;		
+				// ps.dadVocals.pitch -= 0.01;
+				// ps.bfVocals.pitch -= 0.01;
+				// cs.dadVocals.pitch -= 0.01;
+				// cs.bfVocals.pitch -= 0.01;
+			}
+			if (FlxG.keys.pressed.THREE)
+			{
+
+				FlxG.sound.music.pitch += 0.01;
+				// ps.dadVocals.pitch += 0.01;
+				// ps.bfVocals.pitch += 0.01;
+				// cs.dadVocals.pitch += 0.01;
+				// cs.bfVocals.pitch += 0.01;
+			}
+			if (FlxG.keys.justPressed.FIVE)
+				{
+	
+					FlxG.sound.music.pitch = 1;
+					// ps.dadVocals.pitch += 0.01;
+					// ps.bfVocals.pitch += 0.01;
+					// cs.dadVocals.pitch += 0.01;
+					// cs.bfVocals.pitch += 0.01;
+				}
 
 		if (controls.BACK && menuItems.enabled && !menuItems.busy)
 		{

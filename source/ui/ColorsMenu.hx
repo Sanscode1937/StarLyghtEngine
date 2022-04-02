@@ -4,7 +4,7 @@ import shadersLmfao.ColorSwap;
 import flixel.FlxSprite;
 import flixel.group.FlxGroup.FlxTypedGroup;
 
-class ColorsMenu extends ui.OptionsState.Page
+class ColorsMenu extends Page
 {
     var grpColors:FlxTypedGroup<NoteColor>;
 
