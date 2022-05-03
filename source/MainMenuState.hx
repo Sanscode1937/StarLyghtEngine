@@ -125,7 +125,7 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-		versionShit.text += "(Newgrounds exclusive preview)";
+		versionShit.text += "(" + versionShit + ")";
 
 
 		super.create();

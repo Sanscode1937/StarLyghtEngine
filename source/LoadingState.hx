@@ -39,6 +39,10 @@ class LoadingState extends MusicBeatState
 	
 	override function create()
 	{
+
+		FlxG.sound.playMusic(Paths.music('LoadingTheme'));
+		FlxG.sound.music.fadeIn(2, 0, 0.7);
+
 		var bg = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, 0xFFCAFF4D);
 		add(bg);
 
@@ -162,11 +166,17 @@ class LoadingState extends MusicBeatState
 	
 	function onLoad()
 	{
-		if (stopMusic && FlxG.sound.music != null)
-			FlxG.sound.music.stop();
-		
 		FlxG.switchState(target);
-		FlxG.sound.music.pitch = 1;
+		
+		new FlxTimer().start(5.1, function(tmr:FlxTimer)
+			{
+
+				if (stopMusic && FlxG.sound.music != null)
+				FlxG.sound.music.stop();
+		
+				
+				FlxG.sound.music.pitch = 1;
+			});	
 	}
 	
 	static function getSongPath()
@@ -183,11 +193,16 @@ class LoadingState extends MusicBeatState
 	
 	inline static public function loadAndSwitchState(target:FlxState, stopMusic = false)
 	{
+
+		FlxG.switchState(getNextState(target, stopMusic));
+		
+		new FlxTimer().start(5.1, function(tmr:FlxTimer)
+			{
 		if(PlayState.storyWeek == 6)
 			{
 		FlxG.sound.music.pitch = 1;				
 			}
-		FlxG.switchState(getNextState(target, stopMusic));
+			});
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState

@@ -41,7 +41,7 @@ class PreferencesMenu extends Page
 		createPrefItem('PLAY GUNS CUTSCENE', 'play-guns',false);
 		#end
 		// sys.exit(0);
-		createPrefItem('DISABLE CUTSCENES', 'no-cutscene', false);
+		createPrefItem('CUTSCENE', 'cutscene', true);
 		// createPrefItem('Becoming Gay Man', 'gay-man', false);	:troll:	
 		camFollow = new FlxObject(FlxG.width / 2, 0, 140, 70);
 		if (items != null)
@@ -140,7 +140,7 @@ class PreferencesMenu extends Page
 		preferenceCheck('camera-zoom', true);
 		preferenceCheck('fps-counter', true);
 		preferenceCheck('auto-pause', true);
-		preferenceCheck('no-cutscene', false);
+		preferenceCheck('cutscene', true);
 		preferenceCheck('hitsound', false);
 		preferenceCheck('god-mode', true);
 		preferenceCheck('ghost-tap', true);
@@ -158,7 +158,7 @@ class PreferencesMenu extends Page
 		if (preferences.get(identifier) == null)
 		{
 			preferences.set(identifier, value);
-			trace('set preference!');
+			trace('SUCCESSFULLY SET THE PERFERENCE');
 		}
 		else
 		{

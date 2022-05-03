@@ -1,5 +1,6 @@
 package ui;
 
+import flixel.FlxGame;
 import openfl.system.System;
 import flixel.FlxG;
 
@@ -9,6 +10,7 @@ class OptionsMenu extends Page
 {
 	var items:TextMenuList;
 	var ps:PlayState;
+	var state:Bool = false;
 	var cs:ChartingState;
 	var pomp:Prompt;
 	override public function new(a:Bool)
@@ -28,28 +30,39 @@ class OptionsMenu extends Page
 		{
 			onSwitch.dispatch(PageName.Controls);
 		});
+		#if debug
 		createItem('TEST', function()
 			{
-				PlayState.SONG = Song.loadFromJson('Guns', 'guns');
-				PlayState.isStoryMode = true;
+				PlayState.SONG = Song.loadFromJson('Test', 'test');
+				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = 2;				
 				LoadingState.loadAndSwitchState(new PlayState());	
 			});
+		#end
 
-		// if (a) createItem('donate', selectDonate, true);
-		// if (NG.core != null && NG.core.loggedIn)
+		// createItem('Switch State', function()
 		// {
-		// 	createItem('logout', selectLogout);
-		// }
-		// else
-		// {
-		// 	createItem('login', selectLogin);
-		// }
+		// 	state = true;
+		// 	FlxG.stage.addChild(new FlxGame(state));
+		// });
+
+		createItem('HEY HOMIE THIS IS OG LOC', function()
+			{
+				#if linux
+				Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
+				#else
+				FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
+				#end
+			});
 		createItem('back to main menu', exit);
 		createItem('exit to desktop', function name() {
 			System.exit(0);
-			trace('THE WHOLE GAME IS GONE!');
-		});		
+		});
+		
+		// createItem('ADVANCE OBJECT PHYSICS RAGDOLL OPTION', function name() {
+		// 	FlxG.log.error('No function found in perference');
+		// });		
+
 	}
 
 
@@ -81,15 +94,6 @@ class OptionsMenu extends Page
 
 	function selectLogout(){
 		// NG.openNgPrompt(NG.showLogout());
-	}
-
-	function selectDonate()
-	{
-		#if linux
-		Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
-		#else
-		FlxG.openURL('https://ninja-muffin24.itch.io/funkin');
-		#end
 	}
 
 	override function update(elapsed:Float)

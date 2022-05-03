@@ -110,6 +110,16 @@ class Character extends FlxSprite
 
 				playAnim('danceRight');
 
+			case 'gf-nene':
+				frames = Paths.getSparrowAtlas('characters/nene');
+				animation.addByIndices('sad', ' nene chillin', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "", 24, true);
+				animation.addByIndices('danceLeft', ' nene chillin', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
+				animation.addByIndices('danceRight', ' nene chillin', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
+
+				loadOffsetFile('gf');
+
+				playAnim('danceRight');
+
 				case 'gf-nevada':
 					tex = Paths.getSparrowAtlas('characters/gfNevada');
 					frames = tex;
@@ -218,62 +228,38 @@ class Character extends FlxSprite
 				loadOffsetFile(curCharacter);
 				playAnim('idle');
 			case 'pico':
-				tex = Paths.getSparrowAtlas('characters/Pico_FNF_assetss');
+				tex = Paths.getSparrowAtlas('characters/Pico_w_tinydick');
 				frames = tex;
 				quickAnimAdd('idle', "Pico Idle Dance");
 				quickAnimAdd('singUP', 'pico Up note0');
 				quickAnimAdd('singDOWN', 'Pico Down Note0');
-				if (isPlayer)
-				{
-					quickAnimAdd('singLEFT', 'Pico Note Right0');
-					quickAnimAdd('singRIGHT', 'Pico NOTE LEFT0');
-					quickAnimAdd('singRIGHTmiss', 'Pico NOTE LEFT miss');
-					quickAnimAdd('singLEFTmiss', 'Pico Note Right Miss');
-				}
-				else
-				{
 					// Need to be flipped! REDO THIS LATER!
 					quickAnimAdd('singLEFT', 'Pico Note Right0');
 					quickAnimAdd('singRIGHT', 'Pico NOTE LEFT0');
 					quickAnimAdd('singRIGHTmiss', 'Pico NOTE LEFT miss');
 					quickAnimAdd('singLEFTmiss', 'Pico Note Right Miss');
-				}
 
 				quickAnimAdd('singUPmiss', 'pico Up note miss');
 				quickAnimAdd('singDOWNmiss', 'Pico Down Note MISS');
 
-
-
-				if (isPlayer)
-				{
-					addOffset('idle');
-					addOffset("singUP", -29, 27);
-					addOffset("singRIGHT", -55, -1);
-					addOffset("singLEFT", 92, -7);
-					addOffset("singDOWN", 69, -71);
-					addOffset("singUPmiss", -19, 67);
-					addOffset("singRIGHTmiss", -58, 64);
-					addOffset("singLEFTmiss", 55, 41);
-					addOffset("singDOWNmiss", 120, -38);
-
-					// addOffset('idle');
-					// addOffset("singUP", -29, 27);
-					// addOffset("singRIGHT", 92, -7);
-					// addOffset("singLEFT", -55, -1);
-					// addOffset("singDOWN", 69, -71);
-					// addOffset("singUPmiss", -9, -77);
-					// addOffset("singRIGHTmiss", 55, 41);
-					// addOffset("singLEFTmiss", -58, 64);
-					// addOffset("singDOWNmiss", 120, -38);
-				}	
-				else if(!isPlayer)
-				{
-				loadOffsetFile(curCharacter);					
-				}	
+				if(!isPlayer)
+				loadOffsetFile(curCharacter);			
+				else
+					loadOffsetFile('picoisPlayer');		
 
 				playAnim('idle');
 
-				flipX = true;
+				case 'darnell':
+					tex = Paths.getSparrowAtlas('characters/darnell');
+					frames = tex;
+					quickAnimAdd('idle', "darnell idle");
+					quickAnimAdd('singUP', 'darnell up');
+					quickAnimAdd('singDOWN', 'darnell down');
+					quickAnimAdd('singLEFT', 'darnell left');
+					quickAnimAdd('singRIGHT', 'darnell right');
+
+					loadOffsetFile(curCharacter);					
+					playAnim('idle');
 
 			case 'pico-speaker':
 				frames = Paths.getSparrowAtlas('characters/picoSpeaker');
@@ -681,7 +667,7 @@ class Character extends FlxSprite
 		{
 			switch (curCharacter)
 			{
-				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | 'gf-tankmen' | 'gf-nevada':
+				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | 'gf-tankmen' | 'gf-nevada' | 'gf-nene':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;

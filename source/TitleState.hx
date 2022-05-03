@@ -101,10 +101,10 @@ class TitleState extends MusicBeatState
 		#elseif CHARTING
 		FlxG.switchState(new ChartingState());
 		#else
-		new FlxTimer().start(1, function(tmr:FlxTimer)
-		{
+		// new FlxTimer().start(1, function(tmr:FlxTimer)
+		// {
 			startIntro();
-		});
+		// });
 		#end
 		#if !hl
 		#if desktop
@@ -563,7 +563,7 @@ class TitleState extends MusicBeatState
 
 			FlxG.camera.flash(FlxColor.WHITE, 4);
 			remove(credGroup);
-			skippedIntro = true;
+				skippedIntro = true;
 		}
 	}
 }

@@ -4,8 +4,9 @@ import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Lib;
 import openfl.display.Sprite;
+import WarningScreen.Warns;
 import openfl.events.Event;
-import lime.utils.DisplayLog;
+// import lime.utils.DisplayLog;
 import MemoryCounter.MemorySystem64;
 
 class Main extends Sprite
@@ -35,6 +36,7 @@ class Main extends Sprite
 		if (stage != null)
 		{
 			init();
+			trace("1280" + "720" + "TitleState.hx"+ zoom + framerate + skipSplash + startFullscreen + fpsCounter);
 		}
 		else
 		{
@@ -44,7 +46,7 @@ class Main extends Sprite
 
 	private function init(?E:Event):Void
 	{
-		lime.utils.DisplayLog.throwErrors = false;
+		// lime.utils.DisplayLog.throwErrors = false; nothing just a shit
 		if (hasEventListener(Event.ADDED_TO_STAGE))
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
@@ -74,7 +76,7 @@ class Main extends Sprite
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
 		#if !mobile
-		fpsCounter = new MemorySystem64(10, 3, 0xFFFFFF);		
+		fpsCounter = new MemorySystem64(10, -3, 0xFFFFFF);		
 		addChild(fpsCounter);
 		#end
 	}
