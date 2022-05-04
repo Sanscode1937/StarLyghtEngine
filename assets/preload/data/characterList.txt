@@ -2,7 +2,6 @@ bf
 bf-car
 bf-christmas
 bf-pixel
-bf-nevada
 bf-erect
 gf
 gf-nevada
