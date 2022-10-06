@@ -2,9 +2,7 @@ bf
 bf-car
 bf-christmas
 bf-pixel
-bf-erect
 gf
-gf-nevada
 gf-christmas
 pico-speaker
 bf-holding-gf

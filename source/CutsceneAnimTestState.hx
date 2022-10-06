@@ -18,11 +18,10 @@ class CutsceneAnimTestState extends FlxState
 		bg.screenCenter();
 		add(bg);
 
-		fromAnimate = new FlxAnimate(0, 0, 'assets/images/gfDemon');
+		fromAnimate = new FlxAnimate(0, 0, 'assets/images/skewTest');
 		fromAnimate.antialiasing = true;
 		// fromAnimate.playAnim('');
 		add(fromAnimate);
-		fromAnimate.anim.draw();
 
 		super.create();
 	}
@@ -40,10 +39,10 @@ class CutsceneAnimTestState extends FlxState
 
 		if (FlxG.keys.justPressed.SPACE)
 		{
-			if (!fromAnimate.isPlaying)
-				fromAnimate.playAnim();
+			if (!fromAnimate.anim.isPlaying)
+				fromAnimate.anim.play();
 			else
-				fromAnimate.pauseAnim();
+				fromAnimate.anim.pause();
 		}
 
 		fromAnimate.x = 540;

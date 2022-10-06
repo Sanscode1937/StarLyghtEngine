@@ -633,6 +633,12 @@ class PlayState extends MusicBeatState
 						curStage = 'street';
 						defaultCamZoom = 0.5;
 						
+						var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('8 Overlay'));
+						// overlayShit.alpha = 0.5;
+						overlayShit.alpha = 0.3;
+						overlayShit.cameras = [camHUD];
+						add(overlayShit);
+
 		                  var bg:BGSprite = new BGSprite('backStage', -1500, -1300, 0.9, 0.9);
 		                  add(bg);
 					} 
@@ -1035,13 +1041,13 @@ class PlayState extends MusicBeatState
 		inCutscene = true;
 		dad.visible = false;
 
-		var wellWell = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/wellWell');
+		var wellWell = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/WellWell');
 		wellWell.antialiasing = true;
 		gfCutsceneLayer.add(wellWell);
-		wellWell.playAnim();
+		wellWell.anim.play();
 
-		wellWell.x = -70;
-		wellWell.y = 260;
+		wellWell.x = 270;
+		wellWell.y = 580;
 
 		camHUD.visible = false;
 
@@ -1059,7 +1065,7 @@ class PlayState extends MusicBeatState
 		{
 			camFollow.x += 800;
 			camFollow.y += 100;
-			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 0.27, {ease: FlxEase.quadInOut});
+			// FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 0.27, {ease: FlxEase.quadInOut});
 
 			new FlxTimer().start(1.5, function(bep:FlxTimer)
 			{
@@ -1075,11 +1081,11 @@ class PlayState extends MusicBeatState
 			{
 				camFollow.x -= 800;
 				camFollow.y -= 100;
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 0.5, {ease: FlxEase.quadInOut});
+				// FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 0.5, {ease: FlxEase.quadInOut});
 				// tankCutscene.animation.play('killYou');
 				FlxG.sound.play(Paths.sound('killYou'), function()
 				{
-					wellWell.pauseAnim();
+					wellWell.anim.pause();
 				});	
 				new FlxTimer().start(6.1, function(swagasdga:FlxTimer)
 				{
@@ -1106,12 +1112,12 @@ class PlayState extends MusicBeatState
 
 	function gunsIntro():Void
 	{	
-		fromAnimate = new FlxAnimate(dad.x,dad.y, 'assets/images/tightBars');
+		fromAnimate = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/tightBars');
 		fromAnimate.antialiasing = true;
 		gfCutsceneLayer.add(fromAnimate);
-		fromAnimate.playAnim();
-		fromAnimate.x = 440;
-		fromAnimate.y = 540;
+		fromAnimate.anim.play();
+		fromAnimate.x = -190;
+		fromAnimate.y = 190;
 
 		inCutscene = true;
 
@@ -1169,6 +1175,8 @@ class PlayState extends MusicBeatState
 
 		camHUD.visible = false;
 
+		
+
 		inCutscene = true;
 
 		// FlxG.camera.zoom *= 1.0;
@@ -1185,34 +1193,34 @@ class PlayState extends MusicBeatState
 		gfCuts.alpha = 1.00001;
 		gfCutsceneLayer.add(gfCuts);
 
-		fromAnimate = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/God Effting Damnmit');
+		fromAnimate = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/TankPissed');
 		fromAnimate.antialiasing = true;
 		gfCutsceneLayer.add(fromAnimate);
-		fromAnimate.playAnim('');
+		fromAnimate.anim.play();
 		fromAnimate.alpha = 1.00001;
-		fromAnimate.x -= 370;
-		fromAnimate.y = 620;
+		fromAnimate.x = 460;
+		fromAnimate.y = 530;
 		fromAnimate.anim.addBySymbol('','TANK TALK 3 P1');
 		
-		var fromAnimate2 = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/Ah Look Who Is it');
+		var fromAnimate2 = new FlxAnimate(dad.x,dad.y, 'assets/images/cutsceneStuff/TankReallyPissed');
 		fromAnimate2.antialiasing = true;
 		fromAnimate2.alpha = 0.00001;
-		fromAnimate2.x = 230;
+		fromAnimate2.x = 460;
 		fromAnimate2.y = 530;
 		fromAnimate2.anim.addBySymbol('','TANK TALK 3 P2');
 
-		gfDemon2 = new FlxAnimate(400, -50,'assets/images/picoShoot');
+		gfDemon2 = new FlxAnimate(400, -50,'assets/images/cutsceneStuff/Unforeseen Consequences');
 		gfDemon2.antialiasing = true;
 		gfDemon2.alpha = 0.00001;
-		gfDemon2.y = 380;
-		gfDemon2.x = 490;
+		gfDemon2.y = 420;
+		gfDemon2.x = 670;
 
 
-		gfDemon = new FlxAnimate(400, 130,'assets/images/gfDemon');
+		gfDemon = new FlxAnimate(400, 130,'assets/images/cutsceneStuff/gfDemon');
 		gfDemon.antialiasing = true;
 		gfDemon.alpha = 0.00001;
-		gfDemon.y = 380;
-		gfDemon.x = 550;
+		gfDemon.y = -110;
+		gfDemon.x = -320;
 
 
 		camFollow.setPosition(camPos.x, camPos.y);
@@ -1221,33 +1229,36 @@ class PlayState extends MusicBeatState
 		
 		new FlxTimer().start(0.1, function(GodEfftingDamnit:FlxTimer)
 			{
-				FlxG.sound.play(Paths.sound('stressCutscene'));
+				FlxG.sound.play(Paths.sound('God Effing Dammit'));
+				FlxG.sound.playMusic(Paths.music('KALASKIIROMPER'), 0);
+				FlxG.sound.music.fadeIn(5, 0, 0.5);
 				gf.dance();
 			});
+			
 		new FlxTimer().start(14.8, function(dagfDemon:FlxTimer)
 			{
 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.6}, 3, {ease: FlxEase.quadInOut});
 				camFollow.y -= 200;
 				camFollow.x = 570;
 				gfCutsceneLayer.remove(gfCuts);
-				gfDemon.playAnim('');
+				gfDemon.anim.play('');
 				gfDemon.alpha = 1.00001;
 				gfCutsceneLayer.add(gfDemon);
 
 			});		
 		new FlxTimer().start(15.7, function(dagfDemon:FlxTimer)
 			{
-				fromAnimate.pauseAnim();
+				fromAnimate.anim.pause();
 			});			
 		new FlxTimer().start(17.2, function(dagfDemon:FlxTimer)
 			{
-				FlxG.camera.zoom = defaultCamZoom * 0.9;
+				FlxG.camera.zoom = defaultCamZoom = 0.9;
 				// camFollow.setPosition(camPos.x, camPos.y);
 				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 0.9}, 1, {ease: FlxEase.quadInOut});
 				camFollow.x = 800;
 				gfCutsceneLayer.remove(gfDemon);
 				boyfriend.playAnim('bfCatch');	
-				gfDemon2.playAnim();
+				gfDemon2.anim.play();
 				gfDemon2.alpha = 1.00001;	
 				gfCutsceneLayer.add(gfDemon2);		
 
@@ -1260,7 +1271,8 @@ class PlayState extends MusicBeatState
 			{
 				gfCutsceneLayer.remove(fromAnimate);
 				gfCutsceneLayer.add(fromAnimate2);
-				fromAnimate2.playAnim();
+				FlxG.sound.play(Paths.sound('Tankman After Pico Arrives'));
+				fromAnimate2.anim.play();
 				fromAnimate2.alpha = 1.00001;
 			});	
 		new FlxTimer().start(20.5, function(dagfDemon:FlxTimer)
@@ -1278,23 +1290,41 @@ class PlayState extends MusicBeatState
 		new FlxTimer().start(31.4, function(eugh:FlxTimer)	
 		{
 			boyfriend.playAnim('singUPmiss');
-		});			
+			FlxG.camera.zoom = defaultCamZoom = 0.9;
+			// FlxG.camera.zoom = defaultCamZoom;
+			FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 1.2}, 1, {ease: FlxEase.quadInOut});
+			camFollow.x += 500;
+			camFollow.y += 100;
+
+			
+		});		
+		
+		new FlxTimer().start(33.3, function(eugh:FlxTimer)	
+			{
+				FlxG.camera.zoom = defaultCamZoom = 0.9;
+				// FlxG.camera.zoom = defaultCamZoom;
+				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom * 0.9}, 1, {ease: FlxEase.quadInOut});
+				cameraMovement();
+	
+				
+			});	
 
 		new FlxTimer().start(35.2, function(dagfDemon:FlxTimer)
 			{
-				FlxG.sound.music.fadeOut((Conductor.crochet / 1000) * 5, 0);
+				fromAnimate2.anim.pause();
 
-				fromAnimate2.pauseAnim();
+				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.crochet / 1000) * 5, {ease: FlxEase.quadInOut});
 
-				FlxTween.tween(FlxG.camera, {zoom: defaultCamZoom}, (Conductor.crochet * 5) / 1000, {ease: FlxEase.quartIn});
-				startCountdown();
-				gf.dance();
-				new FlxTimer().start((Conductor.crochet * 25) / 1000, function(daTim:FlxTimer)
+				// FlxG.sound.music.fadeOut((Conductor.crochet / 1000) * 5, 0);
+
+				new FlxTimer().start((Conductor.crochet / 1000) * 5, function(money:FlxTimer)
 				{
 					dad.visible = true;
 					gfCutsceneLayer.remove(fromAnimate2);
 				});
 
+				cameraMovement();
+				startCountdown();
 				camHUD.visible = true;
 				inCutscene = false;
 			});										
@@ -2715,7 +2745,7 @@ class PlayState extends MusicBeatState
 		// 	}
 
 		var rating:FlxSprite = new FlxSprite();
-		var score:Int = 350;
+		var score:Int = 50;
 
 		var daRating:String = "sick";
 		combo += 1;
@@ -2728,7 +2758,7 @@ class PlayState extends MusicBeatState
 			daRating = 'shit';
 			audienceRating = "Shit";
 			combo += 1;
-			score = 50;
+			score = 1;
 			missCauseIgnoreNote = true;
 			doSplash = false;
 		}
@@ -2737,7 +2767,7 @@ class PlayState extends MusicBeatState
 			daRating = 'bad';
 			audienceRating = "Bad";
 			combo += 1;
-			score = 100;
+			score = 5;
 			missCauseIgnoreNote = true;
 			doSplash = false;
 		}
@@ -2746,7 +2776,7 @@ class PlayState extends MusicBeatState
 			daRating = 'good';
 			audienceRating = "Good";
 			combo += 1;
-			score = 200;
+			score = 25;
 			missCauseIgnoreNote = true;
 			doSplash = false;
 		}
@@ -2767,7 +2797,7 @@ class PlayState extends MusicBeatState
 		}
 
 		if (!practiceMode)
-			songScore += combo;
+			songScore = combo;
 			scoreCountShit += score;
 
 			//  if (combo == curBeat)

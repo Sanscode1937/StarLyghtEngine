@@ -120,18 +120,6 @@ class Character extends FlxSprite
 
 				playAnim('danceRight');
 
-				case 'gf-nevada':
-					tex = Paths.getSparrowAtlas('characters/gfNevada');
-					frames = tex;
-					quickAnimAdd('cheer', 'GF Cheer');
-					animation.addByIndices('sad', 'gf sad', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], "", 24, true);
-					animation.addByIndices('danceLeft', 'GF Dancing Beat', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
-					animation.addByIndices('danceRight', 'GF Dancing Beat', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
-	
-					loadOffsetFile(curCharacter);
-	
-					playAnim('danceRight');
-
 					case 'hank':
 						frames = Paths.getSparrowAtlas('characters/HankJW');
 						animation.addByPrefix('idle', 'Hank Idle ', 24, false);
@@ -403,44 +391,6 @@ class Character extends FlxSprite
 
 				flipX = true;
 
-				case 'bf-nevada':
-					tex = Paths.getSparrowAtlas('characters/NevadaBF');
-					frames = tex;
-					loadCharData(curCharacter,'bf idle dance ','BF NOTE UP0','BF NOTE DOWN0','BF NOTE LEFT0','BF NOTE RIGHT0','BF NOTE UP0','BF NOTE DOWN0','BF NOTE LEFT0','BF NOTE RIGHT0','idle',true);
-					quickAnimAdd('singUPmiss', 'BF NOTE UP MISS ');
-					quickAnimAdd('singLEFTmiss', 'BF NOTE LEFT MISS ');
-					quickAnimAdd('singRIGHTmiss', 'BF NOTE RIGHT MISS ');
-					quickAnimAdd('singDOWNmiss', 'BF NOTE DOWN MISS' );
-					quickAnimAdd('hey', 'BF HEY ');
-
-			case 'bf-erect':
-				tex = Paths.getSparrowAtlas('characters/bfERECT');
-				frames = tex;
-				quickAnimAdd('idle', 'BF idle dance');
-				quickAnimAdd('singUP', 'BF NOTE UP0');
-				quickAnimAdd('singLEFT', 'BF NOTE LEFT0');
-				quickAnimAdd('singRIGHT', 'BF NOTE RIGHT0');
-				quickAnimAdd('singDOWN', 'BF NOTE DOWN0');
-				quickAnimAdd('singUPmiss', 'BF NOTE UP MISS');
-				quickAnimAdd('singLEFTmiss', 'BF NOTE LEFT MISS');
-				quickAnimAdd('singRIGHTmiss', 'BF NOTE RIGHT MISS');
-				quickAnimAdd('singDOWNmiss', 'BF NOTE DOWN MISS');
-				quickAnimAdd('hey', 'BF HEY');
-
-				quickAnimAdd('firstDeath', "BF dies");
-				animation.addByPrefix('deathLoop', "BF Dead Loop", 24, true);
-				quickAnimAdd('deathConfirm', "BF Dead confirm");
-
-				animation.addByPrefix('scared', 'BF idle shaking', 24, true);
-
-				loadOffsetFile(curCharacter);
-
-				playAnim('idle');
-
-				flipX = true;
-				
-				loadOffsetFile(curCharacter);
-
 			case 'senpai':
 				frames = Paths.getSparrowAtlas('characters/senpai');
 				loadCharData(curCharacter,'Senpai Idle','SENPAI UP NOTE','SENPAI DOWN NOTE','SENPAI LEFT NOTE','SENPAI RIGHT NOTE','SENPAI UP NOTE','SENPAI DOWN NOTE','SENPAI LEFT NOTE','SENPAI RIGHT NOTE','idle',false,false,false);
@@ -667,7 +617,7 @@ class Character extends FlxSprite
 		{
 			switch (curCharacter)
 			{
-				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | 'gf-tankmen' | 'gf-nevada' | 'gf-nene':
+				case 'gf' | 'gf-car' | 'gf-christmas' | 'gf-pixel' | 'gf-tankmen' | 'gf-nene':
 					if (!animation.curAnim.name.startsWith('hair'))
 					{
 						danced = !danced;
