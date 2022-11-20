@@ -71,6 +71,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	override function update(elapsed:Float)
 	{
 		super.update(elapsed);
+		#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -97,6 +98,7 @@ class GameOverSubstate extends MusicBeatSubstate
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 		if (controls.ACCEPT)
 		{
 			endBullshit();

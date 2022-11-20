@@ -106,7 +106,7 @@ class MainMenuState extends MusicBeatState
 			startExitState(new FreeplayState());
 		});
 
-		menuItems.createItem(null, null, "kickstarter", selectKickstarter, true);
+		// menuItems.createItem(null, null, "kickstarter", selectKickstarter, true);
 
 		menuItems.createItem(0, 0, "options", function()
 		{
@@ -121,11 +121,20 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.camera.follow(camFollow, null, 0.06);
 
-		var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v" + Application.current.meta.get('version'), 12);
-		versionShit.scrollFactor.set();
-		versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		add(versionShit);
-		versionShit.text += "(" + versionShit + ")";
+		// var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v" + Application.current.meta.get('version'), 12);
+		// versionShit.scrollFactor.set();
+		// versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		// add(versionShit);
+		// versionShit.text += "(" + versionShit + ")";
+
+
+
+var versionShit:FlxText = new FlxText(5, FlxG.height - 18, 0, "v" + Application.current.meta.get('version'), 12);
+versionShit.scrollFactor.set();
+versionShit.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+add(versionShit);
+versionShit.text += "(" + " techdemo 0.01010323042202 " + ")";
+
 
 
 		super.create();
@@ -195,7 +204,7 @@ class MainMenuState extends MusicBeatState
 
 		
 
-
+			#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -222,7 +231,7 @@ class MainMenuState extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
-
+#end
 		if (controls.BACK && menuItems.enabled && !menuItems.busy)
 		{
 			FlxG.switchState(new TitleState());

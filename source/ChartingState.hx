@@ -92,7 +92,9 @@ class ChartingState extends MusicBeatState
 		FlxG.camera.follow(camFollow);
 
 		curSection = lastSection;
+		#if desktop
 		FlxG.sound.music.pitch = 1;
+		#end
 		gridBG = FlxGridOverlay.create(GRID_SIZE, GRID_SIZE, GRID_SIZE * 8, GRID_SIZE * 16);
 		add(gridBG);
 
@@ -555,7 +557,7 @@ class ChartingState extends MusicBeatState
 		// 		else if (FlxG.keys.justPressed.L)
 		// 			camFollow.x += 1;
 		// 	}
-
+		#if desktop
 		if (FlxG.keys.pressed.J)
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -587,6 +589,7 @@ class ChartingState extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 
 
 		Conductor.songPosition = FlxG.sound.music.time;
@@ -666,7 +669,9 @@ class ChartingState extends MusicBeatState
 
 			PlayState.SONG = _song;
 			FlxG.sound.music.stop();
+			#if desktop
 			FlxG.sound.music.pitch = 1;
+			#end
 			vocals.stop();
 			dadVocals.stop();
 			bfVocals.stop();

@@ -260,7 +260,9 @@ class Character extends FlxSprite
 
 				playAnim('shoot1');
 
+				#if !hl
 				loadMappedAnims();
+				#end
 
 			case 'bf':
 				tex = Paths.getSparrowAtlas('characters/BOYFRIEND');
@@ -401,10 +403,20 @@ class Character extends FlxSprite
 
 				antialiasing = false;
 			case 'senpai-angry':
-				frames = Paths.getSparrowAtlas('characters/senpai');
-				loadCharData(curCharacter,'Angry Senpai idle','Angry Senpai UP NOTE','Angry Senpai DOWN NOTE','Angry Senpai LEFT NOTE','Angry Senpai RIGHT NOTE','Angry Senpai UP NOTE','Angry Senpai DOWN NOTE','Angry Senpai LEFT NOTE','Angry Senpai RIGHT NOTE','idle',false,false,false);
+				frames = Paths.getSparrowAtlas('characters/senpai', 'shared');
+				animation.addByPrefix('idle', 'Angry Senpai Idle', 24, false);
+				animation.addByPrefix('singUP', 'Angry Senpai UP NOTE', 24, false);
+				animation.addByPrefix('singLEFT', 'Angry Senpai LEFT NOTE', 24, false);
+				animation.addByPrefix('singRIGHT', 'Angry Senpai RIGHT NOTE', 24, false);
+				animation.addByPrefix('singDOWN', 'Angry Senpai DOWN NOTE', 24, false);
+
+				loadOffsetFile(curCharacter);
+				playAnim('idle');
+
 				setGraphicSize(Std.int(width * 6));
 				updateHitbox();
+
+				antialiasing = false;
 
 			case 'spirit':
 				frames = Paths.getPackerAtlas('characters/spirit', 'shared');

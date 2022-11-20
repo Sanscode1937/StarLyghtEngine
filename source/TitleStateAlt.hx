@@ -276,6 +276,10 @@ class TitleStateAlt extends MusicBeatState
 		{
 			FlxG.switchState(new CutsceneAnimTestState());
 		}
+		if (FlxG.keys.justPressed.NINE)
+		{
+			FlxG.switchState(new StemsTest());
+		}	
 
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

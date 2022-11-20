@@ -30,6 +30,9 @@ class NativeAudioSource
 	private var completed:Bool;
 	private var dataLength:Int;
 	private var format:Int;
+	#if html5
+	public var getPitch:Float;
+	#end
 	private var handle:ALSource;
 	private var length:Null<Int>;
 	private var loops:Int;

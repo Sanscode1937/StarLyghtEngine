@@ -1,0 +1,254 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS D:\SMP\StarLyghtEngine> lime test windodws -clean -release -bit64
+Error: "windodws" is an unknown target
+PS D:\SMP\StarLyghtEngine> lime test windows -clean -release -bit64 
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/AbstractScriptClass.hx:48: characters 55-91 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/AbstractScriptClass.hx:76: characters 55-91 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/InterpEx.hx:75: characters 13-35 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/InterpEx.hx:95: characters 13-35 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/InterpEx.hx:113: characters 13-35 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/hscript-ex/0,0,0/src/hscript/ScriptClass.hx:131: characters 21-43 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+C:/HaxeToolkit/haxe/lib/lime/polymod/git/polymod/hscript/PolymodScriptClass.hx:300: characters 9-38 : Warning : Std.is is deprecated. Use Std.isOfType instead.
+
+Compiling group: haxe
+cl.exe -Iinclude -IC:/HaxeToolkit/haxe/lib/lime/discord_rpc/git/linc/ -nologo /WX- /fp:precise -DHX_WINDOWS -GR -O2(optim-std) -Zi(debug) -FdD:\SMP\StarLyghtEngine\export\release\windows\obj\obj/msvc1964-nc/vc.pdb(debug) -Od(debug) -O2(release) -Os(optim-size) -Oy- -c -EHs -GS- -IC:/HaxeToolkit/haxe/lib/lime/hxcpp/4,2,1/include -DHXCPP_M64 -DHXCPP_VISIT_ALLOCS(haxe) -DHX_SMART_STRINGS(haxe) -DHXCPP_API_LEVEL=400(haxe) -D_CRT_SECURE_NO_DEPRECATE -D_ALLOW_MSC_VER_MISMATCH -D_ALLOW_ITERATOR_DEBUG_LEVEL_MISMATCH -DHX_WIN_MAIN(main) -wd4996 ... tags=[haxe,static]
+ - src/openfl/display/_internal/Context3DElementType.cpp
+ - src/flixel/input/actions/_FlxSteamController/FlxSteamControllerMetadata.cpp 
+ - src/sys/io/_Process/Stdout.cpp 
+ - src/lime/_internal/backend/native/TextEventInfo.cpp 
+ - src/flixel/system/debug/interaction/tools/Pointer.cpp 
+ - src/flixel/input/actions/_FlxSteamController/FlxSteamUpdater.cpp 
+ - src/openfl/system/SecurityDomain.cpp  [haxe,release]
+ - src/flxanimate/data/_AnimationData/Layers_Impl_.cpp 
+ - src/lime/media/openal/ALC.cpp  [haxe,release]
+ - src/flixel/tweens/motion/LinearPath.cpp 
+ - src/flixel/util/FlxPool_flixel_effects_FlxFlicker.cpp 
+ - src/openfl/display/DOMRenderer.cpp  [haxe,release]
+ - src/lime/system/_ThreadPool/ThreadPoolMessage.cpp 
+ - src/sys/io/FileOutput.cpp 
+ - src/openfl/display/_GradientType/GradientType_Impl_.cpp 
+ - src/__ASSET__flixel_fonts_nokiafc22_ttf.cpp 
+ - src/openfl/text/_internal/ShapeCache.cpp  [haxe,release]
+ - src/lime/text/harfbuzz/HBGlyphPosition.cpp 
+ - src/flxanimate/FilterShader.cpp 
+ - src/Section.cpp 
+ - src/flixel/util/_FlxUnicodeUtil/UnicodeBuffer_Impl_.cpp 
+ - src/openfl/display/Stage3D.cpp  [haxe,release]
+ - src/haxe/crypto/BaseCode.cpp 
+ - src/flixel/input/gamepad/mappings/PSVitaMapping.cpp 
+ - src/lime/graphics/opengl/ext/OES_surfaceless_context.cpp 
+ - src/flixel/FlxState.cpp 
+ - src/flixel/input/gamepad/FlxAnalogToDigitalMode.cpp 
+ - src/lime/graphics/cairo/_CairoFontFace/CairoFontFace_Impl_.cpp 
+ - src/flixel/system/debug/GraphicInteractive.cpp 
+ - src/openfl/display/Tileset.cpp  [haxe,release]
+ - src/lime/app/_Event_lime_graphics_RenderContext_Void.cpp  [haxe,release]
+ - src/flixel/system/debug/watch/TrackerProfile.cpp 
+ - src/__boot__.cpp 
+ - src/sys/thread/_Thread/HaxeThread.cpp 
+ - src/openfl/display/ShaderParameter_Float.cpp 
+ - src/lime/net/curl/CURLMultiMessage.cpp 
+ - src/flixel/addons/ui/interfaces/IFlxUIState.cpp 
+ - src/openfl/display/_internal/Context3DDisplayObject.cpp  [haxe,release]
+ - src/openfl/display/_internal/CanvasTextField.cpp 
+ - src/openfl/display/_InterpolationMethod/InterpolationMethod_Impl_.cpp 
+ - src/lime/graphics/_OpenGLES3RenderContext/OpenGLES3RenderContext_Impl_.cpp 
+ - src/MemorySystem64.cpp 
+ - src/openfl/net/URLRequestDefaults.cpp  [haxe,release]
+ - src/lime/media/WebAudioContext.cpp 
+ - src/lime/graphics/_WebGL2RenderContext/WebGL2RenderContext_Impl_.cpp 
+ - src/ui/InputItem.cpp 
+ - src/openfl/display/_internal/_DrawCommandReader/OverrideBlendModeView_Impl_.cpp 
+ - src/openfl/display/_StageAlign/StageAlign_Impl_.cpp 
+ - src/flixel/input/gamepad/id/SwitchJoyconLeftID.cpp 
+ - src/lime/text/GlyphMetrics.cpp  [haxe,release]
+ - src/flixel/input/actions/FlxActionManager.cpp 
+ - src/openfl/events/IEventDispatcher.cpp 
+ - src/lime/media/FlashAudioContext.cpp 
+ - src/flixel/input/keyboard/FlxKeyboard.cpp 
+ - src/flixel/addons/ui/ButtonLabelStyle.cpp 
+ - src/flixel/input/actions/FlxInputDeviceObject.cpp 
+ - src/openfl/display/ITileContainer.cpp 
+ - src/lime/_internal/format/BMP.cpp  [haxe,release]
+ - src/haxe/io/Input.cpp 
+ - src/polymod/hscript/_PolymodAbstractScriptClass/PolymodAbstractScriptClass_Impl_.cpp 
+ - src/flixel/addons/ui/FlxUIText.cpp 
+ - src/flixel/IFlxBasic.cpp 
+ - src/lime/media/openal/AL.cpp  [haxe,release]
+ - src/flixel/input/actions/FlxActionInputDigitalGamepad.cpp 
+ - src/lime/graphics/opengl/ext/OES_texture_half_float_linear.cpp 
+ - src/discord_rpc/DiscordRpc.cpp 
+ - src/__ASSET__flixel_flixel_ui_img_hilight_png.cpp 
+ - src/lime/utils/_Int8Array/Int8Array_Impl_.cpp 
+ - src/flixel/system/debug/watch/Watch.cpp 
+ - src/lime/utils/_Assets/LibrarySymbol.cpp  [haxe,release]
+ - src/flxanimate/FlxAnimate.cpp 
+ - src/openfl/display/DisplayObjectRenderer.cpp  [haxe,release]
+ - src/polymod/backends/CastleBackend.cpp 
+ - src/lime/app/_Event_lime_ui_GamepadButton_Void.cpp  [haxe,release]
+ - src/lime/system/JNIMethod.cpp  [haxe,release]
+ - src/lime/media/AudioManager.cpp  [haxe,release]
+ - src/haxe/ds/GenericCell_hscript_Token.cpp 
+ - src/ui/Prompt.cpp 
+ - src/openfl/display3D/_internal/_AGALConverter/SourceRegister.cpp  [haxe,release]
+ - src/openfl/display/GraphicsShaderFill.cpp  [haxe,release]
+ - src/flixel/input/gamepad/id/OUYAID.cpp 
+ - src/lime/_internal/format/PNG.cpp  [haxe,release]
+ - src/flixel/addons/ui/AnchorPoint.cpp 
+ - src/flixel/addons/ui/interfaces/IFlxUIButton.cpp 
+ - src/flixel/input/gamepad/mappings/FlxGamepadMapping.cpp 
+ - src/haxe/ds/_List/ListNode.cpp 
+ - src/flxanimate/data/_AnimationData/Element_Impl_.cpp 
+ - src/polymod/fs/IFileSystem.cpp 
+ - src/openfl/net/NetStream.cpp  [haxe,release]
+ - src/lime/utils/Log.cpp  [haxe,release]
+ - src/flixel/util/_FlxSignal/FlxTypedSignal_Impl_.cpp 
+ - src/ui/MenuTypedItem.cpp 
+ - src/lime/app/_Event_Float_Float_lime_ui_MouseButton_Void.cpp  [haxe,release]
+ - src/flixel/system/frontEnds/LogFrontEnd.cpp 
+ - src/openfl/display/_internal/_DrawCommandReader/LineGradientStyleView_Impl_.cpp 
+ - src/lime/app/Promise_String.cpp 
+ - src/haxe/io/Path.cpp 
+ - src/lime/app/IModule.cpp 
+ - src/sys/io/_Process/Stdin.cpp 
+ - src/lime/net/_HTTPRequest_lime_utils_Bytes.cpp  [haxe,release]
+ - src/lime/graphics/opengl/ext/ANGLE_framebuffer_blit.cpp 
+ - src/flixel/system/debug/GraphicArrowRight.cpp 
+ - src/flixel/input/gamepad/mappings/Manufacturer.cpp 
+ - src/flixel/input/IFlxInput.cpp 
+ - src/openfl/display/SimpleButton.cpp  [haxe,release]
+ - src/flixel/text/FlxText.cpp 
+ - src/lime/_internal/format/JPEG.cpp  [haxe,release]
+ - src/flixel/util/FlxBitmapDataUtil.cpp 
+ - src/lime/graphics/opengl/ext/NV_texture_compression_s3tc_update.cpp 
+ - src/openfl/display/_internal/PerlinNoise.cpp  [haxe,release]
+ - src/lime/graphics/opengl/ext/OES_depth24.cpp 
+ - src/flixel/util/FlxPool_flixel_math_FlxRect.cpp 
+ - src/flixel/system/FlxQuadTree.cpp 
+ - src/openfl/display/_internal/_DrawCommandReader/BeginShaderFillView_Impl_.cpp 
+ - src/lime/media/openal/_ALBuffer/ALBuffer_Impl_.cpp 
+ - src/flixel/math/FlxRandom.cpp 
+ - src/polymod/hscript/HScriptParams.cpp 
+ - src/openfl/display/GraphicsStroke.cpp  [haxe,release]
+ - src/flixel/ui/FlxBarFillDirection.cpp 
+ - src/openfl/display/OpenGLRenderer.cpp  [haxe,release]
+ - src/__ASSET__flixel_flixel_ui_xml_default_loading_screen_xml.cpp 
+ - src/openfl/display/GraphicsBitmapFill.cpp  [haxe,release]
+ - src/lime/graphics/opengl/ext/EXT_occlusion_query_boolean.cpp 
+ - src/haxe/zip/Huffman.cpp 
+ - src/flixel/util/_FlxSignal/FlxSignalHandler.cpp 
+ - src/openfl/display/_internal/Context3DBuffer.cpp 
+ - src/flxanimate/data/_AnimationData/Animation_Impl_.cpp 
+ - src/flixel/util/FlxPool_flixel_math_FlxPoint.cpp 
+ - src/haxe/io/Encoding.cpp 
+ - src/flixel/graphics/frames/FlxFrameCollectionType.cpp 
+ - src/ui/ButtonStyle.cpp 
+ - src/openfl/display/_internal/_DrawCommandReader/DrawRoundRectView_Impl_.cpp 
+ - src/openfl/display/Tile.cpp  [haxe,release]
+ - src/lime/system/CFFI.cpp  [haxe,release]
+ - src/lime/graphics/opengl/ext/AMD_performance_monitor.cpp 
+ - src/flixel/util/_FlxBitmapDataPool/FlxBitmapDataPoolNode.cpp 
+ - src/flixel/system/frontEnds/BitmapFrontEnd.cpp 
+ - src/flixel/text/FlxTextFormatMarkerPair.cpp 
+ - src/flixel/group/FlxTypedSpriteGroup.cpp 
+ - src/flixel/util/LabelValuePair.cpp 
+ - src/NoteSplash.cpp 
+ - src/flixel/addons/transition/FlxTransitionableState.cpp 
+ - src/lime/graphics/opengl/ext/EXT_sRGB.cpp 
+ - src/lime/app/Event.cpp  [haxe,release]
+ - src/flixel/graphics/atlas/FlxAtlas.cpp 
+ - src/flixel/system/macros/FlxMacroUtil.cpp 
+ - src/CoolUtil.cpp 
+ - src/flixel/effects/FlxFlicker.cpp 
+ - src/flixel/addons/ui/FlxUIRadioGroup.cpp 
+ - src/sys/thread/EventLoop.cpp 
+ - src/polymod/backends/_LimeBackend/IdAndLibrary.cpp 
+ - src/openfl/display/Loader.cpp  [haxe,release]
+ - src/lime/_internal/backend/native/GamepadEventInfo.cpp 
+ - src/flixel/addons/ui/XY.cpp 
+ - src/lime/net/curl/CURLMulti.cpp  [haxe,release]
+ - src/flixel/system/debug/GraphicWatch.cpp 
+ - src/Highscore.cpp
+ - src/polymod/format/CSV.cpp
+ - src/openfl/net/_SharedObjectFlushStatus/SharedObjectFlushStatus_Impl_.cpp
+ - src/lime/graphics/cairo/_CairoPattern/CairoPattern_Impl_.cpp
+ - src/openfl/geom/Matrix3D.cpp  [haxe,release]
+ - src/openfl/display/_internal/CanvasDisplayObject.cpp 
+ - src/openfl/system/ApplicationDomain.cpp  [haxe,release]
+ - src/lime/ui/_KeyModifier/KeyModifier_Impl_.cpp 
+ - src/lime/net/_HTTPRequest_String.cpp  [haxe,release]
+ - src/flixel/tile/FlxTilemapAutoTiling.cpp 
+ - src/hscript/Param.cpp 
+ - src/openfl/events/KeyboardEvent.cpp  [haxe,release]
+ - src/lime/graphics/_FlashRenderContext/FlashRenderContext_Impl_.cpp 
+ - src/flixel/system/VirtualInputData.cpp 
+ - src/flixel/util/FlxVerticalAlign.cpp 
+ - src/openfl/display/_internal/Context3DGraphics.cpp  [haxe,release]
+ - src/flixel/system/debug/interaction/tools/Transform.cpp 
+ - src/WiggleShader.cpp 
+ - src/ManifestResources.cpp 
+ - src/ui/AtlasText.cpp 
+ - src/openfl/display/IGraphicsData.cpp 
+ - src/haxe/ds/StringMap.cpp 
+ - src/__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf.cpp 
+ - src/openfl/events/MouseEvent.cpp  [haxe,release]
+ - src/lime/graphics/opengl/ext/NVX_gpu_memory_info.cpp 
+ - src/ui/AtlasMenuItem.cpp 
+ - src/openfl/utils/_AGALMiniAssembler/OpCode.cpp  [haxe,release]
+ - src/lime/app/_Event_Array_String__Void.cpp  [haxe,release]
+ - src/ui/TextTypedMenuItem.cpp 
+ - src/polymod/hscript/ScriptRunner.cpp 
+ - src/openfl/display/FrameScript.cpp  [haxe,release]
+ - src/flixel/system/GraphicVirtualInput.cpp 
+ - src/lime/utils/CompressionAlgorithm.cpp 
+ - src/flixel/util/_FlxSignal/FlxSignal0.cpp 
+ - src/MusicBeatSubstate.cpp 
+ - src/MusicBeatState.cpp 
+ - src/openfl/display/DisplayObjectContainer.cpp  [haxe,release]
+ - src/flixel/util/FlxSaveStatus.cpp 
+ - src/openfl/text/_internal/CacheMeasurement.cpp  [haxe,release]
+ - src/openfl/display3D/Uniform.cpp  [haxe,release]
+ - src/haxe/iterators/MapKeyValueIterator.cpp 
+ - src/sys/thread/Mutex.cpp 
+ - src/lime/graphics/opengl/ext/NV_coverage_sample.cpp 
+ - src/lime/graphics/opengl/GLObject.cpp 
+ - src/flixel/input/gamepad/lists/FlxGamepadAnalogList.cpp 
+ - src/lime/graphics/opengl/ext/EXT_discard_framebuffer.cpp 
+ - src/lime/app/_Event_Float_Float_Void.cpp  [haxe,release]
+ - src/lime/_internal/backend/native/ClipboardEventInfo.cpp 
+ - src/__ASSET__flixel_flixel_ui_img_tab_png.cpp 
+ - src/haxe/Timer.cpp 
+ - src/flixel/FlxCamera.cpp 
+ - src/lime/graphics/opengl/ext/QCOM_extended_get.cpp
+ - src/flixel/math/FlxMatrix.cpp
+ - src/flixel/graphics/frames/FlxTileFrames.cpp
+ - src/polymod/fs/StubFileSystem.cpp
+ - src/openfl/display3D/textures/CubeTexture.cpp  [haxe,release]
+ - src/flixel/math/FlxAngle.cpp
+ - src/flixel/util/FlxGradient.cpp
+ - src/flixel/input/FlxInput.cpp
+ - src/Alphabet.cpp
+ - src/openfl/display/_internal/DrawCommandBuffer.cpp  [haxe,release]
+ - src/flxanimate/data/_AnimationData/ColorEffects_Impl_.cpp
+ - src/lime/graphics/opengl/ext/EXT_read_format_bgra.cpp
+ - src/flixel/tile/FlxBaseTilemap.cpp
+ - src/flixel/tweens/FlxEase.cpp
+ - src/lime/text/harfbuzz/_HBBlob/HBBlob_Impl_.cpp
+ - src/flixel/system/frontEnds/ConsoleFrontEnd.cpp
+ - src/openfl/display/_internal/CanvasTilemap.cpp
+ - src/openfl/display/GraphicsSolidFill.cpp  [haxe,release]
+ - src/flixel/addons/ui/FlxUITooltip.cpp
+ - src/lime/media/AudioSource.cpp  [haxe,release]
+ - src/lime/app/_Event_Int_Void.cpp  [haxe,release]
+ - src/haxe/io/FPHelper.cpp 
+ - src/lime/app/Application.cpp  [haxe,release]
+ - src/lime/system/System.cpp  [haxe,release]
+ - src/lime/graphics/_WebGLRenderContext/WebGLRenderContext_Impl_.cpp 
+ - src/openfl/display/FrameLabel.cpp  [haxe,release]
+ - src/flixel/addons/ui/CheckStyle.cpp 
+ - src/lime/graphics/opengl/ext/AMD_compressed_3DC_texture.cpp 
+ - src/lime/net/_HTTPRequest/AbstractHTTPRequest.cpp  [haxe,release]

@@ -46,7 +46,7 @@ class OptionsMenu extends Page
 		// 	FlxG.stage.addChild(new FlxGame(state));
 		// });
 
-		createItem('HEY HOMIE THIS IS OG LOC', function()
+		createItem('FUNKIN PAGE', function()
 			{
 				#if linux
 				Sys.command('/usr/bin/xdg-open', ["https://ninja-muffin24.itch.io/funkin", "&"]);
@@ -99,7 +99,7 @@ class OptionsMenu extends Page
 	override function update(elapsed:Float)
 		{
 			super.update(elapsed);
-
+			#if desktop
 			if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 				{	
 					FlxG.sound.music.pitch -= 0.01;		
@@ -125,7 +125,8 @@ class OptionsMenu extends Page
 						// ps.bfVocals.pitch += 0.01;
 						// cs.dadVocals.pitch += 0.01;
 						// cs.bfVocals.pitch += 0.01;
-					}				
+					}		
+					#end		
 		}	
 
 }

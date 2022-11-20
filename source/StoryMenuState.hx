@@ -48,10 +48,12 @@ class StoryMenuState extends MusicBeatState
 	var cs:ChartingState;
 	override function create()
 	{
-		if(PlayState.storyWeek == 6)
-			{
-		FlxG.sound.music.pitch = 1;				
-			}
+		#if desktop
+		// if(PlayState.storyWeek == 6)
+		// 	{
+		// FlxG.sound.music.pitch = 1;				
+		// 	}
+		#end	
 
 		if (FlxG.sound.music != null)
 		{
@@ -213,6 +215,8 @@ class StoryMenuState extends MusicBeatState
 
 		difficultySelectors.visible = weekUnlocked[curWeek];
 
+		#if desktop
+
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -239,6 +243,7 @@ class StoryMenuState extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
 			lock.y = grpWeekText.members[lock.ID].y;
@@ -276,7 +281,9 @@ class StoryMenuState extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				#if desktop
 				FlxG.sound.music.pitch = 1;
+				#end
 				selectWeek();
 			}
 		}
@@ -463,7 +470,7 @@ class StoryMenuState2 extends MusicBeatState
 
 	var weekCharacters:Array<Dynamic> = [["dad", "bf", "gf"], ["dad", "bf", "gf"], ["spooky", "bf", "gf"], ["pico", "bf", "gf"], ["mom", "bf", "gf"], ["parents-christmas", "bf", "gf"], ["senpai", "bf", "gf"], ["tankman", "bf", "gf"]];
 
-	var weekNames:Array<String> = "---Daddy Dearest---Spooky Month---PICO---MOMMY MUST MURDER---RED SNOW---hating simulator ft. moawling---TANKMAN---HANK FT. MADNESS COMBAT".split("---");
+	var weekNames:Array<String> = "---Daddy Dearest---Spooky Month---PICO---MOMMY MUST MURDER---RED SNOW---hating simulator ft. moawling---TANKMAN---DARNELL".split("---");
 
 	var txtWeekTitle:FlxText;
 
@@ -484,10 +491,12 @@ class StoryMenuState2 extends MusicBeatState
 	var cs:ChartingState;
 	override function create()
 	{
-		if(PlayState.storyWeek == 6)
-			{
-		FlxG.sound.music.pitch = 1;				
-			}
+		#if desktop
+		// if(PlayState.storyWeek == 6)
+		// 	{
+		// FlxG.sound.music.pitch = 1;				
+		// 	}
+			#end
 
 		if (FlxG.sound.music != null)
 		{
@@ -648,7 +657,7 @@ class StoryMenuState2 extends MusicBeatState
 		// FlxG.watch.addQuick('font', scoreText.font);
 
 		difficultySelectors.visible = weekUnlocked[curWeek];
-
+		#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -675,6 +684,7 @@ class StoryMenuState2 extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 		grpLocks.forEach(function(lock:FlxSprite)
 		{
 			lock.y = grpWeekText.members[lock.ID].y;
@@ -712,7 +722,9 @@ class StoryMenuState2 extends MusicBeatState
 
 			if (controls.ACCEPT)
 			{
+				#if desktop
 				FlxG.sound.music.pitch = 1;
+				#end
 				selectWeek();
 			}
 		}

@@ -61,7 +61,9 @@ import lime.media.AudioSource;
 	/**
 		Pitch LOLOL HUGE PROPS TO NINJAMUFFNIN99
 	**/
+	#if desktop
 	public var pitch(get, set):Float;
+	#end
 
 	@:noCompletion private var __isValid:Bool;
 	@:noCompletion private var __soundTransform:SoundTransform;
@@ -205,29 +207,35 @@ import lime.media.AudioSource;
 
 		return value;
 	}
-	
+	#if desktop
 	@:noCompletion private function get_pitch():Float
 	{
+		#if desktop
 		if (!__isValid) return 1;
-		
+		#if desktop
 		#if lime
 		return __source.pitch;
 		#else
 		return 0;
 		#end
+		#end
+		#end
 	}
 
 	@:noCompletion private function set_pitch(value:Float):Float
 	{
+		#if desktop
 		if (!__isValid) return 1;
-		
+		#if desktop
 		#if lime
 		return __source.pitch = value;
 		#else
 		return 0;
 		#end
+		#end
+		#end
 	}
-
+#end
 	// Event Handlers
 	@:noCompletion private function source_onComplete():Void
 	{

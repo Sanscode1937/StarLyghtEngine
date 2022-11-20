@@ -3,8 +3,10 @@ package;
 import ui.PreferencesMenu;
 import shaderslmfao.BuildingShaders;
 import shaderslmfao.ColorSwap;
+#if !hl
 #if desktop
 import Discord.DiscordClient;
+#end
 #end
 import flixel.FlxG;
 import flixel.FlxSprite;
@@ -309,11 +311,14 @@ class TitleState extends MusicBeatState
 			{
 				FlxG.switchState(new CutsceneAnimTestState());
 			}
-
-		if (FlxG.keys.justPressed.EIGHT)
-		{
-			FlxG.switchState(new CutsceneAnimTestState());
-		}
+			if (FlxG.keys.justPressed.NINE)
+				{
+					FlxG.switchState(new StemsTest());
+				}
+		// if (FlxG.keys.justPressed.EIGHT)
+		// {
+		// 	FlxG.switchState(new CutsceneAnimTestState());
+		// }
 			/*
 			if (FlxG.keys.JustPressed.R)
 			{
@@ -410,7 +415,7 @@ class TitleState extends MusicBeatState
 			// FlxG.sound.music.pitch += 0.1;
 			swagShader.update(0.1 * elapsed);
 		}
-
+		#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -433,6 +438,7 @@ class TitleState extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 				// if (FlxG.keys.justPressed.SIX)
 				// 	{
 				// 		swagShader.update(1);

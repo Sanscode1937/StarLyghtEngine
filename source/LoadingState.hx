@@ -139,10 +139,12 @@ class LoadingState extends MusicBeatState
 		// 	}
 			if (FlxG.keys.justPressed.FIVE)
 				{
+					#if desktop
 					#if PLAYSTATE
 					FlxG.sound.music.pitch = 1;
 					#end
 					FlxG.sound.music.pitch = 1;
+					#end
 
 					// ps.dadVocals.pitch += 0.01;
 					// ps.bfVocals.pitch += 0.01;
@@ -174,8 +176,9 @@ class LoadingState extends MusicBeatState
 				if (stopMusic && FlxG.sound.music != null)
 				FlxG.sound.music.stop();
 		
-				
+				#if desktop
 				FlxG.sound.music.pitch = 1;
+				#end
 			});	
 	}
 	
@@ -195,7 +198,7 @@ class LoadingState extends MusicBeatState
 	{
 
 		FlxG.switchState(getNextState(target, stopMusic));
-		
+		#if desktop
 		new FlxTimer().start(5.1, function(tmr:FlxTimer)
 			{
 		if(PlayState.storyWeek == 6)
@@ -203,6 +206,7 @@ class LoadingState extends MusicBeatState
 		FlxG.sound.music.pitch = 1;				
 			}
 			});
+			#end
 	}
 	
 	static function getNextState(target:FlxState, stopMusic = false):FlxState

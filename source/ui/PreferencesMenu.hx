@@ -35,6 +35,7 @@ class PreferencesMenu extends Page
 		createPrefItem('FPS Counter', 'fps-counter', true);
 		createPrefItem('Auto Pause', 'auto-pause', true);
 		createPrefItem('Note Hit Sound', 'hitsound',false);
+		createPrefItem('Dancer Mode', 'danzah',false);
 		#if debug
 		createPrefItem('GOD MODE', 'god-mode',true);
 		createPrefItem('GHOST TAPPING', 'ghost-tap',true);
@@ -142,6 +143,7 @@ class PreferencesMenu extends Page
 		preferenceCheck('auto-pause', true);
 		preferenceCheck('cutscene', true);
 		preferenceCheck('hitsound', false);
+		preferenceCheck('danzah', false);
 		preferenceCheck('god-mode', true);
 		preferenceCheck('ghost-tap', true);
 		preferenceCheck('play-guns', false);			

@@ -46,12 +46,12 @@ class FreeplayState extends MusicBeatState
 
 	override function create()
 	{
-
-		if(PlayState.storyWeek == 6)
-			{
-		FlxG.sound.music.pitch = 1;				
-			}
-
+		#if desktop
+		// if(PlayState.storyWeek == 6)
+		// 	{
+		// FlxG.sound.music.pitch = 1;				
+		// 	}
+#end
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
 		for (i in 0...initSonglist.length)
@@ -224,7 +224,7 @@ class FreeplayState extends MusicBeatState
 		b &= 0xFFFFFF;
 		b |= (0xFF < i ? 0xFF : 0x0 > i ? 0x0 : i) << 0x18;
 		bg.color = b;
-		// Alright, shit's over. Sincere apologies yet again, but at least it works.
+		// fucking over
 
 		scoreText.text = "PERSONAL BEST:" + Math.round(lerpScore);
 		positionHighscore();
@@ -239,7 +239,7 @@ class FreeplayState extends MusicBeatState
 			{
 				FlxG.switchState(new Freeplay2());
 			}
-
+			#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -266,6 +266,7 @@ class FreeplayState extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 		if (upP)
 		{
 			changeSelection(-1);
@@ -295,7 +296,9 @@ class FreeplayState extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
+			#if desktop
 			FlxG.sound.music.pitch = 1;
+			#end
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('ON WEEK: ' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState(), true);
@@ -444,11 +447,12 @@ class Freeplay2 extends MusicBeatState
 
 	override function create()
 	{
-
-		if(PlayState.storyWeek == 6)
-			{
-		FlxG.sound.music.pitch = 1;				
-			}
+		#if desktop
+		// if(PlayState.storyWeek == 6)
+		// 	{
+		// FlxG.sound.music.pitch = 1;				
+		// 	}
+			#end
 
 		var initSonglist = CoolUtil.coolTextFile(Paths.txt('freeplaySonglist'));
 
@@ -640,7 +644,7 @@ class Freeplay2 extends MusicBeatState
 		{
 			FlxG.switchState(new FreeplayState());
 		}	
-
+		#if desktop
 		if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 			{	
 				FlxG.sound.music.pitch -= 0.01;		
@@ -667,6 +671,7 @@ class Freeplay2 extends MusicBeatState
 					// cs.dadVocals.pitch += 0.01;
 					// cs.bfVocals.pitch += 0.01;
 				}
+				#end
 		if (upP)
 		{
 			changeSelection(-1);
@@ -696,7 +701,9 @@ class Freeplay2 extends MusicBeatState
 			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
 			PlayState.isStoryMode = false;
 			PlayState.storyDifficulty = curDifficulty;
+			#if desktop
 			FlxG.sound.music.pitch = 1;
+			#end
 			PlayState.storyWeek = songs[curSelected].week;
 			trace('ON WEEK: ' + PlayState.storyWeek);
 			LoadingState.loadAndSwitchState(new PlayState(), true);

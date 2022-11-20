@@ -97,7 +97,9 @@ class FlxSound extends FlxBasic
 	/**
 	 * Set pitch, which also alters the playback speed. Default is 1.
 	 */
+	 #if desktop
 	public var pitch(get, set):Float;
+	#end
 
 	/**
 	 * The position in runtime of the music playback in milliseconds.
@@ -606,7 +608,9 @@ class FlxSound extends FlxBasic
 		_channel = _sound.play(_time, 0, _transform);
 		if (_channel != null)
 		{
+			#if desktop
 			pitch = _pitch;
+			#end
 			_channel.addEventListener(Event.SOUND_COMPLETE, stopped);
 			active = true;
 		}
@@ -730,7 +734,7 @@ class FlxSound extends FlxBasic
 		updateTransform();
 		return Volume;
 	}
-
+	#if desktop
 	inline function get_pitch():Float
 	{
 		return _pitch;
@@ -742,7 +746,7 @@ class FlxSound extends FlxBasic
 			_channel.pitch = v;
 		return _pitch = v;
 	}
-
+	#end
 	inline function get_pan():Float
 	{
 		return _transform.pan;

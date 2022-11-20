@@ -1,11 +1,17 @@
 package;
 
+import flixel.addons.effects.chainable.FlxWaveEffect;
+import flixel.addons.effects.chainable.FlxEffectSprite;
 import shaderslmfao.BuildingShaders;
 import ui.PreferencesMenu;
 import shaderslmfao.ColorSwap;
+import WiggleEffect.WiggleEffectType;
+import shaderslmfao.WaveShader;
+#if !hl
 #if desktop
 import Discord.DiscordClient;
 // import Discord.DiscordEventHandlers;
+#end
 #end
 import Section.SwagSection;
 import Song.SwagSong;
@@ -34,7 +40,7 @@ import flixel.util.FlxTimer;
 import lime.ui.Window;
 import openfl.utils.Assets as OpenFlAssets;
 import flxanimate.FlxAnimate;
-
+import vlc.MP4Handler;
 #if sys
 import sys.FileSystem;
 #end
@@ -66,6 +72,7 @@ class PlayState extends MusicBeatState
 	var gfDemon2:FlxAnimate;
 
 	var res:Window;
+	var video:MP4Handler;
 	var _glitch:FlxGlitchEffect;
 	public var vocals:FlxSound;
 	public var dadVocals:FlxSound;
@@ -132,10 +139,6 @@ class PlayState extends MusicBeatState
 	var trainSound:FlxSound;
 	var lightFadeShader:BuildingShaders;
 
-	var helicopterCanFloat:Bool = false;
-	var helicopter:FlxSprite;
-	var deco:FlxSprite;
-
 	var limoKillingState:Int = 0;
 	var limo:BGSprite;
 	var limoMetalPole:BGSprite;
@@ -152,6 +155,7 @@ class PlayState extends MusicBeatState
 	var santa:FlxSprite;
 
 	var bgGirls:BackgroundGirls;
+	// var wiggleShit:WaveShader = new WaveShader();
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 
 	var tankWatchtower:BGSprite;
@@ -180,6 +184,7 @@ class PlayState extends MusicBeatState
 	
 	var henchDies:Bool = false;
 	var cs:ChartingState;
+	var stageCurtains:FlxSprite;
 	var missCauseIgnoreNote:Bool = false;
 
 	#if desktop
@@ -260,16 +265,17 @@ class PlayState extends MusicBeatState
 			case 'thorns':
 				dialogue = CoolUtil.coolTextFile(Paths.txt('thorns/thornsDialogue'));
 		}
-
+		#if !hl
 		#if desktop
 		initDiscord();
+		#end
 		#end
 
 		switch (SONG.song.toLowerCase())
 		{
                         case 'spookeez' | 'monster' | 'south' | 'south-erect': 
                         {
-							loadStage('spooky',0.9);
+							curStage = 'spooky';
 	                          halloweenLevel = true;
 
 		                  var hallowTex = Paths.getSparrowAtlas('halloween_bg');
@@ -446,7 +452,7 @@ class PlayState extends MusicBeatState
 		          }
 		          case 'winter-horrorland':
 		          {
-						  loadStage('mallEvil',0.80);
+						  loadStage('mallEvil',0.9);
 		                  var bg:FlxSprite = new FlxSprite(-400, -500).loadGraphic(Paths.image('christmas/evilBG'));
 		                  bg.antialiasing = true;
 		                  bg.scrollFactor.set(0.2, 0.2);
@@ -535,28 +541,79 @@ class PlayState extends MusicBeatState
 		          {
 					loadStage('schoolEvil',1.05);
 
+
+					var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
+					var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
+
 					var posX = 400;
-					var repositionShit = -200;
 					var posY = 200;
 
-					var bg:BGSprite = new BGSprite('weeb/animatedEvilSchool', posX, posY, 0.8, 0.9, ['animatedEvilSchool'], true);
+					var bg:FlxSprite = new FlxSprite(posX, posY);
+					bg.frames = Paths.getSparrowAtlas('weeb/animatedEvilSchool');
+					bg.animation.addByPrefix('idle', 'background 2', 24);
+					bg.animation.play('idle');
+					bg.scrollFactor.set(0.8, 0.9);
 					bg.scale.set(6, 6);
-					bg.setGraphicSize(Std.int(bg.width * 6)); //
-					bg.updateHitbox();
-					// add(bg);
+					add(bg);
 
-					// var bg2:FlxSprite = new FlxSprite(-200, 0).loadGraphic(Paths.image('weeb/evilSchoolBG'));
-					var bg2:BGSprite = new BGSprite('weeb/evilSchoolBG', -200, 0);
+					var bg2:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image('weeb/evilSchoolBG'));
 					bg2.scale.set(6, 6);
 					bg2.setGraphicSize(Std.int(bg2.width * 6)); //
 					bg2.updateHitbox(); //
 					add(bg2);
 
-					var fg:BGSprite = new BGSprite('weeb/evilSchoolFG', -200, 0);
+					var fg:FlxSprite = new FlxSprite(posX, posY).loadGraphic(Paths.image('weeb/evilSchoolFG'));
 					fg.scale.set(6, 6);
 					fg.setGraphicSize(Std.int(fg.width * 6)); //
 					fg.updateHitbox(); //
 					add(fg);
+
+					wiggleShit.effectType = WiggleEffectType.DREAMY;
+					wiggleShit.waveAmplitude = 0.01;
+					wiggleShit.waveFrequency = 60;
+					wiggleShit.waveSpeed = 0.8;
+
+					bg.shader = wiggleShit.shader;
+					fg.shader = wiggleShit.shader;
+
+					var waveSprite = new FlxEffectSprite(bg, [waveEffectBG]);
+					var waveSpriteFG = new FlxEffectSprite(fg, [waveEffectFG]);
+
+					// Using scale since setGraphicSize() doesnt work???
+					waveSprite.scale.set(6, 6);
+					waveSpriteFG.scale.set(6, 6);
+					waveSprite.setPosition(posX, posY);
+					waveSpriteFG.setPosition(posX, posY);
+
+					waveSprite.scrollFactor.set(0.7, 0.8);
+					waveSpriteFG.scrollFactor.set(0.9, 0.8);
+
+					// waveSprite.setGraphicSize(Std.int(waveSprite.width * 6));
+					// waveSprite.updateHitbox();
+					// waveSpriteFG.setGraphicSize(Std.int(fg.width * 6));
+					// waveSpriteFG.updateHitbox();
+
+					add(waveSprite);
+					add(waveSpriteFG);
+
+					// var posX = 400;
+					// var repositionShit = -200;
+					// var posY = 200;
+
+					// var schoolBG:FlxSprite = new FlxSprite(-200, 100).loadGraphic(Paths.image('weeb/evilSchool'));
+					// wiggleShit.waveAmplitude = 0.02;
+					// wiggleShit.waveSpeed = 2;
+					// wiggleShit.waveFrequency = 4;
+					// schoolBG.shader = wiggleShit.shader;
+					// schoolBG.setGraphicSize(Std.int(schoolBG.width * 6));
+					// schoolBG.updateHitbox();
+					// add(schoolBG);
+	
+					// var schoolFront:FlxSprite = new FlxSprite(200, 400).loadGraphic(Paths.image('weeb/evilSchoolFG'));
+	
+					// schoolFront.setGraphicSize(Std.int(schoolFront.width * 6));
+					// schoolFront.updateHitbox();
+					// add(schoolFront);
 		          }
 				  case 'guns' | 'stress' | 'ugh':
 				  {
@@ -666,14 +723,14 @@ class PlayState extends MusicBeatState
 						  stageLight.flipX = true;
 						  add(stageLight);
 
-		                  var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
+		                  stageCurtains = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
 		                  stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 		                  stageCurtains.updateHitbox();
 		                  stageCurtains.antialiasing = true;
 		                  stageCurtains.scrollFactor.set(1.3, 1.3);
 		                  stageCurtains.active = false;
 
-		                  add(stageCurtains);
+		                  
 		          }
               }
 
@@ -752,8 +809,10 @@ class PlayState extends MusicBeatState
 				dad.y += 200;
 			case "monster":
 				dad.y += 100;
+				// dad.x += 120;
 			case 'monster-christmas':
 				dad.y += 130;
+				camPos.x += 100;
 			case 'dad':
 				camPos.x += 400;
 			case 'pico':
@@ -777,10 +836,7 @@ class PlayState extends MusicBeatState
 				dad.y += 100;
 				camPos.set(dad.getGraphicMidpoint().x + 300, dad.getGraphicMidpoint().y);
 			case "tankman":
-				dad.y += 180;
-			case "hank":
-				dad.x -= 10;
-				dad.y += 154;				
+				dad.y += 180;			
 		}
 
 		boyfriend = new Boyfriend(770, 450, SONG.player1);
@@ -818,13 +874,7 @@ class PlayState extends MusicBeatState
 				boyfriend.x += 200;
 				boyfriend.y += 220;
 				gf.x += 180;
-				gf.y += 300;
-			case 'nevada':
-				boyfriend.x += 100;	
-				boyfriend.y += 200;
-				dad.x += 200;
-				dad.y += 200;
-				gf.x -= 200;				
+				gf.y += 300;				
 			case 'tank':
 				gf.y += 10;
 				gf.x -= 30;
@@ -853,9 +903,9 @@ class PlayState extends MusicBeatState
 
 		add(dad);
 		add(boyfriend);
-		add(deco);
 		// add(tankmanCutsceneLayer);
 		add(foregroundSprites);
+		add(stageCurtains);
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;
@@ -988,22 +1038,37 @@ class PlayState extends MusicBeatState
 					schoolIntro(doof);
 				case 'thorns':
 					schoolIntro(doof);
+					#if desktop
 					FlxG.sound.music.pitch = 1;
+					#end
 				case 'ugh':			
 					if (PreferencesMenu.getPref('cutscene'))
 					{
 					ughIntro();							
-					}		
+					}	
+					else if	(!PreferencesMenu.getPref('cutscene'))
+						{
+							startCountdown();
+						}
 
 				case 'guns':
 					if (PreferencesMenu.getPref('cutscene')) {
 					gunsIntro();
 					}
+					else if	(!PreferencesMenu.getPref('cutscene'))
+						{
+							startCountdown();
+						}
 				case 'stress':
+					
 					if (PreferencesMenu.getPref('cutscene'))
 					{	
 					stressIntro();
-					}								
+					}
+					else if	(!PreferencesMenu.getPref('cutscene'))
+						{
+							startCountdown();
+						}								
 				default:
 					startCountdown();
 			}
@@ -1109,6 +1174,33 @@ class PlayState extends MusicBeatState
 
 	}	
 								
+
+	function playCutscene(name:String)
+	{
+	  inCutscene = true;
+	
+	  video = new MP4Handler();
+	  video.finishCallback = function()
+	  {
+		startCountdown();
+	  }
+	  video.playVideo(Paths.video(name));
+	}
+	
+	function playEndCutscene(name:String)
+	{
+	  inCutscene = true;
+	
+	  video = new MP4Handler();
+	  video.finishCallback = function()
+	  {
+		// SONG = Song.loadFromJson(storyPlaylist[0].toLowerCase());
+		LoadingState.loadAndSwitchState(new TitleState());
+	  }
+	  video.playVideo(Paths.video(name));
+	}
+
+
 
 	function gunsIntro():Void
 	{	
@@ -1299,7 +1391,7 @@ class PlayState extends MusicBeatState
 			
 		});		
 		
-		new FlxTimer().start(33.3, function(eugh:FlxTimer)	
+		new FlxTimer().start(32.3, function(eugh:FlxTimer)	
 			{
 				FlxG.camera.zoom = defaultCamZoom = 0.9;
 				// FlxG.camera.zoom = defaultCamZoom;
@@ -1329,7 +1421,7 @@ class PlayState extends MusicBeatState
 				inCutscene = false;
 			});										
 	}
-
+#if !hl
 	function initDiscord():Void
 	{
 		#if discord_rpc
@@ -1358,6 +1450,7 @@ class PlayState extends MusicBeatState
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 		#end
 	}
+	#end
 
 	public function loadStage(name:String, camZoom:Float) {// i know its look shit but ok lmao
 		curStage = name;
@@ -1742,12 +1835,14 @@ class PlayState extends MusicBeatState
 		// bfVocals.amplitudeRight;
 		// dadVocals.amplitudeRight;
 		dadVocals.play();
+		#if !hl
 		#if desktop
 		// Song duration in a float, useful for the time left feature
 		// songLength = FlxG.sound.music.length;
 
 		// Updating Discord Rich Presence (with Time Left)
 		DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC, true);
+		#end
 		#end
 	}
 
@@ -2023,6 +2118,7 @@ class PlayState extends MusicBeatState
 			if (!startTimer.finished)
 				startTimer.active = true;
 			paused = false;
+			#if !hl
 			#if desktop
 			if (startTimer.finished)
 			{
@@ -2033,6 +2129,7 @@ class PlayState extends MusicBeatState
 				DiscordClient.changePresence(detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 			}
 			#end
+			#end
 		}
 
 		super.closeSubState();
@@ -2040,6 +2137,7 @@ class PlayState extends MusicBeatState
 
 	override public function onFocus():Void
 	{
+		#if !hl
 		#if desktop
 		if (health > 0 && !paused)
 		{
@@ -2053,17 +2151,20 @@ class PlayState extends MusicBeatState
 			}
 		}
 		#end
+		#end
 
 		super.onFocus();
 	}
 	
 	override public function onFocusLost():Void
 	{
+		#if !hl
 		#if desktop
 		if (health > 0 && !paused)
 		{
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
 		}
+		#end
 		#end
 
 		super.onFocusLost();
@@ -2161,20 +2262,18 @@ class PlayState extends MusicBeatState
 				lightFadeShader.update(1.5 * (Conductor.crochet / 1000) * FlxG.elapsed);
 
 			case 'limo':
-				henchKill();			
-			case 'nevada':
-				if (FlxG.random.bool(10) && helicopterCanFloat)
-					{
-						helicopter.velocity.x = 400;
-					}					
+				henchKill();							
 			case 'tank':
 				moveTank();
 		}
+
+		#if desktop
 		if (SONG.song.toLowerCase() == 'test')
 			{
 				if (FlxG.keys.pressed.TWO)//suck my dick you stupid hard code fuck
 					{	
-						FlxG.sound.music.pitch -= 0.01;		
+						FlxG.sound.music.pitch -= 0.01;	
+						
 						dadVocals.pitch -= 0.01;
 						bfVocals.pitch -= 0.01;
 						vocals.pitch -= 0.01;
@@ -2204,6 +2303,7 @@ class PlayState extends MusicBeatState
 							// cs.bfVocals.pitch += 0.01;
 						}
 			}
+			#end
 
 			// #if !debug	
 			// if (FlxG.keys.justPressed.EIGHT)//Easter Egg
@@ -2240,8 +2340,10 @@ class PlayState extends MusicBeatState
 				openSubState(pauseMenu);
 				pauseMenu.camera = camHUD;
 			}
+			#if !hl
 			#if desktop
 			DiscordClient.changePresence(detailsPausedText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
+			#end
 			#end
 		}
 
@@ -2249,8 +2351,10 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.switchState(new ChartingState());
 			
+			#if !hl
 			#if desktop
 			DiscordClient.changePresence("Chart Editor", null, null, true);
+			#end
 			#end
 		}
 
@@ -2379,9 +2483,11 @@ class PlayState extends MusicBeatState
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 	
 				// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				#if !hl
 				#if desktop
 				// Game Over doesn't get his own variable because it's only used here
 				DiscordClient.changePresence("Game Over - " + detailsText, SONG.song + " (" + storyDifficultyText + ")", iconRPC);
+				#end
 				#end
 			}
 		}
@@ -2600,7 +2706,9 @@ class PlayState extends MusicBeatState
 		deathCounter = 0;
 		canPause = false;
 		FlxG.sound.music.volume = 0;
+		#if desktop
 		FlxG.sound.music.pitch = 1;
+		#end
 		vocals.volume = 0;
 		dadVocals.volume = 0;
 		bfVocals.volume = 0;
@@ -2629,11 +2737,15 @@ class PlayState extends MusicBeatState
 							vocals.stop();
 							bfVocals.stop();
 							dadVocals.stop();
+							#if desktop
 							FlxG.sound.music.pitch = 1;
+							#end
 						}	
 						else if (!PreferencesMenu.getPref('cutscene'))
 							{
+								#if desktop
 								FlxG.sound.music.pitch = 1;
+								#end
 								FlxG.sound.playMusic(Paths.music('freakyMenu'));
 							}
 					
@@ -2645,12 +2757,17 @@ class PlayState extends MusicBeatState
 				
 				if (storyWeek == 7)
 					{
+						#if desktop
 							FlxG.sound.music.pitch = 1;
-							FlxG.switchState(new TitleState());						
+							#end
+							// FlxG.switchState(new StoryMenuState());						
+							playEndCutscene('kickstarterTrailer');
 					}
 					else
 					{
+						#if desktop
 						FlxG.sound.music.pitch = 1;
+						#end
 						FlxG.switchState(new StoryMenuState());										
 						}
 													
@@ -3187,20 +3304,24 @@ class PlayState extends MusicBeatState
 		var rightP = controls.NOTE_RIGHT_P;
 		var downP = controls.NOTE_DOWN_P;
 		var leftP = controls.NOTE_LEFT_P;
-		if (!practiceMode)
-		{
-		missCount += 1;			
-		}	
+		if (!PreferencesMenu.getPref('danzah'))
+			{
+				if (!practiceMode)
+					{
+					missCount += 1;			
+					}	
+			
+			
+					if (leftP)
+						noteMiss(0);
+					if (downP)
+						noteMiss(1);
+					if (upP)
+						noteMiss(2);
+					if (rightP)
+						noteMiss(3);
+			}
 
-
-		if (leftP)
-			noteMiss(0);
-		if (downP)
-			noteMiss(1);
-		if (upP)
-			noteMiss(2);
-		if (rightP)
-			noteMiss(3);
 	}
 
 	function goodNoteHit(note:Note):Void
@@ -3537,14 +3658,16 @@ class PlayState extends MusicBeatState
 		}				
 
 		// if (SONG.song.toLowerCase() == 'satin-panties' || curStep == 167 || curStep == 427 || curStep == 647)
-		if (SONG.song.toLowerCase() == 'thorns')
-			{
-				FlxG.sound.music.pitch = 1.35;
-			// if (curStep == 1240)
-			// 	{
-			// 		FlxG.sound.music.pitch = 1;
-			// 	}				
-			}
+		#if desktop
+		// if (SONG.song.toLowerCase() == 'thorns')
+		// 	{
+		// 		FlxG.sound.music.pitch = 1.35;
+		// 	// if (curStep == 1240)
+		// 	// 	{
+		// 	// 		FlxG.sound.music.pitch = 1;
+		// 	// 	}				
+		// 	}
+			#end
 
 		// if (SONG.song.toLowerCase() == 'satin-panties')
 		// {
